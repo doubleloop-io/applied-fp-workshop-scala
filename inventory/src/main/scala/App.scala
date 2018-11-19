@@ -4,12 +4,11 @@ import scala.Console._
 
 import cats.effect._
 
-import Examples._
-
 object App {
 
   def run(): IO[Unit] =
-    demoOk.attempt
+    IO.pure(42)
+      .attempt
       .flatMap(handle)
 
   def handle[A](either: Either[Throwable, A]): IO[Unit] =
