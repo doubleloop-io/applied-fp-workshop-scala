@@ -1,0 +1,9 @@
+.reveal section img {
+  border: 0;
+  box-shadow: none;
+  background: none;
+}
+
+.reveal pre code {
+  max-height: 450px;
+}
