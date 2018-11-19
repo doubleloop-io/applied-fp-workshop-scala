@@ -9,7 +9,7 @@ addCommandAlias("p", "project")
 lazy val global = project
   .in(file("."))
   .settings(settings)
-  .aggregate(exercises, marsroverkata, random, inventory)
+  .aggregate(exercises, marsroverkata, random, inventory, structures)
 
 lazy val exercises = project
   .settings(
@@ -35,6 +35,12 @@ lazy val inventory = project
     settings
   )
 
+lazy val structures = project
+  .settings(
+    name := "structures",
+    settings
+  )
+
 lazy val settings = Seq(
   organization := "io.doubleloop",
   scalaVersion := "2.12.7",
@@ -45,7 +51,7 @@ lazy val settings = Seq(
   testFrameworks += new TestFramework("minitest.runner.Framework"),
   addCompilerPlugin("com.olegpy"     %% "better-monadic-for" % "0.2.4"),
   addCompilerPlugin("org.spire-math" %% "kind-projector"     % "0.9.8"),
-  addCompilerPlugin(("org.scalamacros" % "paradise" % "2.1.0").cross(CrossVersion.full)),
+  addCompilerPlugin(("org.scalamacros" % "paradise" % "2.1.0").cross(CrossVersion.full))
 )
 
 lazy val scalacSettings = Seq(
@@ -85,9 +91,9 @@ lazy val resolversSettings = Seq(
 )
 
 lazy val libsSettings = Seq(
-  "org.typelevel"              %% "cats-core"     % "1.4.0",
-  "org.typelevel"              %% "cats-effect"   % "1.0.0",
-  "org.typelevel"              %% "cats-mtl-core" % "0.4.0",
-  "net.debasishg"              %% "redisclient"   % "3.7",
-  "io.monix"                   %% "minitest"      % "2.2.2" % Test
+  "org.typelevel" %% "cats-core"     % "1.4.0",
+  "org.typelevel" %% "cats-effect"   % "1.0.0",
+  "org.typelevel" %% "cats-mtl-core" % "0.4.0",
+  "net.debasishg" %% "redisclient"   % "3.7",
+  "io.monix"      %% "minitest"      % "2.2.2" % Test
 )
