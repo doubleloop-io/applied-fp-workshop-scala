@@ -1,7 +1,7 @@
 # lastminute-fp-workshop
 
 ### Presentation
-[Why functional programming?](https://gitpitch.com/doubleloop-io/lastminute-fp-workshop/master)
+[Why functional programming?](https://gitpitch.com/doubleloop-io/https://github.com/doubleloop-io/avanscoperta-applied-fp-workshop-scala/master)
 
 ### Scala Cheatsheet
 [Scala Cheatsheet](https://docs.scala-lang.org/cheatsheets/)
