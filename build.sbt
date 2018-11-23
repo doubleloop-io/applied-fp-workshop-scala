@@ -90,10 +90,21 @@ lazy val resolversSettings = Seq(
   Resolver.sonatypeRepo("releases")
 )
 
+lazy val Http4sVersion  = "0.18.21"
+lazy val Specs2Version  = "4.1.0"
+lazy val LogbackVersion = "1.2.3"
+lazy val CirceVersion   = "0.9.3"
+
 lazy val libsSettings = Seq(
-  "org.typelevel" %% "cats-core"     % "1.4.0",
-  "org.typelevel" %% "cats-effect"   % "1.0.0",
-  "org.typelevel" %% "cats-mtl-core" % "0.4.0",
-  "net.debasishg" %% "redisclient"   % "3.7",
-  "io.monix"      %% "minitest"      % "2.2.2" % Test
+  "org.typelevel"  %% "cats-core"           % "1.4.0",
+  "org.typelevel"  %% "cats-effect"         % "1.0.0",
+  "org.typelevel"  %% "cats-mtl-core"       % "0.4.0",
+  "net.debasishg"  %% "redisclient"         % "3.7",
+  "io.circe"       %% "circe-core"          % CirceVersion,
+  "io.circe"       %% "circe-generic"       % CirceVersion,
+  "org.http4s"     %% "http4s-blaze-server" % Http4sVersion,
+  "org.http4s"     %% "http4s-circe"        % Http4sVersion,
+  "org.http4s"     %% "http4s-dsl"          % Http4sVersion,
+  "ch.qos.logback" % "logback-classic"      % LogbackVersion,
+  "io.monix"       %% "minitest"            % "2.2.2" % Test
 )
