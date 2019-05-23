@@ -1,6 +1,7 @@
 addCommandAlias("fm", "all compile:scalafmt test:scalafmt")
 addCommandAlias("cc", "all clean compile")
 addCommandAlias("c", "compile")
+addCommandAlias("r", "run")
 addCommandAlias("t", "test")
 addCommandAlias("to", "testOnly")
 addCommandAlias("ps", "projects")
@@ -43,15 +44,13 @@ lazy val structures = project
 
 lazy val settings = Seq(
   organization := "io.doubleloop",
-  scalaVersion := "2.12.7",
+  scalaVersion := "2.12.8",
   version := "0.1.0-SNAPSHOT",
   scalacOptions ++= scalacSettings,
   resolvers ++= resolversSettings,
   libraryDependencies ++= libsSettings,
   testFrameworks += new TestFramework("minitest.runner.Framework"),
-  addCompilerPlugin("com.olegpy"     %% "better-monadic-for" % "0.2.4"),
-  addCompilerPlugin("org.spire-math" %% "kind-projector"     % "0.9.8"),
-  addCompilerPlugin(("org.scalamacros" % "paradise" % "2.1.0").cross(CrossVersion.full))
+  addCompilerPlugin("com.olegpy"     %% "better-monadic-for" % "0.3.0"),
 )
 
 lazy val scalacSettings = Seq(
@@ -90,21 +89,20 @@ lazy val resolversSettings = Seq(
   Resolver.sonatypeRepo("releases")
 )
 
-lazy val Http4sVersion  = "0.18.21"
-lazy val Specs2Version  = "4.1.0"
+lazy val Http4sVersion  = "0.20.1"
 lazy val LogbackVersion = "1.2.3"
-lazy val CirceVersion   = "0.9.3"
+lazy val CirceVersion   = "0.11.1"
 
 lazy val libsSettings = Seq(
-  "org.typelevel"  %% "cats-core"           % "1.4.0",
-  "org.typelevel"  %% "cats-effect"         % "1.0.0",
-  "org.typelevel"  %% "cats-mtl-core"       % "0.4.0",
-  "net.debasishg"  %% "redisclient"         % "3.7",
+  "org.typelevel"  %% "cats-core"           % "1.6.0",
+  "org.typelevel"  %% "cats-effect"         % "1.3.0",
+  "org.typelevel"  %% "cats-mtl-core"       % "0.5.0",
+  "net.debasishg"  %% "redisclient"         % "3.9",
   "io.circe"       %% "circe-core"          % CirceVersion,
   "io.circe"       %% "circe-generic"       % CirceVersion,
   "org.http4s"     %% "http4s-blaze-server" % Http4sVersion,
   "org.http4s"     %% "http4s-circe"        % Http4sVersion,
   "org.http4s"     %% "http4s-dsl"          % Http4sVersion,
   "ch.qos.logback" % "logback-classic"      % LogbackVersion,
-  "io.monix"       %% "minitest"            % "2.2.2" % Test
+  "io.monix"       %% "minitest"            % "2.4.0" % Test
 )

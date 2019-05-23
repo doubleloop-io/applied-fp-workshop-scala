@@ -11,7 +11,7 @@ trait ConsoleInstances {
     private val S = Sync[F]
     import S._
 
-    def getLine(): F[String]           = delay(io.StdIn.readLine())
+    def getLine(): F[String]           = delay(scala.io.StdIn.readLine())
     def putLine(line: String): F[Unit] = delay(println(line))
   }
 
