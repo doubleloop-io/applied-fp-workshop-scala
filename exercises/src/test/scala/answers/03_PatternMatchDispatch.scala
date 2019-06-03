@@ -2,15 +2,6 @@ package exercises.answers
 
 import minitest._
 
-/*
- * Pattern match enable the structural recurtion
- * a fancy name to express a way to distch logic
- * by type and data. It goes hand in hand with ADT
- * specially Sum Type. Think, how we can implement
- * some special logic `foo` for an "exclusive-or"
- * data type?
- */
-
 object PatternMatchDispatch extends SimpleTestSuite {
 
   sealed trait Direction {

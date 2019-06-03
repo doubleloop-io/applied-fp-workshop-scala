@@ -2,27 +2,6 @@ package exercises.answers
 
 import minitest._
 
-/*
- * For a happy fp programmin in Scala we need
- * to add all these typeclasses and many more
- * stuff so we need the help of a library,
- * we need Cats.
- * https://typelevel.org/cats/
- *
- *
- * The following importe are required to use cats:
- * - type class and interface object: cats.Functor, cats.Semigroup
- * - type class instance: cats.instances.list._, cats.instances.int._
- * - (optional) interface syntax: cats.syntax.functor._, cats.syntax.semigroup._
- *
- * For examble if you want concatenate two strings:
- *
- * import cats.Semigroup
- * import cats.instances.string._
- *
- * val result = Semigroup[String].combine("foo", "bar")
- */
-
 object TypeclassCatsTests extends SimpleTestSuite {
 
   case class Box[A](value: A)

@@ -2,25 +2,6 @@ package exercises.answers
 
 import minitest._
 
-/*
- * When we compose functions in fact we chain them.
- *
- * f: A => B
- * g: B => C
- * f andThen g
- *
- * Effectful functions can't be combine in the normal
- * way because after a function invocation we don't have
- * a result value but a description of that result.
- * For example: maybe there is a value or maybe not.
- *
- * There are many operators that enable effectful function
- * combination but two are the most important: map and flatMap.
- *
- * The map function is birng to us by the Functor concept
- * and the flatMap function from the Monad concept.
- */
-
 object FlatMapTests extends SimpleTestSuite {
 
   import scala.util.{Failure, Success, Try}

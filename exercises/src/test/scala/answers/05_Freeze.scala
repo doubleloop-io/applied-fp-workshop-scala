@@ -2,28 +2,6 @@ package exercises.answers
 
 import minitest._
 
-/*
- * Combine program is different from combine values.
- *
- * In order to compose program we need to work at a meta level.
- * We must split a program in two parts:
- * - description: build a program description
- * - evaluation: execute logic based on the description
- *
- * Is the good old idea of separation of ceoncerns applied
- * to the whole program.
- *
- * The final result is that when a we invokes functions
- * they aren't executeed but instead build data structures.
- * At this point we can combine those data structures as we want
- * and combine different programs in one.
- * In the end the data structure tree will be evaluated and
- * produce a final result.
- *
- * In this context we gain an inversion of control on execution
- * that enable a better program composition.
- */
-
 object FreezeTests extends SimpleTestSuite {
 
   object Immediate {

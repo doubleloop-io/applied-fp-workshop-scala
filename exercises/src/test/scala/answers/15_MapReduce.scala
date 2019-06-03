@@ -2,15 +2,6 @@ package exercises.answers
 
 import minitest._
 
-/*
- * Let's see a real example of programming with type classes.
- *
- * The idea is to implement a MapReduce function.
- * A MapReduce function is simply a combination of two parts:
- * - a map function: which performs data projection
- * - a reduce function: which performs a summary operation
- */
-
 object MapReduceTests extends SimpleTestSuite {
 
   import cats.{Monoid, Traverse}

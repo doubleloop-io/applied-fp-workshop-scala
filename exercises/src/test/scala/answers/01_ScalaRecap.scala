@@ -2,16 +2,6 @@ package exercises.answers
 
 import minitest._
 
-/*
- * Our most used Scala features:
- * - Case class
- * - Companion Object
- * - Apply function
- * - Trait as interface/mixin
- * - Implicit parameter
- * - Pattern match
- */
-
 object ScalaRecap extends SimpleTestSuite {
 
   trait Fruit {

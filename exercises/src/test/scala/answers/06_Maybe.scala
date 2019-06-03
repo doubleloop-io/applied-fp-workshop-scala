@@ -2,15 +2,6 @@ package exercises.answers
 
 import minitest._
 
-/*
- * Functions can't always return a value.
- * In this scenario they are called: partial functions.
- * We can convert them into total functions
- * with the introduction of effects.
- *
- *  f:  InType => Effect[OutType]
- */
-
 object MaybeTests extends SimpleTestSuite {
 
   sealed trait MaybeQty

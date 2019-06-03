@@ -2,16 +2,6 @@ package exercises.answers
 
 import minitest._
 
-/*
- * With map/flatMap we can continue to execute functions
- * in the context of the effect. However it is not uncommon
- * to want to delete an effect or convert it to a different one.
- * We typically use the pattern matching to open up an effect
- * and decide what to do next, but this strategy it's not good.
- * The pattern match bind the code to the structure of the effect.
- * A more maintainable solution is the fold function.
- */
-
 object FoldTests extends SimpleTestSuite {
 
   import scala.util.{Failure, Success, Try}

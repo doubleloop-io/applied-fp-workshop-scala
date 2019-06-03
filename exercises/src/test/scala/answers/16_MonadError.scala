@@ -2,11 +2,6 @@ package exercises.answers
 
 import minitest._
 
-/*
- * We can program in terms of type classes
- * and pospone the concrete monad.
- */
-
 object MonadErrorTests extends SimpleTestSuite {
   import cats._
 

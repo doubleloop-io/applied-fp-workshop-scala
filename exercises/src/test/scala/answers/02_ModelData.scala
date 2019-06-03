@@ -2,39 +2,7 @@ package exercises.answers
 
 import minitest._
 
-/*
- * In OOP model object that incapsulate data and expose behaviours.
- * This two concepts are brigs togheter thanks to class definitions.
- *
- * In FP data and behaviours are modelled with two different tools:
- * - Algebraic Data Type (ADT) to model data
- * - Function to model behaviours
- *
- * An ADT is an immutable data structure that compose other types.
- * There are two common kinds of composition strategy:
- * - Product type: put many types togheter. e.g. struct in C, POJO in JAVA.
- *                 It's called product because all the possible values of a Tuple[String, Int] is
- *                 the *product* of all possible String with all possible Int.
- *                 Useful to model indipendent data in AND e.g. a Person is composed by a name *and* an age.
- *
- * - Sum type:     model exclusive types e.g. union in C, enum in JAVA.
- *                 Sum types correspond to disjoint unions of sets.
- *                 It's called sum because all the possible values of a Either[String, Int] is
- *                 the *sum* of all possible String with all possible Int.
- *                 Useful to model dipendant data in OR e.g. the Light is on *or* off.
- *
- * We can mix ADT as we want, like a product type that compose a type with a sum type.
- */
-
 object ModelData extends SimpleTestSuite {
-
-  // Typical product type in Scala
-  case class Person(name: String, age: Int)
-
-  // Typical sum type in Scala
-  sealed trait LightState
-  case class On()  extends LightState
-  case class Off() extends LightState
 
   sealed trait Suit
   case object Cups   extends Suit

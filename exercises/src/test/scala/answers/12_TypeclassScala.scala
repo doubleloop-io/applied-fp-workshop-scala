@@ -2,20 +2,6 @@ package exercises.answers
 
 import minitest._
 
-/*
- * The Type classes pattern is composed by two parts:
- * - type class (abstract contract definition)
- * - type class instances (concrete contract implementations)
- *
- * This pattern is not native to Scala. In order to
- * use it more smoothly we need to add some other
- * artifacts that fit thogheter thanks to Scala's
- * implicit features. Those artifacts are:
- * - implicit parameter/value
- * - interface object
- * - interface syntax
- */
-
 object TypeclassScalaTests extends SimpleTestSuite {
 
   case class Box[A](value: A)

@@ -2,17 +2,6 @@ package exercises.answers
 
 import minitest._
 
-/*
- * Program with F-Algebras.
- *
- * Express the operation (algebra) of your domain
- * in terms of an abstract effect F[_], then
- * materialize the effect in the main.
- * Sometimes one effect isn't enough so instead of one
- * Monad we use a Monad stack built with the concept of
- * Monad Transformer.
- */
-
 object FinalTaglessTests extends SimpleTestSuite {
 
   import cats.data._

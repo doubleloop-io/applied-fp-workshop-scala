@@ -2,17 +2,6 @@ package exercises.answers
 
 import minitest._
 
-/*
- * The effects seen so far are all useful for
- * handling errors. Each effect has different
- * properties and fit different needs:
- * no error info, closed error type and open
- * error type. Apart from that error effects
- * embrace one of the following strategies:
- * - dynamic: don't expose the error type e.g. Try[A]
- * - static: expose the error type e.g. Either[E, A]
- */
-
 object ErrorHandlingTests extends SimpleTestSuite {
 
   test("Option - dynamic style") {
