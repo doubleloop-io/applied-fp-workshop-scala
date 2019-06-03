@@ -24,7 +24,7 @@ object FunctionsTests extends SimpleTestSuite {
 
   val reciprocal: Int => Double = in => 1.0 / in
 
-  val reciprocalString: String => String = _ => {
+  val reciprocalString: String => String = in => {
     ???
   }
 

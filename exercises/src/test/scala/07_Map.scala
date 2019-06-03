@@ -38,7 +38,7 @@ object MapTests extends SimpleTestSuite {
       else throw NotAnIntException(s)
 
   val toiTry: String => Try[Int] =
-    _ => ???
+    n => ???
 
   val dec: Int => Int =
     n => n - 1

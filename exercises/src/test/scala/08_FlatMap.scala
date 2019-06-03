@@ -47,7 +47,7 @@ object FlatMapTests extends SimpleTestSuite {
       else throw DivByZeroException()
 
   val divTry: Int => Try[Int] =
-    _ => ???
+    n => ???
 
   val tos: Int => String =
     n => n.toString
