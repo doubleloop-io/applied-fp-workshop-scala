@@ -7,10 +7,8 @@ import minitest._
  * - Case class
  * - Companion Object
  * - Apply function
- * - Type parameter
  * - Trait as interface/mixin
  * - Implicit parameter
- * - Extension class
  * - Pattern match
  */
 
@@ -74,26 +72,12 @@ object ScalaRecap extends SimpleTestSuite {
     // assertEquals(Banana().eatenBy("bar"), "bar ate a banana")
   }
 
-  test("type parameter") {
-    ignore("add generic function to Person class")
-    // val p      = Person("foo", 56)
-    // val result = p.eat(Apple())
-    // assertEquals(result, "foo ate an apple")
-  }
-
   test("implicit parameter") {
     ignore("add a function w/ an implicit parameter to the Person class")
     // implicit val years = 30
     // val p              = Person("foo", 56)
     // val result         = p.makeYounger
     // assertEquals(result.age, 26)
-  }
-
-  test("extension class") {
-    ignore("add a function to Person via implicit class extension")
-    // val p      = Person("foo", 56)
-    // val result = p.toMap
-    // assertEquals(result, Map("name" -> "foo", "age" -> "56"))
   }
 
   test("pattern match") {

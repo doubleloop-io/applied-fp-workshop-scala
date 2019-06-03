@@ -7,10 +7,8 @@ import minitest._
  * - Case class
  * - Companion Object
  * - Apply function
- * - Type parameter
  * - Trait as interface/mixin
  * - Implicit parameter
- * - Extension class
  * - Pattern match
  */
 
@@ -32,9 +30,6 @@ object ScalaRecap extends SimpleTestSuite {
   case class Person(name: String, age: Int) {
     def apply(suffix: String): String =
       s"${suffix} mi chiamo ${name}!"
-
-    def eat[A <: Fruit](what: A): String =
-      what.eatenBy(name)
 
     def makeOlder(value: Int): Person =
       copy(age = age + value)
@@ -59,15 +54,6 @@ object ScalaRecap extends SimpleTestSuite {
         case Person(_, age) if (age < 0) => true
         case _                           => false
       }
-  }
-
-  implicit class PersonOps(p: Person) {
-    def toMap(): Map[String, String] = {
-      val m0 = Map.empty[String, String]
-      val m1 = m0 + ("name" -> p.name)
-      val m2 = m1 + ("age" -> p.age.toString)
-      m2
-    }
   }
 
   test("define case class") {
@@ -96,10 +82,12 @@ object ScalaRecap extends SimpleTestSuite {
     assertEquals(result.age, 156)
   }
 
-  test("trait as interface") {
+  test("trait as interface (part 1)") {
     assert(Apple().isInstanceOf[Fruit])
     assert(Banana().isInstanceOf[Fruit])
+  }
 
+  test("trait as interface (part 2)") {
     assertEquals(Apple().stringify, "an apple")
     assertEquals(Banana().stringify, "a banana")
   }
@@ -109,23 +97,11 @@ object ScalaRecap extends SimpleTestSuite {
     assertEquals(Banana().eatenBy("bar"), "bar ate a banana")
   }
 
-  test("type parameter") {
-    val p      = Person("foo", 56)
-    val result = p.eat(Apple())
-    assertEquals(result, "foo ate an apple")
-  }
-
   test("implicit parameter") {
     implicit val years = 30
     val p              = Person("foo", 56)
     val result         = p.makeYounger
     assertEquals(result.age, 26)
-  }
-
-  test("extension class") {
-    val p      = Person("foo", 56)
-    val result = p.toMap
-    assertEquals(result, Map("name" -> "foo", "age" -> "56"))
   }
 
   test("pattern match") {
