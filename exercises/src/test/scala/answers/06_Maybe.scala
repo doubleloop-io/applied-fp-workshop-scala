@@ -33,9 +33,9 @@ object MaybeTests extends SimpleTestSuite {
     assertEquals(toQty(""), InvalidQty())
   }
 
-  sealed trait Maybe[+A]
+  sealed trait Maybe[A]
   case class Yeah[A](value: A) extends Maybe[A]
-  case class Nope()            extends Maybe[Nothing]
+  case class Nope[A]()         extends Maybe[A]
 
   def toQty_II(value: String): Maybe[Qty] =
     if (value.matches("^[0-9]+$")) Yeah(Qty(value.toInt))
