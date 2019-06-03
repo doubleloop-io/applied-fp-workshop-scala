@@ -76,9 +76,8 @@ lazy val scalacSettings = Seq(
   "-Ywarn-infer-any",
   "-Ywarn-nullary-override",
   "-Ywarn-nullary-unit",
-  "-Ywarn-unused:_,-imports",
   "-Xsource:2.13",
-  "-Xlint:_,-type-parameter-shadow",
+  "-Xlint:_,-type-parameter-shadow,-unused",
   "-Xfuture",
   "-Xfatal-warnings"
 )
