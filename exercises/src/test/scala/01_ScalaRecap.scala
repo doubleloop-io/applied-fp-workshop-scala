@@ -38,7 +38,7 @@ object ScalaRecap extends SimpleTestSuite {
   }
 
   test("case class apply") {
-    ignore("add an apply function on Person class")
+    ignore("add an apply function on Person case class")
     // val result = Person("foo", 56)("Ciao,")
     // assertEquals(result, "Ciao, mi chiamo foo!")
   }
@@ -56,11 +56,13 @@ object ScalaRecap extends SimpleTestSuite {
     // assertEquals(result.age, 156)
   }
 
-  test("trait as interface") {
+  test("trait as interface (part 1)") {
     ignore("add a Fruit trait w/ two subclass Apple and Banana")
     // assert(Apple().isInstanceOf[Fruit])
     // assert(Banana().isInstanceOf[Fruit])
+  }
 
+  test("trait as interface (part 2)") {
     ignore("add empty stringify function to Fruit and implement it in Apple and Banana")
     // assertEquals(Apple().stringify, "an apple")
     // assertEquals(Banana().stringify, "a banana")

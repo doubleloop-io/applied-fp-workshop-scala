@@ -40,11 +40,11 @@ object ModelData extends SimpleTestSuite {
    * TODO: Model Scopa the italian card game, below the game description. :-)
    *       After modeling the domain implements the test following the description of ignores.
    *
-   * DESCIPTION:
+   * DESCRIPTION:
    *       It is played (let simplify) between two players with
    *       a standard Italian 40-card deck, divided into four suits: Cups, Golds, Swords, Clubs.
    *       The values on the cards range numerically from one through seven,
-   *       plus three face cards in each suit: Knight (worth 8), Queent (worth 9) and King (worth 10).
+   *       plus three face cards in each suit: Knight (worth 8), Queen (worth 9) and King (worth 10).
    *       Each player receives three cards. The dealer will also place four cards face up on the table.
    *
    * ADD YOUR CODE HERE INSIDE THE OBJECT
