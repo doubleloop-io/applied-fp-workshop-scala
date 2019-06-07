@@ -44,13 +44,13 @@ object MapReduceTests extends SimpleTestSuite {
 
   test("major students") {
     case class Classroom(students: List[Student]) {
-      def majorCount: Int = ???
+      def adultCount: Int = ???
     }
     case class Student(name: String, age: Int)
 
     ignore("implements mapReduce")
     val classroom = Classroom(List(Student("foo", 16), Student("bar", 20), Student("bar", 19)))
-    val result    = classroom.majorCount
+    val result    = classroom.adultCount
     assertEquals(result, 2)
   }
 }
