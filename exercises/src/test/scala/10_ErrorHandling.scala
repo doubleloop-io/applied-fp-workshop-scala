@@ -20,6 +20,15 @@ object ErrorHandlingTests extends SimpleTestSuite {
    *       implements functions maked with `???`
    */
 
+  test("should throw demo") {
+    class DummyException extends RuntimeException("DUMMY")
+    def test(): String = throw new DummyException
+
+    intercept[DummyException] {
+      test(); ()
+    }
+  }
+
   test("Option - dynamic style") {
     def compute(value: Int): Option[Int] =
       if (value > 0) Some(value * 2)
