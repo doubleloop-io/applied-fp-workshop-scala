@@ -10,11 +10,11 @@ import minitest._
  * - description: build a program description
  * - evaluation: execute logic based on the description
  *
- * Is the good old idea of separation of ceoncerns applied
+ * Is the good old idea of separation of concerns applied
  * to the whole program.
  *
  * The final result is that when a we invokes functions
- * they aren't executeed but instead build data structures.
+ * they aren't executed but instead build data structures.
  * At this point we can combine those data structures as we want
  * and combine different programs in one.
  * In the end the data structure tree will be evaluated and
@@ -27,7 +27,7 @@ import minitest._
 object FreezeTests extends SimpleTestSuite {
 
   /*
-   * TODO: implements functions maked with `???`
+   * TODO: implements functions marked with `???`
    */
 
   object Immediate {

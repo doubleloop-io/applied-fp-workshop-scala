@@ -6,7 +6,7 @@ import minitest._
  * ADT models data while Function models behaviour.
  * A function is simply something that accepts an input value
  * and produces an output value.
- * In more accademic terms it connects a Domain to a Codomain.
+ * In more academic terms it connects a Domain to a Codomain.
  * Functions are described/documented by it's type definition.
  *
  *  f:  InType => OutType
@@ -15,7 +15,7 @@ import minitest._
 object FunctionsTests extends SimpleTestSuite {
 
   /*
-   * TODO: implements functions maked with `???`
+   * TODO: implements functions marked with `???`
    */
 
   val asString: Double => String = in => in.toString

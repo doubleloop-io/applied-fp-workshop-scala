@@ -4,7 +4,7 @@ import minitest._
 
 /*
  * We can program in terms of type classes
- * and pospone the concrete monad.
+ * and postpone the concrete monad.
  */
 
 object MonadErrorTests extends SimpleTestSuite {

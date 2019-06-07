@@ -17,7 +17,7 @@ import minitest._
  * There are many operators that enable effectful function
  * combination but two are the most important: map and flatMap.
  *
- * The map function is birng to us by the Functor concept
+ * The map function is bring to us by the Functor concept
  * and the flatMap function from the Monad concept.
  */
 
