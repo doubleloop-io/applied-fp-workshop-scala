@@ -6,21 +6,17 @@ object TypeclassHKTests extends SimpleTestSuite {
 
   trait Stack[F[_]] {
     def push[A](fa: F[A])(value: A): F[A]
-    def pop[A](fa: F[A]): (A, F[A])
+    def pop[A](fa: F[A]): (Option[A], F[A])
   }
 
   implicit val listStack = new Stack[List] {
     def push[A](fa: List[A])(value: A): List[A] = value :: fa
-    def pop[A](fa: List[A]): (A, List[A])       = (fa.head, fa.tail)
-  }
-
-  object Stack {
-    def apply[F[_]](implicit x: Stack[F]) = x
+    def pop[A](fa: List[A]): (Option[A], List[A])       = (fa.headOption, fa.tail)
   }
 
   object MRUList {
-    def add[F[_]: Stack, A](value: A, items: F[A]): F[A] =
-      Stack[F].push(items)(value)
+    def add[F[_]: Stack, A](value: A, items: F[A])(implicit S: Stack[F]): F[A] =
+      S.push(items)(value)
   }
 
   test("add an element to the MRU list") {

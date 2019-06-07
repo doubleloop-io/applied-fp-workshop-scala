@@ -44,12 +44,8 @@ object TypeclassHKTests extends SimpleTestSuite {
 
   implicit val listStack = new Stack[List] {}
 
-  object Stack {
-    def apply[F[_]](implicit x: Stack[F]) = x
-  }
-
   object MRUList {
-    def add[F[_]: Stack, A](value: A, items: F[A]): F[A] =
+    def add[F[_]: Stack, A](value: A, items: F[A])(implicit S: Stack[F]): F[A] =
       ???
   }
 
