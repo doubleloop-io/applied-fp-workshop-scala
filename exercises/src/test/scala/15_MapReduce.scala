@@ -24,6 +24,8 @@ object MapReduceTests extends SimpleTestSuite {
    *       - Functor: https://typelevel.org/cats/api/cats/Functor.html
    *       - Foldable: https://typelevel.org/cats/api/cats/Foldable.html
    *       - Traverse: https://typelevel.org/cats/api/cats/Traverse.html
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
    */
 
   def mapReduce[F[_], A, B](fa: F[A])(f: A => B): B =

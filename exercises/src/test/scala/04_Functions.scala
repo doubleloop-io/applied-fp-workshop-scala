@@ -16,6 +16,8 @@ object FunctionsTests extends SimpleTestSuite {
 
   /*
    * TODO: implements functions marked with `???`
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
    */
 
   val asString: Double => String = in => in.toString

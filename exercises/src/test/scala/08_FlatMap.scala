@@ -26,6 +26,8 @@ object FlatMapTests extends SimpleTestSuite {
   /*
    * TODO: Implements divTry function.
    *       Rewrite, test by test, the program function
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
    */
 
   import scala.util.{Failure, Success, Try}

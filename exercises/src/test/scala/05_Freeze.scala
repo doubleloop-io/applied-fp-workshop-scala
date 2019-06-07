@@ -28,6 +28,8 @@ object FreezeTests extends SimpleTestSuite {
 
   /*
    * TODO: implements functions marked with `???`
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
    */
 
   object Immediate {

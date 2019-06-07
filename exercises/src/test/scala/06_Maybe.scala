@@ -15,6 +15,8 @@ object MaybeTests extends SimpleTestSuite {
 
   /*
    * TODO: remove all nulls
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
    */
 
   case class Qty(value: Int)

@@ -13,6 +13,8 @@ object MonadErrorTests extends SimpleTestSuite {
    *       present in ErrorHandling exercises
    *       but this time write the logic in terms
    *       of the MonadError type class.
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
    */
 
   import cats._

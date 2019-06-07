@@ -18,6 +18,8 @@ object FinalTaglessTests extends SimpleTestSuite {
    * TODO: add num, plus and times operations to
    *       Exp (F-algebra). Implements IOEvaluator
    *       and then uncomment and complete the test
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
    */
 
   import cats.implicits._

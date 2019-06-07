@@ -38,6 +38,8 @@ object TypeclassHKTests extends SimpleTestSuite {
    * TODO: Define push and pop operations.
    *       Implements class instance.
    *       Implements MRUList.add.
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
    */
 
   trait Stack[F[_]] {}

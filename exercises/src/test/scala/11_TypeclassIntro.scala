@@ -22,6 +22,8 @@ object TypeclassIntroTests extends SimpleTestSuite {
   /*
    * TODO: remove ignores and
    *       implements functions marked with `???`
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
    */
 
   object Concrete {

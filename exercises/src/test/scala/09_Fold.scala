@@ -14,6 +14,12 @@ import minitest._
 
 object FoldTests extends SimpleTestSuite {
 
+  /*
+   * TODO: Use fold in tests to remove the effect
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   */
+
   import scala.util.{Failure, Success, Try}
 
   case class NotAnIntException(s: String) extends RuntimeException(s"not an int: $s")

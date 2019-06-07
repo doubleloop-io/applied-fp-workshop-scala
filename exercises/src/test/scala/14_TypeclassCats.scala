@@ -27,6 +27,8 @@ object TypeclassCatsTests extends SimpleTestSuite {
 
   /*
    * TODO: uncomment tests and add cats imports
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
    */
 
   case class Box[A](value: A)
