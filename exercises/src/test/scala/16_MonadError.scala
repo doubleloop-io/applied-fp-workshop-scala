@@ -19,37 +19,38 @@ object MonadErrorTests extends SimpleTestSuite {
 
   type Throwing[F[_]] = MonadError[F, Throwable]
 
-  object Throwing {
-    def apply[F[_]](implicit T: Throwing[F]): Throwing[F] = T
-  }
-
-  def compute[F[_]: Throwing](magicValue: Int): F[Int] =
+  def compute[F[_]](magicValue: Int)(implicit T: Throwing[F]): F[Int] =
     if (magicValue > 0) ???
     else ???
 
   test("MonadError - Either") {
-    import cats.data._
-    type ThrowableOr[A] = EitherT[Id, Throwable, A]
+    ignore("implements compute, remove me and then uncomment the test")
+    // import cats.data._
+    // type ThrowableOr[A] = EitherT[Id, Throwable, A]
 
-    ignore("implements compute and then remove me")
-    val value = compute[ThrowableOr](-10)
+    // val value = compute[ThrowableOr](-10)
 
-    value.getOrElse(42); ()
+    // value.getOrElse(42); ()
   }
 
   test("MonadError - IO") {
-    import cats.effect._
+    ignore("implements compute, remove me and then uncomment the test")
+    // import cats.effect._
 
-    ignore("implements compute and then remove me")
-    val value = compute[IO](-10)
+    // val value = compute[IO](-10)
 
-    intercept[Exception] {
-      value.unsafeRunSync(); ()
-    }
+    // intercept[Exception] {
+    //   value.unsafeRunSync(); ()
+    // }
   }
 
   test("MonadError - Option") {
-    // no type class instance for Option type
+    ignore("implements compute, remove me and then uncomment the test")
+    // import cats.data._
+
+    // val value = compute[Option](-10)
+
+    // value.getOrElse(42); ()
     ()
   }
 }

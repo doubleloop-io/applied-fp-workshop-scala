@@ -7,13 +7,9 @@ object MonadErrorTests extends SimpleTestSuite {
 
   type Throwing[F[_]] = MonadError[F, Throwable]
 
-  object Throwing {
-    def apply[F[_]](implicit T: Throwing[F]): Throwing[F] = T
-  }
-
-  def compute[F[_]: Throwing](magicValue: Int): F[Int] =
-    if (magicValue > 0) Throwing[F].pure(magicValue * 2)
-    else Throwing[F].raiseError(new Exception("invalid number"))
+  def compute[F[_]](magicValue: Int)(implicit T: Throwing[F]): F[Int] =
+    if (magicValue > 0) T.pure(magicValue * 2)
+    else T.raiseError(new Exception("invalid number"))
 
   test("MonadError - Either") {
     import cats.data._
@@ -35,7 +31,7 @@ object MonadErrorTests extends SimpleTestSuite {
   }
 
   test("MonadError - Option") {
-    // no type class instance for Option type
+    // no type class instance could be provided for the Option type
     ()
   }
 }
