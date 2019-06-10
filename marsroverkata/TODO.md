@@ -28,8 +28,8 @@ We discover that there are are obstacles on the planet.
     - Implement obstacle detection before each move to a new position. 
     - If a given sequence of commands encounters an obstacle, the rover moves up to the last possible point and aborts the sequence.
 - boundaries:
-    - Write a parser for a list of obstacles.
-    - Update rendering, show hit obstacle info.
+    - Write a parser for a list of obstacles: "1,2 0,0 3,4"
+    - Update rendering, show hit obstacle info: "O:positionX:positionY:direction"
 
 ## V4 - Focus on I/O (compose pure IO values)
 Extend the "pure" way of work also to the infrastructural layer

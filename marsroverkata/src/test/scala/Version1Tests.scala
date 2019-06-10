@@ -2,7 +2,7 @@ package marsroverkata
 
 import minitest._
 
-import marsroverkata.Workspace._
+import marsroverkata.Version1._
 
 object Version1Tests extends SimpleTestSuite {
   test("three times right") {

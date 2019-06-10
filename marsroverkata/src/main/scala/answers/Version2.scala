@@ -8,6 +8,11 @@ import cats.implicits._
 
 object Version2 {
 
+  def run(planet: String, rover: String, commands: String): Either[NonEmptyList[Error], String] =
+    init(planet, rover)
+      .map(execute(_, parseCommands(commands)))
+      .map(m => render(m.rover))
+
   sealed trait Error
   case class InvalidPlanet(value: String, error: String) extends Error
   case class InvalidRover(value: String, error: String)  extends Error

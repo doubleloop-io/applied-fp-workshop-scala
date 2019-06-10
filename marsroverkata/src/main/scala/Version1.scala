@@ -1,3 +1,3 @@
 package marsroverkata
 
-object Workspace {}
+object Version1 {}

@@ -6,7 +6,7 @@ import cats._
 import cats.data._
 import cats.implicits._
 
-import marsroverkata.Workspace._
+import marsroverkata.Version1._
 
 object Version2Tests extends SimpleTestSuite {
 
@@ -19,7 +19,8 @@ object Version2Tests extends SimpleTestSuite {
         Right(Rover: 4 3 E)
      */
     ignore()
-    val result = run("5x4", "0,0:N", "RBBLBRF")
+    // val result = run("5x4", "0,0:N", "RBBLBRF")
+    // assertEquals(result, Right("4:3:E"))
   }
 
   test("all inputs are bad") {
@@ -31,9 +32,6 @@ object Version2Tests extends SimpleTestSuite {
         Left([InvalidPlanet, InvalidRover])
      */
     ignore()
-    val result = run("ax4", "1,c:N", "RBRF")
+    // val result = run("ax4", "1,c:N", "RBRF")
   }
-
-  def run(planet: String, rover: String, commands: String): Either[NonEmptyList[Error], String] =
-    ???
 }

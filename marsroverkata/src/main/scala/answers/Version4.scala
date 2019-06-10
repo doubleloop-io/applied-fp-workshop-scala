@@ -6,12 +6,7 @@ import cats._
 import cats.data._
 import cats.implicits._
 
-object Version3 {
-
-  def run(planet: String, obstacles: String, rover: String, commands: String): Either[NonEmptyList[Error], String] =
-    init(planet, rover)
-      .map(execute(_, parseCommands(commands)))
-      .map(_.bimap(_.rover, _.rover).fold(renderHit, render))
+object Version4 {
 
   sealed trait Error
   case class InvalidPlanet(value: String, error: String) extends Error

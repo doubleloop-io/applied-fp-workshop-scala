@@ -54,9 +54,4 @@ object Version2Tests extends SimpleTestSuite {
       )
     )
   }
-
-  def run(planet: String, rover: String, commands: String): Either[NonEmptyList[Error], String] =
-    init(planet, rover)
-      .map(execute(_, parseCommands(commands)))
-      .map(m => render(m.rover))
 }
