@@ -8,42 +8,53 @@ import cats.implicits._
 
 object Version3 {
 
-  def run(planet: String, obstacles: String, rover: String, commands: String): Either[NonEmptyList[Error], String] =
-    init(planet, obstacles, rover)
+  def run(planet: (String, String), rover: (String, String), commands: String): Either[NonEmptyList[Error], String] =
+    init(planet, rover)
       .map(execute(_, parseCommands(commands)))
       .map(_.bimap(_.rover, _.rover).fold(renderHit, render))
+      .toEither
 
   sealed trait Error
   case class InvalidPlanet(value: String, error: String)   extends Error
   case class InvalidRover(value: String, error: String)    extends Error
   case class InvalidObstacle(value: String, error: String) extends Error
 
-  def parsePlanet(rawSize: String, rawObstacles: String): ValidatedNel[Error, Planet] =
-    (rawSize, rawObstacles)
+  def parseTuple[A](separator: String, raw: String, ctor: (Int, Int) => A): Try[A] =
+    Try {
+      val parts = raw.split(separator)
+      (parts(0).trim.toInt, parts(1).trim.toInt)
+    }.map(t => ctor(t._1, t._2))
+
+  def parsePlanet(raw: (String, String)): ValidatedNel[Error, Planet] =
+    raw
       .bimap(parseSize, parseObstacles)
       .mapN(Planet.apply)
 
   def parseSize(raw: String): ValidatedNel[Error, Size] =
-    Try {
-      val parts = raw.split("x")
-      Size(parts(0).trim.toInt, parts(1).trim.toInt)
-    }.toEither
-      .leftMap(ex => InvalidPlanet(raw, ex.getClass.getSimpleName))
+    parseTuple("x", raw, Size.apply).toEither
+      .leftMap(_ => InvalidPlanet(raw, "InvalidSize"))
       .toValidatedNel
 
-  def parseRover(raw: String): ValidatedNel[Error, Rover] =
+  def parseRover(raw: (String, String)): ValidatedNel[Error, Rover] =
+    raw
+      .bimap(parsePosition, parseDirection)
+      .mapN(Rover.apply)
+
+  def parsePosition(raw: String): ValidatedNel[Error, Position] =
+    parseTuple(",", raw, Position.apply).toEither
+      .leftMap(_ => InvalidRover(raw, "InvalidPosition"))
+      .toValidatedNel
+
+  def parseDirection(raw: String): ValidatedNel[Error, Direction] =
     Try {
-      val parts    = raw.split(",")
-      val subparts = parts(1).trim.split(":")
-      val direction = subparts(1).trim.toLowerCase match {
+      raw.trim.toLowerCase match {
         case "n" => N
         case "w" => W
         case "e" => E
         case "s" => S
       }
-      Rover(Position(parts(0).trim.toInt, subparts(0).trim.toInt), direction)
     }.toEither
-      .leftMap(ex => InvalidRover(raw, ex.getClass.getSimpleName))
+      .leftMap(_ => InvalidRover(raw, "InvalidDirection"))
       .toValidatedNel
 
   def parseCommands(raw: String): List[Command] =
@@ -62,18 +73,17 @@ object Version3 {
     raw.split(" ").toList.traverse(parseObstacle)
 
   def parseObstacle(raw: String): ValidatedNel[Error, Obstacle] =
-    Try {
-      val parts = raw.split(",")
-      Obstacle(Position(parts(0).trim.toInt, parts(1).trim.toInt))
-    }.toEither
+    parsePosition(raw)
+      .map(Obstacle.apply)
+      .toEither
       .leftMap(ex => InvalidObstacle(raw, ex.getClass.getSimpleName))
       .toValidatedNel
 
-  def init(planet: String, obstacles: String, rover: String): Either[NonEmptyList[Error], Mission] =
+  def init(planet: (String, String), rover: (String, String)): ValidatedNel[Error, Mission] =
     (
-      parsePlanet(planet, obstacles),
+      parsePlanet(planet),
       parseRover(rover)
-    ).mapN(Mission.apply).toEither
+    ).mapN(Mission.apply)
 
   def render(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.direction}"

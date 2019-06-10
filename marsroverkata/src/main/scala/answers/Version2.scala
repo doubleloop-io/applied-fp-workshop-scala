@@ -18,14 +18,17 @@ object Version2 {
   case class InvalidPlanet(value: String, error: String) extends Error
   case class InvalidRover(value: String, error: String)  extends Error
 
+  def parseTuple[A](separator: String, raw: String, ctor: (Int, Int) => A): Try[A] =
+    Try {
+      val parts = raw.split(separator)
+      (parts(0).trim.toInt, parts(1).trim.toInt)
+    }.map(t => ctor(t._1, t._2))
+
   def parsePlanet(raw: String): ValidatedNel[Error, Planet] =
     parseSize(raw).map(Planet.apply)
 
   def parseSize(raw: String): ValidatedNel[Error, Size] =
-    Try {
-      val parts = raw.split("x")
-      Size(parts(0).trim.toInt, parts(1).trim.toInt)
-    }.toEither
+    parseTuple("x", raw, Size.apply).toEither
       .leftMap(_ => InvalidPlanet(raw, "InvalidSize"))
       .toValidatedNel
 
@@ -35,10 +38,7 @@ object Version2 {
       .mapN(Rover.apply)
 
   def parsePosition(raw: String): ValidatedNel[Error, Position] =
-    Try {
-      val parts = raw.split(",")
-      Position(parts(0).trim.toInt, parts(1).trim.toInt)
-    }.toEither
+    parseTuple(",", raw, Position.apply).toEither
       .leftMap(_ => InvalidRover(raw, "InvalidPosition"))
       .toValidatedNel
 
@@ -67,10 +67,8 @@ object Version2 {
     }
 
   def init(planet: String, rover: (String, String)): ValidatedNel[Error, Mission] =
-    (
-      parsePlanet(planet),
-      parseRover(rover)
-    ).mapN(Mission.apply)
+    (parsePlanet(planet), parseRover(rover))
+      .mapN(Mission.apply)
 
   def render(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.direction}"
