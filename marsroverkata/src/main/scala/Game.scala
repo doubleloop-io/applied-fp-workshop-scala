@@ -1,4 +1,3 @@
 package marsroverkata
 
-object Workspace {
-}
+object Workspace {}

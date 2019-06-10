@@ -70,7 +70,7 @@ object Examples {
         Rover: 0 0 W
         Commands: FF
         --
-        Rover: 0 0 W
+        Rover: 3 0 W
      */
     println("example6")
 
