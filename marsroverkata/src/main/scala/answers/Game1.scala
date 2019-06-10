@@ -2,42 +2,6 @@ package marsroverkata.answers
 
 object Version1 {
 
-//   def example1(): Unit = {
-//     val mission = Mission(Planet(Size(5, 4)), Rover(Position(0, 0), N))
-//     println(
-//       "last >> " +
-//         execute(mission,
-//                 List(
-//                   Turn(OnLeft),
-//                   Turn(OnLeft),
-//                   Turn(OnLeft),
-//                   Move(Forward),
-//                   Move(Forward),
-//                   Move(Forward),
-//                   Move(Forward),
-//                   Move(Forward),
-//                   Move(Forward),
-//                 ))
-//     )
-//   }
-
-  def example1(): Unit = {
-    val mission  = Mission(Planet(Size(5, 4)), Rover(Position(0, 0), N))
-    val commands = List(Turn(OnRight), Move(Forward))
-    val updated  = execute(mission, commands)
-    println(updated)
-    assert(updated == Mission(Planet(Size(5, 4)), Rover(Position(1, 0), E)))
-  }
-
-  def example2(): Unit = {
-    val mission  = Mission(Planet(Size(5, 4)), Rover(Position(0, 1), E))
-    val commands = List(Turn(OnRight), Move(Forward))
-    val commands = List(Move(Forward), Move(Forward), Turn(OnLeft), Move(Backward))
-    val updated = execute(mission, commands)
-    println(updated)
-    assert(updated == Mission(Planet(Size(5, 4)), Rover(Position(3, 1), S)))
-  }
-
   def execute(mission: Mission, commands: List[Command]): Mission =
     commands.foldLeft(mission)(execute)
 
