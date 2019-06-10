@@ -8,8 +8,8 @@ import cats.implicits._
 
 object Version2 {
 
-  def run(planet: String, rover: String, commands: String): Either[NonEmptyList[Error], String] =
-    init(planet, rover)
+  def run(planet: String, rover: String, direction: String, commands: String): Either[NonEmptyList[Error], String] =
+    init(planet, rover, direction)
       .map(execute(_, parseCommands(commands)))
       .map(m => render(m.rover))
 
@@ -18,26 +18,39 @@ object Version2 {
   case class InvalidRover(value: String, error: String)  extends Error
 
   def parsePlanet(raw: String): ValidatedNel[Error, Planet] =
+    parseSize(raw).map(Planet.apply)
+
+  def parseSize(raw: String): ValidatedNel[Error, Size] =
     Try {
       val parts = raw.split("x")
-      Planet(Size(parts(0).trim.toInt, parts(1).trim.toInt))
+      Size(parts(0).trim.toInt, parts(1).trim.toInt)
     }.toEither
-      .leftMap(ex => InvalidPlanet(raw, ex.getClass.getSimpleName))
+      .leftMap(_ => InvalidPlanet(raw, "InvalidSize"))
       .toValidatedNel
 
-  def parseRover(raw: String): ValidatedNel[Error, Rover] =
+  def parseRover(rawPosition: String, rawDirection: String): ValidatedNel[Error, Rover] =
+    (rawPosition, rawDirection)
+      .bimap(parsePosition, parseDirection)
+      .mapN(Rover.apply)
+
+  def parsePosition(raw: String): ValidatedNel[Error, Position] =
     Try {
-      val parts    = raw.split(",")
-      val subparts = parts(1).trim.split(":")
-      val direction = subparts(1).trim.toLowerCase match {
+      val parts = raw.split(",")
+      Position(parts(0).trim.toInt, parts(1).trim.toInt)
+    }.toEither
+      .leftMap(_ => InvalidRover(raw, "InvalidPosition"))
+      .toValidatedNel
+
+  def parseDirection(raw: String): ValidatedNel[Error, Direction] =
+    Try {
+      raw.trim.toLowerCase match {
         case "n" => N
         case "w" => W
         case "e" => E
         case "s" => S
       }
-      Rover(Position(parts(0).trim.toInt, subparts(0).trim.toInt), direction)
     }.toEither
-      .leftMap(ex => InvalidRover(raw, ex.getClass.getSimpleName))
+      .leftMap(_ => InvalidRover(raw, "InvalidDirection"))
       .toValidatedNel
 
   def parseCommands(raw: String): List[Command] =
@@ -52,10 +65,10 @@ object Version2 {
       case _   => Unknown
     }
 
-  def init(planet: String, rover: String): Either[NonEmptyList[Error], Mission] =
+  def init(planet: String, rover: String, direction: String): Either[NonEmptyList[Error], Mission] =
     (
       parsePlanet(planet),
-      parseRover(rover)
+      parseRover(rover, direction)
     ).mapN(Mission.apply).toEither
 
   def render(rover: Rover): String =
