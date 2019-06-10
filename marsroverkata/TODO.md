@@ -6,8 +6,6 @@ Implement an application that simulates the movement of a rover on a planet.
 NOTE: for each version: first model all functions signatures (use ??? marker) and then implement them.
       The idea is to get a quick and cheap responsibility distribution phase.
 
-TODO: example as test cases for each version
-
 ## V1 - Focus on the center (pure domain logic and types)
 Develop an API that translates the commands sent from earth to instructions that are executed by the rover.
 - The planet is divided into a grid with x (width) and y (height) size.

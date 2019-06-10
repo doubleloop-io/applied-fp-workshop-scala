@@ -1,6 +1,4 @@
 package marsroverkata
 
-class Game {
-
-  def run(): Unit = {}
+object Workspace {
 }
