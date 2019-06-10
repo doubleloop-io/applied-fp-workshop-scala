@@ -9,23 +9,24 @@ import cats.implicits._
 object Version3 {
 
   def run(planet: String, obstacles: String, rover: String, commands: String): Either[NonEmptyList[Error], String] =
-    init(planet, rover)
+    init(planet, obstacles, rover)
       .map(execute(_, parseCommands(commands)))
       .map(_.bimap(_.rover, _.rover).fold(renderHit, render))
 
   sealed trait Error
-  case class InvalidPlanet(value: String, error: String) extends Error
-  case class InvalidRover(value: String, error: String)  extends Error
+  case class InvalidPlanet(value: String, error: String)   extends Error
+  case class InvalidRover(value: String, error: String)    extends Error
+  case class InvalidObstacle(value: String, error: String) extends Error
 
-  def parsePlanet(raw: String): ValidatedNel[Error, Planet] =
+  def parsePlanet(rawSize: String, rawObstacles: String): ValidatedNel[Error, Planet] =
+    (rawSize, rawObstacles)
+      .bimap(parseSize, parseObstacles)
+      .mapN(Planet.apply)
+
+  def parseSize(raw: String): ValidatedNel[Error, Size] =
     Try {
       val parts = raw.split("x")
-      Planet(Size(parts(0).trim.toInt, parts(1).trim.toInt),
-             List(
-               Obstacle(Position(2, 0)),
-               Obstacle(Position(0, 3)),
-               Obstacle(Position(3, 2)),
-             ))
+      Size(parts(0).trim.toInt, parts(1).trim.toInt)
     }.toEither
       .leftMap(ex => InvalidPlanet(raw, ex.getClass.getSimpleName))
       .toValidatedNel
@@ -57,9 +58,20 @@ object Version3 {
       case _   => Unknown
     }
 
-  def init(planet: String, rover: String): Either[NonEmptyList[Error], Mission] =
+  def parseObstacles(raw: String): ValidatedNel[Error, List[Obstacle]] =
+    raw.split(" ").toList.traverse(parseObstacle)
+
+  def parseObstacle(raw: String): ValidatedNel[Error, Obstacle] =
+    Try {
+      val parts = raw.split(",")
+      Obstacle(Position(parts(0).trim.toInt, parts(1).trim.toInt))
+    }.toEither
+      .leftMap(ex => InvalidObstacle(raw, ex.getClass.getSimpleName))
+      .toValidatedNel
+
+  def init(planet: String, obstacles: String, rover: String): Either[NonEmptyList[Error], Mission] =
     (
-      parsePlanet(planet),
+      parsePlanet(planet, obstacles),
       parseRover(rover)
     ).mapN(Mission.apply).toEither
 
