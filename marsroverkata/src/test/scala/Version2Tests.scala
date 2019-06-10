@@ -6,7 +6,8 @@ import cats._
 import cats.data._
 import cats.implicits._
 
-import marsroverkata.Version1._
+// TODO: uncomment import
+// import marsroverkata.Version2._
 
 object Version2Tests extends SimpleTestSuite {
 

@@ -34,10 +34,9 @@ We discover that there are are obstacles on the planet.
 ## V4 - Focus on I/O (compose pure IO values)
 Extend the "pure" way of work also to the infrastructural layer
 - Build initial state and execute all commands:
-    - Read and parse the planet.txt file
-    - Read and parse the obstacles.txt file
-    - Read and parse the rover.txt file
-    - Read and parse the commands.txt file
+    - Read planet.txt from file (size and obstacles)
+    - Read rover.txt from file (position and direction)
+    - Read commands from console (ask to the user)
 - After commands execution:
     - Print final output to the console (happy and not happy paths)
     - Handle, in a safe way, any unhandled exception and log them

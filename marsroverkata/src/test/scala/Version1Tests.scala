@@ -2,7 +2,8 @@ package marsroverkata
 
 import minitest._
 
-import marsroverkata.Version1._
+// TODO: uncomment import
+// import marsroverkata.Version1._
 
 object Version1Tests extends SimpleTestSuite {
   test("three times right") {
