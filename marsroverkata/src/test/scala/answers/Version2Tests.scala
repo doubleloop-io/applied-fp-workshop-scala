@@ -11,12 +11,14 @@ import marsroverkata.answers.Version2._
 object Version2Tests extends SimpleTestSuite {
 
   test("opposite angle") {
-    val result = run("5x4", "0,0", "N", "RBBLBRF")
+    val rover  = ("0,0", "N")
+    val result = run("5x4", rover, "RBBLBRF")
     assertEquals(result, Right("4:3:E"))
   }
 
   test("all inputs are bad") {
-    val result = run("ax4", "1,c", "X", "RBRF")
+    val rover  = ("1,c", "X")
+    val result = run("ax4", rover, "RBRF")
     assertEquals(
       result,
       Left(

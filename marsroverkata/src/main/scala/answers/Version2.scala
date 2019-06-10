@@ -8,10 +8,11 @@ import cats.implicits._
 
 object Version2 {
 
-  def run(planet: String, rover: String, direction: String, commands: String): Either[NonEmptyList[Error], String] =
-    init(planet, rover, direction)
+  def run(planet: String, rover: (String, String), commands: String): Either[NonEmptyList[Error], String] =
+    init(planet, rover)
       .map(execute(_, parseCommands(commands)))
       .map(m => render(m.rover))
+      .toEither
 
   sealed trait Error
   case class InvalidPlanet(value: String, error: String) extends Error
@@ -28,8 +29,8 @@ object Version2 {
       .leftMap(_ => InvalidPlanet(raw, "InvalidSize"))
       .toValidatedNel
 
-  def parseRover(rawPosition: String, rawDirection: String): ValidatedNel[Error, Rover] =
-    (rawPosition, rawDirection)
+  def parseRover(raw: (String, String)): ValidatedNel[Error, Rover] =
+    raw
       .bimap(parsePosition, parseDirection)
       .mapN(Rover.apply)
 
@@ -65,11 +66,11 @@ object Version2 {
       case _   => Unknown
     }
 
-  def init(planet: String, rover: String, direction: String): Either[NonEmptyList[Error], Mission] =
+  def init(planet: String, rover: (String, String)): ValidatedNel[Error, Mission] =
     (
       parsePlanet(planet),
-      parseRover(rover, direction)
-    ).mapN(Mission.apply).toEither
+      parseRover(rover)
+    ).mapN(Mission.apply)
 
   def render(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.direction}"
