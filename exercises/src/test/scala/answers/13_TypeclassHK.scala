@@ -10,8 +10,8 @@ object TypeclassHKTests extends SimpleTestSuite {
   }
 
   implicit val listStack = new Stack[List] {
-    def push[A](fa: List[A])(value: A): List[A] = value :: fa
-    def pop[A](fa: List[A]): (Option[A], List[A])       = (fa.headOption, fa.tail)
+    def push[A](fa: List[A])(value: A): List[A]   = value :: fa
+    def pop[A](fa: List[A]): (Option[A], List[A]) = (fa.headOption, fa.tail)
   }
 
   object MRUList {
