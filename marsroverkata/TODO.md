@@ -11,7 +11,7 @@ TODO: example as test cases for each version
 ## V1 - Focus on the center (pure domain logic and types)
 Develop an API that translates the commands sent from earth to instructions that are executed by the rover.
 - The planet is divided into a grid with x (width) and y (height) size.
-- The rover has a position expressed as x, y co-ordinates and a direction (North, Est, West, South).
+- The rover has a position expressed as x, y co-ordinates and an orientation (North, Est, West, South).
 - The rover can handle four commands: TurnLeft, TurnRight, MoveForward, MoveBackward.
 - Commands are sent in batch (like an array)
 - Implement wrapping from one edge of the grid to another (pacman effect).
