@@ -56,7 +56,7 @@ object Examples {
         --
         Plant: 5 4
         Rover: 0 0 E
-        Commands: FFFFF
+        Commands: F
         --
         Rover: 0 0 E
      */

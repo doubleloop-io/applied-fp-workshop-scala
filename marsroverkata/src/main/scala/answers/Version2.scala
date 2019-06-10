@@ -1,28 +1,57 @@
 package marsroverkata.answers
 
+import scala.util._
+
+import cats._
+import cats.data._
+import cats.implicits._
+
 object Version2 {
 
-//   def parsePlanet(raw: String): Planet = {
-//     val tokens = raw.split("x")
-//     Planet(tokens(0).trim.toInt, tokens(1).trim.toInt)
-//   }
+  sealed trait Error
+  case class InvalidPlanet(value: String, error: String) extends Error
+  case class InvalidRover(value: String, error: String)  extends Error
 
-//   def parsePosition(raw: String): Position = {
-//     val tokens = raw.split(",")
-//     Position(tokens(0).trim.toInt, tokens(1).trim.toInt)
-//   }
+  def parsePlanet(raw: String): ValidatedNel[Error, Planet] =
+    Try {
+      val parts = raw.split("x")
+      Planet(Size(parts(0).trim.toInt, parts(1).trim.toInt))
+    }.toEither
+      .leftMap(ex => InvalidPlanet(raw, ex.getMessage))
+      .toValidatedNel
+
+  def parseRover(raw: String): ValidatedNel[Error, Rover] =
+    Try {
+      val parts    = raw.split(",")
+      val subparts = parts(1).trim.split(":")
+      val direction = subparts(1).trim.toLowerCase match {
+        case "n" => N
+        case "w" => W
+        case "e" => E
+        case "s" => S
+      }
+      Rover(Position(parts(0).trim.toInt, subparts(0).trim.toInt), direction)
+    }.toEither
+      .leftMap(ex => InvalidRover(raw, ex.getMessage))
+      .toValidatedNel
 
   def parseCommands(raw: String): List[Command] =
     raw.map(parseCommand).toList
 
   def parseCommand(raw: Char): Command =
-    raw.toString match {
+    raw.toString.toLowerCase match {
       case "f" => Move(Forward)
       case "b" => Move(Backward)
       case "r" => Turn(OnRight)
       case "l" => Turn(OnLeft)
       case _   => Unknown
     }
+
+  def init(planet: String, rover: String): Either[NonEmptyList[Error], Mission] =
+    (
+      parsePlanet(planet),
+      parseRover(rover)
+    ).mapN(Mission.apply).toEither
 
   def execute(mission: Mission, commands: List[Command]): Mission =
     commands.foldLeft(mission)(execute)
