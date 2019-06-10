@@ -1,15 +1,13 @@
-package marsroverkata
+package marsroverkata.answers
 
 import minitest._
 
 import marsroverkata.answers.Version1._
 
 object Version1Tests extends SimpleTestSuite {
-  test("example1") {
+  test("three times right") {
     /*
-        Title: three times right
-        --
-        Plant: 5 4
+        Planet: 5 4
         Rover: 0 0 N
         Commands: RRR
         --
@@ -21,11 +19,9 @@ object Version1Tests extends SimpleTestSuite {
     assertEquals(result, Mission(Planet(Size(5, 4)), Rover(Position(0, 0), W)))
   }
 
-  test("example2") {
+  test("two times left") {
     /*
-        Title: two times left
-        --
-        Plant: 5 4
+        Planet: 5 4
         Rover: 0 0 N
         Commands: LL
         --
@@ -37,11 +33,9 @@ object Version1Tests extends SimpleTestSuite {
     assertEquals(result, Mission(Planet(Size(5, 4)), Rover(Position(0, 0), S)))
   }
 
-  test("example3") {
+  test("wrap on North") {
     /*
-        Title: wrap on North
-        --
-        Plant: 5 4
+        Planet: 5 4
         Rover: 0 0 N
         Commands: FFFFFF
         --
@@ -53,11 +47,9 @@ object Version1Tests extends SimpleTestSuite {
     assertEquals(result, Mission(Planet(Size(5, 4)), Rover(Position(0, 2), N)))
   }
 
-  test("example4") {
+  test("wrap on South") {
     /*
-        Title: wrap on South
-        --
-        Plant: 5 4
+        Planet: 5 4
         Rover: 0 0 S
         Commands: FFFFFFF
         --
@@ -69,11 +61,9 @@ object Version1Tests extends SimpleTestSuite {
     assertEquals(result, Mission(Planet(Size(5, 4)), Rover(Position(0, 3), S)))
   }
 
-  test("example5") {
+  test("wrap on Est") {
     /*
-        Title: wrap on Est
-        --
-        Plant: 5 4
+        Planet: 5 4
         Rover: 0 0 E
         Commands: FFFFF
         --
@@ -85,11 +75,9 @@ object Version1Tests extends SimpleTestSuite {
     assertEquals(result, Mission(Planet(Size(5, 4)), Rover(Position(0, 0), E)))
   }
 
-  test("example6") {
+  test("wrap on West") {
     /*
-        Title: wrap on West
-        --
-        Plant: 5 4
+        Planet: 5 4
         Rover: 0 0 W
         Commands: FF
         --
@@ -101,11 +89,9 @@ object Version1Tests extends SimpleTestSuite {
     assertEquals(result, Mission(Planet(Size(5, 4)), Rover(Position(3, 0), W)))
   }
 
-  test("example7") {
+  test("opposite angle") {
     /*
-        Title: opposite angle
-        --
-        Plant: 5 4
+        Planet: 5 4
         Rover: 0 0 N
         Commands: RBBLBRF
         --

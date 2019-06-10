@@ -1,5 +1,3 @@
 package marsroverkata
 
-object Main extends App {
-  Examples.run()
-}
+object Main extends App {}
