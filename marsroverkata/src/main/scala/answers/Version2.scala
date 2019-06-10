@@ -17,7 +17,7 @@ object Version2 {
       val parts = raw.split("x")
       Planet(Size(parts(0).trim.toInt, parts(1).trim.toInt))
     }.toEither
-      .leftMap(ex => InvalidPlanet(raw, ex.getMessage))
+      .leftMap(ex => InvalidPlanet(raw, ex.getClass.getSimpleName))
       .toValidatedNel
 
   def parseRover(raw: String): ValidatedNel[Error, Rover] =
@@ -32,7 +32,7 @@ object Version2 {
       }
       Rover(Position(parts(0).trim.toInt, subparts(0).trim.toInt), direction)
     }.toEither
-      .leftMap(ex => InvalidRover(raw, ex.getMessage))
+      .leftMap(ex => InvalidRover(raw, ex.getClass.getSimpleName))
       .toValidatedNel
 
   def parseCommands(raw: String): List[Command] =
@@ -52,6 +52,9 @@ object Version2 {
       parsePlanet(planet),
       parseRover(rover)
     ).mapN(Mission.apply).toEither
+
+  def render(rover: Rover): String =
+    s"${rover.position.x}:${rover.position.y}:${rover.direction}"
 
   def execute(mission: Mission, commands: List[Command]): Mission =
     commands.foldLeft(mission)(execute)

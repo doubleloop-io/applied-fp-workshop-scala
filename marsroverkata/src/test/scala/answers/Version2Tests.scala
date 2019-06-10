@@ -21,7 +21,7 @@ object Version2Tests extends SimpleTestSuite {
         Rover: 0 0 W
      */
     val result = run("5x4", "0,0:N", "RRR")
-    assertEquals(result, Right(Mission(Planet(Size(5, 4)), Rover(Position(0, 0), W))))
+    assertEquals(result, Right("0:0:W"))
   }
 
   test("example2") {
@@ -35,7 +35,7 @@ object Version2Tests extends SimpleTestSuite {
         Rover: 0 0 S
      */
     val result = run("5x4", "0,0:N", "LL")
-    assertEquals(result, Right(Mission(Planet(Size(5, 4)), Rover(Position(0, 0), S))))
+    assertEquals(result, Right("0:0:S"))
   }
 
   test("example3") {
@@ -49,7 +49,7 @@ object Version2Tests extends SimpleTestSuite {
         Rover: 0 2 N
      */
     val result = run("5x4", "0,0:N", "FFFFFF")
-    assertEquals(result, Right(Mission(Planet(Size(5, 4)), Rover(Position(0, 2), N))))
+    assertEquals(result, Right("0:2:N"))
   }
 
   test("example4") {
@@ -63,7 +63,7 @@ object Version2Tests extends SimpleTestSuite {
         Rover: 0 3 S
      */
     val result = run("5x4", "0,0:S", "F")
-    assertEquals(result, Right(Mission(Planet(Size(5, 4)), Rover(Position(0, 3), S))))
+    assertEquals(result, Right("0:3:S"))
   }
 
   test("example5") {
@@ -77,7 +77,7 @@ object Version2Tests extends SimpleTestSuite {
         Rover: 0 0 E
      */
     val result = run("5x4", "0,0:E", "FFFFF")
-    assertEquals(result, Right(Mission(Planet(Size(5, 4)), Rover(Position(0, 0), E))))
+    assertEquals(result, Right("0:0:E"))
   }
 
   test("example6") {
@@ -91,7 +91,7 @@ object Version2Tests extends SimpleTestSuite {
         Rover: 3 0 W
      */
     val result = run("5x4", "0,0:W", "FF")
-    assertEquals(result, Right(Mission(Planet(Size(5, 4)), Rover(Position(3, 0), W))))
+    assertEquals(result, Right("3:0:W"))
   }
 
   test("example7") {
@@ -105,10 +105,30 @@ object Version2Tests extends SimpleTestSuite {
         Rover: 4 3 E
      */
     val result = run("5x4", "0,0:N", "RBBLBRF")
-    assertEquals(result, Right(Mission(Planet(Size(5, 4)), Rover(Position(4, 3), E))))
+    assertEquals(result, Right("4:3:E"))
   }
 
-  def run(planet: String, rover: String, commands: String): Either[NonEmptyList[Error], Mission] =
+  test("example8") {
+    /*
+        Title: all inputs are bad
+        --
+        Plant: 5 4
+        Rover: 0 0 N
+        Commands: RBBLBRF
+        --
+        Rover: 4 3 E
+     */
+    val result = run("ax4", "1,c:N", "RBRF")
+    assertEquals(
+      result,
+      Left(
+        NonEmptyList.of(InvalidPlanet("ax4", "NumberFormatException"), InvalidRover("1,c:N", "NumberFormatException"))
+      )
+    )
+  }
+
+  def run(planet: String, rover: String, commands: String): Either[NonEmptyList[Error], String] =
     init(planet, rover)
       .map(execute(_, parseCommands(commands)))
+      .map(m => render(m.rover))
 }

@@ -16,9 +16,9 @@ Develop an API that translates the commands sent from earth to instructions that
 
 ## V2 - Focus on boundaries (from primitive types to domain types)
 Our domain is composed by rich types but input/output data must be privitive
-- Write a parser for the planet (grid) size.
-- Write a rover initial state parser.
-- Write an rendering as string.
+- Write a parser for the planet (grid) size: "5x4"
+- Write a rover initial state parser: "1,3:W"
+- Write an rendering as string: "positionX:positionY:direction"
 
 ## V3 - More domain logic (partial function in domain logic)
 We discover that there are are obstacles on the planet.
