@@ -50,7 +50,7 @@ lazy val settings = Seq(
   resolvers ++= resolversSettings,
   libraryDependencies ++= libsSettings,
   testFrameworks += new TestFramework("minitest.runner.Framework"),
-  addCompilerPlugin("com.olegpy"     %% "better-monadic-for" % "0.3.0"),
+  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.0"),
 )
 
 lazy val scalacSettings = Seq(
