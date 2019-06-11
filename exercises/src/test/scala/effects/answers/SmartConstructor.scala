@@ -14,11 +14,11 @@ object SmartConstructorTests extends SimpleTestSuite {
     if (qty.matches("^[0-9]+$")) ValidItem(Item(qty.toInt))
     else InvalidItem()
 
-  test("valid") {
+  test("valid creation") {
     assertEquals(createItem("100"), ValidItem(Item(100)))
   }
 
-  test("invalid") {
+  test("invalid creation") {
     assertEquals(createItem("asd"), InvalidItem())
     assertEquals(createItem("1 0 0"), InvalidItem())
     assertEquals(createItem(""), InvalidItem())
