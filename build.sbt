@@ -93,8 +93,8 @@ lazy val LogbackVersion = "1.2.3"
 lazy val CirceVersion   = "0.11.1"
 
 lazy val libsSettings = Seq(
-  "org.typelevel"  %% "cats-core"           % "1.6.0",
-  "org.typelevel"  %% "cats-effect"         % "1.3.0",
+  "org.typelevel"  %% "cats-core"           % "1.6.1",
+  "org.typelevel"  %% "cats-effect"         % "1.3.1",
   "org.typelevel"  %% "cats-mtl-core"       % "0.5.0",
   "net.debasishg"  %% "redisclient"         % "3.9",
   "io.circe"       %% "circe-core"          % CirceVersion,
