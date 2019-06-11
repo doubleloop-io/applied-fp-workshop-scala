@@ -3,23 +3,18 @@
 ### Presentation
 [Why functional programming?](https://gitpitch.com/doubleloop-io/avanscoperta-applied-fp-workshop-scala/master)
 
-### Scala Cheatsheet
-[Scala Cheatsheet](https://docs.scala-lang.org/cheatsheets/)
+### Scala
+- [ScalaFiddle](https://scalafiddle.io/)
+- [Scala Doc](https://www.scala-lang.org/api/current/index.html)
+- [Scala Cheatsheet](https://docs.scala-lang.org/cheatsheets/)
+- [Tour Of Scala](https://docs.scala-lang.org/tour/tour-of-scala.html)
 
-### Tour of Scala
-[https://docs.scala-lang.org/tour/tour-of-scala.html](https://docs.scala-lang.org/tour/tour-of-scala.html)
+## Cats
+- [Cats](https://typelevel.org/cats/)
+- [Cats Doc](https://typelevel.org/cats/api/cats/index.html)
+- [Cats-Effect](https://typelevel.org/cats-effect/)
+- [Cats-Effect Doc](https://typelevel.org/cats-effect/api/)
+- [Cats Type Classes](https://github.com/tpolecat/cats-infographic)
 
-### Scala Standard Library
-[https://www.scala-lang.org/api/current/](https://www.scala-lang.org/api/current/)
-
-### Monix Minitest
-[https://github.com/monix/minitest](https://github.com/monix/minitest)
-
-### Cats
-[https://github.com/typelevel/cats](https://github.com/typelevel/cats)
-
-### Cats-Effect
-[https://github.com/typelevel/cats-effect](https://github.com/typelevel/cats-effect)
-
-### Cats Type Classes
-[https://github.com/tpolecat/cats-infographic](https://github.com/tpolecat/cats-infographic)
+## Test 
+- [Minitest](https://github.com/monix/minitest)
