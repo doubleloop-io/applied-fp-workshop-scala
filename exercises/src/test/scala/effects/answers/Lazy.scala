@@ -5,21 +5,21 @@ import minitest._
 object LazyTests extends SimpleTestSuite {
 
   case class Lazy[A](value: () => A) {
-    def chain[B](f: A => B): Lazy[B] =
-      Lazy.of(() => f(value()))
+    def map[B](f: A => B): Lazy[B] =
+      Lazy.pure(() => f(value()))
 
-    def chainLazy[B](f: A => Lazy[B]): Lazy[B] =
-      Lazy.of(() => f(value()).value())
+    def flatMap[B](f: A => Lazy[B]): Lazy[B] =
+      Lazy.pure(() => f(value()).value())
   }
 
   object Lazy {
-    def of[A](a: () => A): Lazy[A] = Lazy(a)
+    def pure[A](a: () => A): Lazy[A] = Lazy(a)
   }
 
   test("lift a value into a container") {
     def expensiveComputation() = 6 + 4
     val c = Lazy
-      .of(expensiveComputation _)
+      .pure(expensiveComputation _)
 
     assertEquals(c.value(), 10)
   }
@@ -29,19 +29,20 @@ object LazyTests extends SimpleTestSuite {
   test("chain not container-aware functions") {
     def expensiveComputation() = 6 + 4
     val c = Lazy
-      .of(expensiveComputation _)
-      .chain(increment)
+      .pure(expensiveComputation _)
+      .map(increment)
 
     assertEquals(c.value(), 11)
   }
 
-  def reversedString(x: Int): Lazy[String] = Lazy.of(() => x.toString.reverse)
+  def reversedString(x: Int): Lazy[String] =
+    Lazy.pure(() => x.toString.reverse)
 
   test("chain container-aware functions") {
     def expensiveComputation() = 6 + 4
     val c = Lazy
-      .of(expensiveComputation _)
-      .chainLazy(reversedString)
+      .pure(expensiveComputation _)
+      .flatMap(reversedString)
 
     assertEquals(c.value(), "01")
   }
