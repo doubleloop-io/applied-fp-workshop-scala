@@ -4,6 +4,12 @@ import minitest._
 
 object FoldableTests extends SimpleTestSuite {
 
+  /*
+   * TODO: Follow the instruction in the ignores
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   */
+
   case class Item(qty: Int)
 
   def checkIn(item: Item, qty: Int): Item =

@@ -4,6 +4,12 @@ import minitest._
 
 object MixTests extends SimpleTestSuite {
 
+  /*
+   * TODO: Follow the instruction in the ignores
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   */
+
   import cats.implicits._
 
   case class Item(name: String, qty: Int)

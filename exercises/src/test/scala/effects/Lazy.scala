@@ -4,6 +4,12 @@ import minitest._
 
 object LazyTests extends SimpleTestSuite {
 
+  /*
+   * TODO: Follow the instruction in the ignores
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   */
+
   case class Lazy[A](value: () => A) {
     def map[B](f: A => B): Lazy[B] = ???
 

@@ -4,6 +4,12 @@ import minitest._
 
 object TraverseTests extends SimpleTestSuite {
 
+  /*
+   * TODO: Follow the instruction in the ignores
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   */
+
   import cats.implicits._
 
   case class Item(qty: Int)

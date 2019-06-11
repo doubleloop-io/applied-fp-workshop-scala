@@ -4,6 +4,12 @@ import minitest._
 
 object MonadicFuncTests extends SimpleTestSuite {
 
+  /*
+   * TODO: Follow the instruction in the ignores
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   */
+
   import cats.data._
   import cats.implicits._
   import cats.effect._
@@ -52,6 +58,8 @@ object MonadicFuncTests extends SimpleTestSuite {
   test("count find iterations") {
     import CountHowManyIteration._
 
+    ignore("keep test green but w/out side-effects")
+    ignore("use state monad and findM")
     val result = people.find(ageOver(40))
     var count  = iterationCount
 
@@ -72,6 +80,8 @@ object MonadicFuncTests extends SimpleTestSuite {
   test("log find iterations") {
     import WhatWereInspected._
 
+    ignore("keep test green but w/out side-effects")
+    ignore("use writer monad and findM")
     val result = people.find(ageOver(40))
     val log    = inspected
 
@@ -97,6 +107,8 @@ object MonadicFuncTests extends SimpleTestSuite {
   test("io - found") {
     import OutOfProc._
 
+    ignore("keep test green but w/out side-effects")
+    ignore("use IO monad, attempt and findM")
     val result = people.find(ageOver(40))
 
     assertEquals(result, Some(john))
@@ -105,6 +117,8 @@ object MonadicFuncTests extends SimpleTestSuite {
   test("io - not found") {
     import OutOfProc._
 
+    ignore("keep test green but w/out side-effects")
+    ignore("use IO monad, attempt and findM")
     val result = people.find(ageOver(50))
 
     assertEquals(result, None)
@@ -113,8 +127,9 @@ object MonadicFuncTests extends SimpleTestSuite {
   test("io - fail") {
     import OutOfProc._
 
+    ignore("keep test green but w/out side-effects")
+    ignore("use IO monad, attempt and findM")
     intercept[UnreachableServer] {
-
       val result = people.find(ageOverKaboom(40))
     }
   }

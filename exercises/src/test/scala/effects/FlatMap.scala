@@ -4,6 +4,12 @@ import minitest._
 
 object FlatMapTests extends SimpleTestSuite {
 
+  /*
+   * TODO: Follow the instruction in the ignores
+   *
+   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   */
+
   case class Item(qty: Int)
 
   def createItem(qty: String): Option[Item] =
