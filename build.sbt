@@ -68,7 +68,6 @@ lazy val scalacSettings = Seq(
   "-Ypartial-unification",
   "-Yrangepos",
   "-Yno-adapted-args",
-  "-Ywarn-dead-code",
   "-Ywarn-numeric-widen",
   "-Ywarn-value-discard",
   "-Ywarn-extra-implicit",
