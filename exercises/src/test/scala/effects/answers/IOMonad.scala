@@ -26,14 +26,11 @@ object IOMonadTests extends SimpleTestSuite {
       .map(checkIn(10, _))
       // save item
       .flatMap(save)
-      // materializes any exceptions into value
-      .attempt
 
     // run the computation
     program.unsafeRunSync()
 
-    // keep for the test
-    ()
+    () // keep for the test
   }
 
 }
