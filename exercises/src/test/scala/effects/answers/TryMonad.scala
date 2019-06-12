@@ -29,7 +29,7 @@ object TryMonadTests extends SimpleTestSuite {
       .flatMap(save)
 
     // run the computation
-    program.get
+    program.fold("err " + _.getMessage, "value " + _)
 
     () // keep for the test
   }

@@ -21,10 +21,14 @@ object FutureMonadTests extends SimpleTestSuite {
     item.copy(qty = item.qty + qty)
 
   test("scenario") {
+    ignore("implement follow steps")
     // load an item
     // checkIn 10
     // save item
+    val program: Future[Unit] = ???
+
     // run the computation
+    Await.result(program, 1.second)
 
     () // keep for the test
   }

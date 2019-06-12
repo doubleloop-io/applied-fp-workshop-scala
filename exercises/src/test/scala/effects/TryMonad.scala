@@ -21,10 +21,14 @@ object TryMonadTests extends SimpleTestSuite {
     item.copy(qty = item.qty + qty)
 
   test("scenario") {
+    ignore("implement follow steps")
     // load an item
     // checkIn 10
     // save item
+    val program: Try[Unit] = ???
+
     // run the computation
+    program.fold("err " + _.getMessage, "value " + _)
 
     () // keep for the test
   }

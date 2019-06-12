@@ -20,10 +20,14 @@ object IOMonadTests extends SimpleTestSuite {
     item.copy(qty = item.qty + qty)
 
   test("scenario") {
+    ignore("implement follow steps")
     // load an item
     // checkIn 10
     // save item
+    val program: IO[Unit] = ???
+
     // run the computation
+    program.unsafeRunSync()
 
     () // keep for the test
   }
