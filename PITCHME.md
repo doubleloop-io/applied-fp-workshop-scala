@@ -113,7 +113,7 @@ see “function” as the @color[IndianRed](mathematical) one:
 ### @color[IndianRed](without changing) the program's behavior
 
 ---
-## With RT these two programs are @color[GoldenRod](equivalent)
+### It means these two programs are @color[GoldenRod](equivalent)
 ```scala
 val y = foo(x)
 val z = y + y
@@ -124,7 +124,7 @@ val z = foo(x) + foo(x)
 ```
 
 ---
-## With RT functions get an @color[IndianRed](extraordinary quality) boost:
+### With RT functions get an @color[IndianRed](extraordinary quality) boost:
 - easier to @color[GoldenRod](reason)
 - easier to @color[GoldenRod](compose)
 - easier to @color[GoldenRod](refactor)
@@ -132,9 +132,8 @@ val z = foo(x) + foo(x)
 
 ---
 ## @color[GoldenRod](pssss...)
-### mathematicians do 
-### @color[IndianRed](refactor their "code")
-### since long before us
+mathematicians do @color[IndianRed](refactor their "code") since long before us
+
 `\[
 x(y + z) = (xy) + (xz) 
 \]`
