@@ -60,6 +60,7 @@ we dedicate a @color[IndianRed](significant) portion of code and effort to @colo
 ## side-effects
 
 ---
+### un@color[GoldenRod](composable)
 ```scala
 val toS : Int => String = n => {
   appendAll("log.txt", "some content")
@@ -68,6 +69,7 @@ val toS : Int => String = n => {
 ```
 
 ---
+### un@color[GoldenRod](composable)
 ```scala
 val list = collection.mutable.ListBuffer[Int]()
 
@@ -116,7 +118,7 @@ val z = foo(x) + foo(x)
 ```
 
 ---
-### with referential transparency functions are:
+### with @color[IndianRed](referential transparency) functions are:
 - easier to @color[GoldenRod](reason)
 - easier to @color[GoldenRod](compose)
 - easier to @color[GoldenRod](refactor)
