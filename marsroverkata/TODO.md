@@ -1,10 +1,12 @@
 # Enanched Mars Rover Kata
 
 You’re part of the team that explores Mars by sending remotely controlled vehicles to the surface of the planet.
-Implement an application that simulates the movement of a rover on a planet.
+Implement an application that simulates the movement of a rover on a planet with data provided by user.
 
-NOTE: for each version: first model all functions signatures (use ??? marker) and then implement them.
+NOTE: for each version try to first model all functions signatures (use ??? marker) and then implement them.
 The idea is to get a quick and cheap responsibility distribution phase.
+
+For a full kata explanation see: https://kata-log.rocks/mars-rover-kata
 
 ## V1 - Focus on the center (pure domain logic and types)
 
@@ -12,11 +14,11 @@ Develop an API that translates the commands sent from earth to instructions that
 
 - The planet is divided into a grid with x (width) and y (height) size.
 - The rover has a position expressed as x, y co-ordinates and an orientation (North, Est, West, South).
-- The rover can handle four commands: TurnLeft, TurnRight, MoveForward, MoveBackward.
+- The rover can handle four commands: turn left or right, move forward or backward.
 - Commands are sent in batch (like an array)
 - Implement wrapping from one edge of the grid to another (pacman effect).
 
-## V2 - Focus on boundaries (from primitive types to domain types)
+## V2 - Focus on boundaries (from primitive types to domain types and viceversa)
 
 Our domain is composed by rich types but input/output data must be privitive
 
@@ -26,7 +28,7 @@ Our domain is composed by rich types but input/output data must be privitive
 
 ## V3 - More domain logic (partial function in domain logic)
 
-We discover that there are are obstacles on the planet.
+We discover that there are obstacles on the planet.
 
 - domain logic:
   - An obstacle has a position expressed as x, y co-ordinates.
