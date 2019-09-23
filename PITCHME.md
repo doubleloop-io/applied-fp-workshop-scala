@@ -57,7 +57,7 @@
 ## In Complex System 
 ### we dedicate a @color[IndianRed](significant)
 ### portion of code and effort 
-### to color @[GoldenRod](compose) pieces togheter
+### to @color[GoldenRod](compose) pieces togheter
 
 ---
 ## @color[GoldenRod](who) is the number one @color[IndianRed](enemy) of composition?
@@ -108,9 +108,9 @@ see “function” as the @color[IndianRed](mathematical) one:
 ### all functions become @color[GoldenRod](referentially transparent)
 
 ---
-### An @color[GoldenRod](expression can be replaced) with
-### its corresponding value @color[IndianRed](without changing)
-### the program's behavior
+### An @color[GoldenRod](expression can be replaced)
+### with its corresponding value 
+### @color[IndianRed](without changing) the program's behavior
 
 ---
 ## With RT these two programs are @color[GoldenRod](equivalent)
