@@ -38,13 +38,13 @@ lazy val inventory = project
 
 lazy val settings = Seq(
   organization := "io.doubleloop",
-  scalaVersion := "2.12.8",
+  scalaVersion := "2.12.10",
   version := "0.1.0-SNAPSHOT",
   scalacOptions ++= scalacSettings,
   resolvers ++= resolversSettings,
   libraryDependencies ++= libsSettings,
   testFrameworks += new TestFramework("minitest.runner.Framework"),
-  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.0"),
+  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
 )
 
 lazy val scalacSettings = Seq(
@@ -81,20 +81,10 @@ lazy val resolversSettings = Seq(
   Resolver.sonatypeRepo("releases")
 )
 
-lazy val Http4sVersion  = "0.20.1"
-lazy val LogbackVersion = "1.2.3"
-lazy val CirceVersion   = "0.11.1"
-
 lazy val libsSettings = Seq(
   "org.typelevel"  %% "cats-core"           % "1.6.1",
-  "org.typelevel"  %% "cats-effect"         % "1.3.1",
-  "org.typelevel"  %% "cats-mtl-core"       % "0.5.0",
-  "net.debasishg"  %% "redisclient"         % "3.9",
-  "io.circe"       %% "circe-core"          % CirceVersion,
-  "io.circe"       %% "circe-generic"       % CirceVersion,
-  "org.http4s"     %% "http4s-blaze-server" % Http4sVersion,
-  "org.http4s"     %% "http4s-circe"        % Http4sVersion,
-  "org.http4s"     %% "http4s-dsl"          % Http4sVersion,
-  "ch.qos.logback" % "logback-classic"      % LogbackVersion,
-  "io.monix"       %% "minitest"            % "2.4.0" % Test
+  "org.typelevel"  %% "cats-effect"         % "1.4.0",
+  "org.typelevel"  %% "cats-mtl-core"       % "0.7.0",
+  "net.debasishg"  %% "redisclient"         % "3.10",
+  "io.monix"       %% "minitest"            % "2.7.0" % Test
 )
