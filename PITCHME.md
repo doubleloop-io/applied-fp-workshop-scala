@@ -1,5 +1,5 @@
 # @color[GoldenRod](Why)
-# go functional?
+# embrace FP?
 
 ---
 ## before we jump to that...
