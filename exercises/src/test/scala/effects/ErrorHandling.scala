@@ -43,7 +43,7 @@ object ErrorHandlingTests extends SimpleTestSuite {
   }
 
   test("Try - dynamic style") {
-    import scala.util.{Failure, Success, Try}
+    import scala.util.{ Failure, Success, Try }
 
     def compute(value: Int): Try[Int] =
       if (value > 0) Success(value * 2)
@@ -111,7 +111,7 @@ object ErrorHandlingTests extends SimpleTestSuite {
   }
 
   test("convert from Try to Either") {
-    import scala.util.{Failure, Success, Try}
+    import scala.util.{ Failure, Success, Try }
 
     case class BadParamException() extends RuntimeException("bad param")
 

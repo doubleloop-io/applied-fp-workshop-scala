@@ -86,7 +86,7 @@ object FPStyle {
   } yield Item(desc, qty, size)
 
   def test[A](ga: Generator[A], count: Int = 100)(
-      predicate: A => Boolean
+    predicate: A => Boolean
   ): Unit = {
     for (_ <- 1 until count) {
       val value  = ga.run()

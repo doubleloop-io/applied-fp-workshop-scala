@@ -4,7 +4,7 @@ import minitest._
 
 object MapReduceTests extends SimpleTestSuite {
 
-  import cats.{Monoid, Traverse}
+  import cats.{ Monoid, Traverse }
 
   def mapReduce[F[_]: Traverse, A, B: Monoid](fa: F[A])(f: A => B): B =
     Traverse[F].foldMap(fa)(f)

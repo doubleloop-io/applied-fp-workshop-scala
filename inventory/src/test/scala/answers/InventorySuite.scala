@@ -12,8 +12,8 @@ import inventory.answers.ItemRepository.ItemNotFoundException
 trait InventorySuite extends SimpleTestSuite {
 
   case class TestState(
-      generatedId: UUID,
-      items: Map[ItemId, Item] = Map()
+    generatedId: UUID,
+    items: Map[ItemId, Item] = Map()
   )
 
   type Test[A]       = State[TestState, A]
