@@ -25,7 +25,7 @@
 
 ---
 # @color[GoldenRod](Why)
-# functional programming?
+# embrace FP?
 
 ---
 ## @color[GoldenRod](composition)
@@ -34,14 +34,14 @@
 <img src="assets/drboolean.png" >
 
 ---
-# why @color[GoldenRod](composition) is so @color[IndianRed](important)?
+## why @color[GoldenRod](composition) is so @color[IndianRed](important)?
 
 ---
 > How do we solve problems? 
-> We decompose bigger problems into smaller problems. 
-> If the smaller problems are still too big, we decompose them further, and so on.
 
 ---
+> We decompose bigger problems into smaller problems. 
+> If the smaller problems are still too big, we decompose them further, and so on.
 > Finally, we write code that solves all the small problems.
 
 ---
