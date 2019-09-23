@@ -34,7 +34,7 @@ object MixTests extends SimpleTestSuite {
     // checkOut 15 to each items
     val c: Option[List[Item]] = b.flatMap(_.traverse(checkOut(15, _)))
     // sum all items
-    val d: Option[Int] = b.map(_.foldLeft(0)(_ + _.qty))
+    val d: Option[Int] = c.map(_.foldLeft(0)(_ + _.qty))
     // render a string
     val e: String = d.fold("we can't, sorry")(_.toString)
     e
@@ -43,7 +43,7 @@ object MixTests extends SimpleTestSuite {
   test("complex scenario - ok") {
     val values = List(("foo", "100"), ("bar", "10"))
     val result = complex(values)
-    assertEquals(result, "130")
+    assertEquals(result, "100")
   }
 
   test("complex scenario - bad name") {
