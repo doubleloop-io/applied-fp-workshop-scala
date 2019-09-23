@@ -8,11 +8,12 @@ import cats.implicits._
 
 object Version2 {
 
-  def run(planet: String, rover: (String, String), commands: String): Either[NonEmptyList[Error], String] =
+  def run(planet: String, rover: (String, String), commands: String): Either[List[Error], String] =
     init(planet, rover)
       .map(execute(_, parseCommands(commands)))
       .map(m => render(m.rover))
       .toEither
+      .leftMap(_.toList)
 
   sealed trait Error
   case class InvalidPlanet(value: String, error: String) extends Error
@@ -22,7 +23,7 @@ object Version2 {
     Try {
       val parts = raw.split(separator)
       (parts(0).trim.toInt, parts(1).trim.toInt)
-    }.map(t => ctor(t._1, t._2))
+    }.map(ctor.tupled(_))
 
   def parsePlanet(raw: String): ValidatedNel[Error, Planet] =
     parseSize(raw).map(Planet.apply)

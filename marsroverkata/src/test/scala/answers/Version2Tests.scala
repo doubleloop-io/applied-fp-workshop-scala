@@ -22,9 +22,9 @@ object Version2Tests extends SimpleTestSuite {
     assertEquals(
       result,
       Left(
-        NonEmptyList.of(InvalidPlanet("ax4", "InvalidSize"),
-                        InvalidRover("1,c", "InvalidPosition"),
-                        InvalidRover("X", "InvalidDirection"))
+        List(InvalidPlanet("ax4", "InvalidSize"),
+             InvalidRover("1,c", "InvalidPosition"),
+             InvalidRover("X", "InvalidDirection"))
       )
     )
   }

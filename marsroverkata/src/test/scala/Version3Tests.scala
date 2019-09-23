@@ -13,13 +13,17 @@ object Version3Tests extends SimpleTestSuite {
 
   test("opposite angle") {
     ignore()
-    // val result = run("5x4", "2,0 0,3 3,2", "0,0:N", "RBBLBRF")
+    // val planet = ("5x4", "2,0 0,3 3,2")
+    // val rover  = ("0,0", "N")
+    // val result = run(planet, rover, "RBBLBRF")
     // assertEquals(result, Right("4:3:E"))
   }
 
   test("hit obstacle") {
     ignore()
-    // val result = run("5x4", "2,0 0,3 3,2", "0,0:N", "RFF")
+    // val planet = ("5x4", "2,0 0,3 3,2")
+    // val rover  = ("0,0", "N")
+    // val result = run(planet, rover, "RFF")
     // assertEquals(result, Right("O:1:0:E"))
   }
 }

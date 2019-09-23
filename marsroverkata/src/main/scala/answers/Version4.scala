@@ -35,7 +35,7 @@ object Version4 {
   def logError(message: String): IO[Unit] =
     puts(s"${RED}ERROR: ${message}${RESET}")
 
-  def handleApp(logger: String => IO[Unit]): IO[Either[NonEmptyList[Error], String]] => IO[String] =
+  def handleApp(logger: String => IO[Unit]): IO[Either[List[Error], String]] => IO[String] =
     app =>
       app
         .flatMap(e => IO.fromEither(e.leftMap(AppError)))
@@ -45,13 +45,14 @@ object Version4 {
   def handleUnexpected(logger: String => IO[Unit]): Either[Throwable, String] => IO[String] =
     e => e.fold(ex => logger(ex.getMessage) *> IO.pure("Ooops :-("), IO.pure)
 
-  def run(planet: (String, String), rover: (String, String), commands: String): Either[NonEmptyList[Error], String] =
+  def run(planet: (String, String), rover: (String, String), commands: String): Either[List[Error], String] =
     init(planet, rover)
       .map(execute(_, parseCommands(commands)))
       .map(_.bimap(_.rover, _.rover).fold(renderHit, render))
       .toEither
+      .leftMap(_.toList)
 
-  case class AppError(errs: NonEmptyList[Error]) extends RuntimeException
+  case class AppError(errs: List[Error]) extends RuntimeException
 
   sealed trait Error
   case class InvalidPlanet(value: String, error: String)   extends Error
@@ -62,7 +63,7 @@ object Version4 {
     Try {
       val parts = raw.split(separator)
       (parts(0).trim.toInt, parts(1).trim.toInt)
-    }.map(t => ctor(t._1, t._2))
+    }.map(ctor.tupled(_))
 
   def parsePlanet(raw: (String, String)): ValidatedNel[Error, Planet] =
     raw

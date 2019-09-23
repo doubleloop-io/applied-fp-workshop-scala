@@ -12,6 +12,7 @@ import cats.implicits._
 object Version2Tests extends SimpleTestSuite {
 
   test("opposite angle") {
+    ignore()
     /*
         Plant: 5 4
         Rover: 0 0 N
@@ -19,20 +20,20 @@ object Version2Tests extends SimpleTestSuite {
         --
         Right(Rover: 4 3 E)
      */
-    ignore()
     // val result = run("5x4", "0,0:N", "RBBLBRF")
-    // assertEquals(result, Right("4:3:E"))
   }
 
   test("all inputs are bad") {
+    ignore()
     /*
         Plant: a 4
-        Rover: 1 c N
+        Rover: 1 c X
         Commands: RBRF
         --
-        Left([InvalidPlanet, InvalidRover])
+        Left(["Invalid Planet Size",
+              "Invalid Rover Position",
+              "Invalid Rover Direction"])
      */
-    ignore()
     // val result = run("ax4", "1,c:N", "RBRF")
   }
 }

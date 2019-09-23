@@ -26,7 +26,7 @@ object Version4Tests extends SimpleTestSuite {
     val commands = IO.pure("RFF")
     val app      = (planet, rover, commands).mapN(run)
     val result   = app.unsafeRunSync()
-    assertEquals(result, Left(NonEmptyList.of(InvalidPlanet("ax4", "InvalidSize"))))
+    assertEquals(result, Left(List(InvalidPlanet("ax4", "InvalidSize"))))
   }
 
   test("simulate app throws unexpectedly") {
