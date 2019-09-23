@@ -38,10 +38,7 @@
 ## so @color[IndianRed](important)?
 
 ---
-## the anwser by Bartosz Milewski is ...
-
----
-> How do we solve problems? 
+## How do we solve problems? 
 
 ---
 > We decompose bigger problems into smaller problems. <br />
@@ -49,18 +46,18 @@
 > Finally, we write code that solves all the small problems.
 
 ---
-> And then comes the essence of programming:
+> And then comes the essence of programming: <br />
 > we compose those pieces of code to create solutions to larger problems.
 
 ---
-> Decomposition wouldn’t make sense if we weren’t able to put the pieces back together. - Bartosz Milewski
+> Decomposition wouldn’t make sense if we weren’t able to put the pieces back together. <br />
+> - Bartosz Milewski
 
 ---
-## True Story
-### In Complex System we dedicate 
-### @color[IndianRed](a significant portion)
-### of code and effort 
-### @color[GoldenRod](to compose) pieces togheter
+## In Complex System 
+### we dedicate a @color[IndianRed](significant)
+### portion of code and effort 
+### @to color[GoldenRod](compose) pieces togheter
 
 ---
 ## @color[GoldenRod](who) is the number one @color[IndianRed](enemy) of composition?
@@ -69,7 +66,7 @@
 ## side-effects
 
 ---
-## it can't compose
+## it can't easily compose
 ```scala
 val toS : Int => String = n => {
   appendAll("log.txt", "some content")
@@ -78,7 +75,7 @@ val toS : Int => String = n => {
 ```
 
 ---
-## it can't compose
+## it can't easily compose
 ```scala
 val list = collection.mutable.ListBuffer[Int]()
 
@@ -96,8 +93,8 @@ val toS : Int => String = n => {
 - destroy composability
 
 ---
-## In other words
-FP is about @color[IndianRed](eliminating) or @color[GoldenRod](controlling) side-effects
+## Functional Programming
+### is about @color[IndianRed](eliminating) or @color[GoldenRod](controlling) side-effects
 
 ---
 ## How?
@@ -108,7 +105,7 @@ see “function” as the @color[IndianRed](mathematical) one:
 
 ---
 ## We earn back
-all functions become @color[GoldenRod](referentially transparent)
+### all functions become @color[GoldenRod](referentially transparent)
 
 ---
 ## Referential Transparency
