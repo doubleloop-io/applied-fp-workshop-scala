@@ -1,5 +1,5 @@
-# @color[GoldenRod](why)
-# embrace FP?
+## @color[GoldenRod](why) embrace 
+## functional programming?
 
 ---
 ## before we jump to that...
@@ -24,8 +24,8 @@
 ## to @color[IndianRed](experiment) and @color[IndianRed](fail)
 
 ---
-# @color[GoldenRod](why)
-# embrace FP?
+## @color[GoldenRod](why) embrace 
+## functional programming?
 
 ---
 ## @color[GoldenRod](composition)
@@ -34,11 +34,7 @@
 <img src="assets/drboolean.png" >
 
 ---
-## why @color[GoldenRod](composition) is
-## so @color[IndianRed](important)?
-
----
-## How do we solve problems? 
+## How do we @color[GoldenRod](solve) problems? 
 
 ---
 > We decompose bigger problems into smaller problems. <br />
@@ -55,9 +51,7 @@
 
 ---
 ## In Complex System 
-### we dedicate a @color[IndianRed](significant)
-### portion of code and effort 
-### to @color[GoldenRod](compose) pieces togheter
+we dedicate a @color[IndianRed](significant) portion of code and effort to @color[GoldenRod](compose) pieces togheter
 
 ---
 ## @color[GoldenRod](who) is the number one @color[IndianRed](enemy) of composition?
@@ -66,7 +60,6 @@
 ## side-effects
 
 ---
-## it can't easily compose
 ```scala
 val toS : Int => String = n => {
   appendAll("log.txt", "some content")
@@ -75,7 +68,6 @@ val toS : Int => String = n => {
 ```
 
 ---
-## it can't easily compose
 ```scala
 val list = collection.mutable.ListBuffer[Int]()
 
@@ -113,7 +105,7 @@ see “function” as the @color[IndianRed](mathematical) one:
 ### @color[IndianRed](without changing) the program's behavior
 
 ---
-### It means these two programs are @color[GoldenRod](equivalent)
+### These two programs are @color[GoldenRod](equivalent)
 ```scala
 val y = foo(x)
 val z = y + y
@@ -124,7 +116,7 @@ val z = foo(x) + foo(x)
 ```
 
 ---
-### With RT functions get an @color[IndianRed](extraordinary quality) boost:
+### with referential transparency functions are:
 - easier to @color[GoldenRod](reason)
 - easier to @color[GoldenRod](compose)
 - easier to @color[GoldenRod](refactor)
@@ -132,7 +124,7 @@ val z = foo(x) + foo(x)
 
 ---
 ## @color[GoldenRod](pssss...)
-mathematicians do @color[IndianRed](refactor their "code") since long before us
+mathematicians do @color[IndianRed](refactor) their "code" since long before us
 
 `\[
 x(y + z) = (xy) + (xz) 
