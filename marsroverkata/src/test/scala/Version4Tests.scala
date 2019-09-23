@@ -32,7 +32,7 @@ object Version4Tests extends SimpleTestSuite {
     // assertEquals(result, Left(NonEmptyList.of(InvalidPlanet("ax4", "InvalidSize"))))
   }
 
-  test("simulate app throws unexpectedly") {
+  test("simulate app throws RuntimeException") {
     ignore()
     // val planet                      = IO.pure(("5x4", "2,0 0,3 3,2"))
     // val rover: IO[(String, String)] = IO(throw new RuntimeException("boom!"))

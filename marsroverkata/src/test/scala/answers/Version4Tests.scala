@@ -29,7 +29,7 @@ object Version4Tests extends SimpleTestSuite {
     assertEquals(result, Left(List(InvalidPlanet("ax4", "InvalidSize"))))
   }
 
-  test("simulate app throws unexpectedly") {
+  test("simulate app throws RuntimeException") {
     val planet                      = IO.pure(("5x4", "2,0 0,3 3,2"))
     val rover: IO[(String, String)] = IO(throw new RuntimeException("boom!"))
     val commands                    = IO.pure("RFF")

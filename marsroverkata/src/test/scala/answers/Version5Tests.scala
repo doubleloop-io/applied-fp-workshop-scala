@@ -30,7 +30,7 @@ object Version5Tests extends SimpleTestSuite {
     assertEquals(result, Left(NonEmptyList.of(InvalidPlanet("ax4", "InvalidSize"))))
   }
 
-  test("simulate app throws unexpectedly") {
+  test("simulate app throws RuntimeException") {
 
     def scenario(ref: Ref[IO, Int]) = {
       implicit val silent = new Logger[IO] {
