@@ -1,4 +1,4 @@
-# @color[GoldenRod](Why)
+# @color[GoldenRod](why)
 # embrace FP?
 
 ---
@@ -24,7 +24,7 @@
 ## to @color[IndianRed](experiment) and @color[IndianRed](fail)
 
 ---
-# @color[GoldenRod](Why)
+# @color[GoldenRod](why)
 # embrace FP?
 
 ---
@@ -57,7 +57,7 @@
 ## In Complex System 
 ### we dedicate a @color[IndianRed](significant)
 ### portion of code and effort 
-### @to color[GoldenRod](compose) pieces togheter
+### to color @[GoldenRod](compose) pieces togheter
 
 ---
 ## @color[GoldenRod](who) is the number one @color[IndianRed](enemy) of composition?
@@ -108,14 +108,12 @@ see “function” as the @color[IndianRed](mathematical) one:
 ### all functions become @color[GoldenRod](referentially transparent)
 
 ---
-## Referential Transparency
-An @color[GoldenRod](expression can be replaced) with<br />
-its corresponding value @color[IndianRed](without changing)<br >
-the program's behavior
+### An @color[GoldenRod](expression can be replaced) with
+### its corresponding value @color[IndianRed](without changing)
+### the program's behavior
 
 ---
-## Referential Transparency
-it means these two programs are @color[GoldenRod](equivalent)
+## With RT these two programs are @color[GoldenRod](equivalent)
 ```scala
 val y = foo(x)
 val z = y + y
@@ -126,8 +124,7 @@ val z = foo(x) + foo(x)
 ```
 
 ---
-## RT Benefits
-functions get an @color[IndianRed](extraordinary quality) boost:
+## With RT functions get an @color[IndianRed](extraordinary quality) boost:
 - easier to @color[GoldenRod](reason)
 - easier to @color[GoldenRod](compose)
 - easier to @color[GoldenRod](refactor)
