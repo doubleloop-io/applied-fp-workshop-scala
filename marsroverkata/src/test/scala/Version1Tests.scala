@@ -54,7 +54,7 @@ object Version1Tests extends SimpleTestSuite {
     /*
         Planet: 5 4
         Rover: 0 0 S
-        Commands: FFFFFFF
+        Commands: F
         --
         Rover: 0 3 S
      */
