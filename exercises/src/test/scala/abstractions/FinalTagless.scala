@@ -19,7 +19,7 @@ object FinalTaglessTests extends SimpleTestSuite {
    *       Exp (F-algebra). Implements IOEvaluator
    *       and then uncomment and complete the test
    *
-   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   import cats.implicits._

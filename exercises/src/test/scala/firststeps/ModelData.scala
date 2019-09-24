@@ -47,7 +47,7 @@ object ModelData extends SimpleTestSuite {
    *       plus three face cards in each suit: Knight (worth 8), Queen (worth 9) and King (worth 10).
    *       Each player receives three cards. The dealer will also place four cards face up on the table.
    *
-   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   test("represent initial match state") {

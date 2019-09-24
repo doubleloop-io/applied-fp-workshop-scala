@@ -19,7 +19,7 @@ object PatternMatchDispatch extends SimpleTestSuite {
    *       to pattern match dispatch.
    *       Keep tests green.
    *
-   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   trait Direction {

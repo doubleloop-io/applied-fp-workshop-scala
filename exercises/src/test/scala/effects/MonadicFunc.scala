@@ -7,7 +7,7 @@ object MonadicFuncTests extends SimpleTestSuite {
   /*
    * TODO: Follow the instruction in the ignores
    *
-   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   import cats.data._

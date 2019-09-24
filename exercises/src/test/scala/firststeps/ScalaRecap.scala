@@ -20,7 +20,7 @@ object ScalaRecap extends SimpleTestSuite {
    *       uncomment the code,
    *       and add the code to get a green test
    *
-   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   test("define case class") {

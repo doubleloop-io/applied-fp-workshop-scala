@@ -19,7 +19,7 @@ object ErrorHandlingTests extends SimpleTestSuite {
    * TODO: remove ignores and
    *       implements functions marked with `???`
    *
-   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   test("should throw demo") {

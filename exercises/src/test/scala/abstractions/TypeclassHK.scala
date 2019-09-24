@@ -39,7 +39,7 @@ object TypeclassHKTests extends SimpleTestSuite {
    *       Implements class instance.
    *       Implements MRUList.add.
    *
-   * ADD YOUR CODE HERE INSIDE THE OBJECT
+   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   trait Stack[F[_]] {}
