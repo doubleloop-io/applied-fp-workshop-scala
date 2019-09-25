@@ -32,19 +32,25 @@ object MixTests extends SimpleTestSuite {
     if (qty <= item.qty) Some(item.copy(qty = item.qty - qty))
     else None
 
-  def complex(values: List[(String, String)]): String =
+  def complex(values: List[(String, String)]): String = {
     // create items from values
+    val a = ???
     // checkIn 10 to each items
+    val b = ???
     // checkOut 15 to each items
+    val c = ???
     // sum all items
+    val d = ???
     // render a string
-    ???
+    val e = ???
+    e
+  }
 
   test("complex scenario - ok") {
     ignore("implement complex function")
     val values = List(("foo", "100"), ("bar", "10"))
     val result = complex(values)
-    assertEquals(result, "130")
+    assertEquals(result, "100")
   }
 
   test("complex scenario - bad name") {
