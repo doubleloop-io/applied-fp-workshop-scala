@@ -17,7 +17,7 @@ object LazyTests extends SimpleTestSuite {
   }
 
   object Lazy {
-    def pure[A](a: () => A): Lazy[A] = Lazy(a)
+    def pure[A](a: () => A): Lazy[A] = ???
   }
 
   test("lift a value into a container") {
