@@ -13,10 +13,10 @@ object EitherMonadTests extends SimpleTestSuite {
 
   type Error = String
 
-  def load(id: ItemId): Either[String, Item] =
+  def load(id: ItemId): Either[Error, Item] =
     Right(Item(id, 100))
 
-  def save(item: Item): Either[String, Unit] =
+  def save(item: Item): Either[Error, Unit] =
     Right(())
 
   def checkIn(qty: Int, item: Item): Item =
