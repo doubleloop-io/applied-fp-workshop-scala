@@ -22,9 +22,7 @@ object ExamplesTests extends InventorySuite {
     val program = Examples.demoOk[TestResult]
     val result  = runTestResult(program, init)
 
-    assertRight(result) { ts =>
-      assertEquals(ts.items(id), Item(id, "pens", 12, false))
-    }
+    assertRight(result)(ts => assertEquals(ts.items(id), Item(id, "pens", 12, false)))
   }
 
   test("demo bad name") {
@@ -54,8 +52,6 @@ object ExamplesTests extends InventorySuite {
     val program = Examples.demoNotFound[TestResult]
     val result  = runTestResult(program, init)
 
-    assertLeft(result) { ex =>
-      assertEquals(ex, ItemNotFoundException(id))
-    }
+    assertLeft(result)(ex => assertEquals(ex, ItemNotFoundException(id)))
   }
 }

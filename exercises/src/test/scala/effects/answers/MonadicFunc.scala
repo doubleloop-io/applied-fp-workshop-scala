@@ -72,10 +72,10 @@ object MonadicFuncTests extends SimpleTestSuite {
     // particularly it can fial for many reasons
 
     def ageOver(age: Int): Person => IO[Boolean] =
-      p => IO { p.age > age }
+      p => IO(p.age > age)
 
     def ageOverKaboom(age: Int): Person => IO[Boolean] =
-      p => IO { throw UnreachableServer("server unreachable") }
+      p => IO(throw UnreachableServer("server unreachable"))
 
     case class UnreachableServer(error: String) extends RuntimeException
   }

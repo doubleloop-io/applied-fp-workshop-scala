@@ -38,13 +38,13 @@ lazy val inventory = project
 
 lazy val settings = Seq(
   organization := "io.doubleloop",
-  scalaVersion := "2.12.10",
+  scalaVersion := "2.13.1",
   version := "0.1.0-SNAPSHOT",
   scalacOptions ++= scalacSettings,
   resolvers ++= resolversSettings,
   libraryDependencies ++= libsSettings,
   testFrameworks += new TestFramework("minitest.runner.Framework"),
-  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
+  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1")
 )
 
 lazy val scalacSettings = Seq(
@@ -59,19 +59,11 @@ lazy val scalacSettings = Seq(
   "-language:higherKinds",
   "-opt:l:inline",
   "-opt-inline-from:<source>",
-  "-Ypartial-unification",
   "-Yrangepos",
-  "-Yno-adapted-args",
   "-Ywarn-numeric-widen",
   "-Ywarn-value-discard",
   "-Ywarn-extra-implicit",
-  "-Ywarn-inaccessible",
-  "-Ywarn-infer-any",
-  "-Ywarn-nullary-override",
-  "-Ywarn-nullary-unit",
-  "-Xsource:2.13",
   "-Xlint:_,-type-parameter-shadow,-unused",
-  "-Xfuture",
   "-Xfatal-warnings"
 )
 
@@ -82,9 +74,9 @@ lazy val resolversSettings = Seq(
 )
 
 lazy val libsSettings = Seq(
-  "org.typelevel"  %% "cats-core"           % "1.6.1",
-  "org.typelevel"  %% "cats-effect"         % "1.4.0",
-  "org.typelevel"  %% "cats-mtl-core"       % "0.7.0",
-  "net.debasishg"  %% "redisclient"         % "3.10",
-  "io.monix"       %% "minitest"            % "2.7.0" % Test
+  "org.typelevel" %% "cats-core"     % "2.1.1",
+  "org.typelevel" %% "cats-effect"   % "2.1.2",
+  "org.typelevel" %% "cats-mtl-core" % "0.7.1",
+  "net.debasishg" %% "redisclient"   % "3.20",
+  "io.monix"      %% "minitest"      % "2.8.2" % Test
 )
