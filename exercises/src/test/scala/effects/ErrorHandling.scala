@@ -27,8 +27,9 @@ object ErrorHandlingTests extends SimpleTestSuite {
     def test(): String = throw new DummyException
 
     intercept[DummyException] {
-      test(); ()
+      test();
     }
+    ()
   }
 
   test("Option - dynamic style") {
@@ -39,7 +40,7 @@ object ErrorHandlingTests extends SimpleTestSuite {
     val value = compute(-10)
 
     ignore("remove me, run test watch why fails and make it green")
-    value.get; ()
+    value.get;
   }
 
   test("Try - dynamic style") {
@@ -52,7 +53,7 @@ object ErrorHandlingTests extends SimpleTestSuite {
     val value = compute(-10)
 
     ignore("remove me, run test watch why fails and make it green")
-    value.get; ()
+    value.get;
   }
 
   test("Either - static style") {
@@ -66,7 +67,7 @@ object ErrorHandlingTests extends SimpleTestSuite {
     val value = compute(-10)
 
     ignore("remove me, run test watch why fails and make it green")
-    value.left.get; ()
+    // value.get;
   }
 
   test("Future - dynamic style") {
@@ -95,7 +96,7 @@ object ErrorHandlingTests extends SimpleTestSuite {
     val value = compute(-10)
 
     ignore("remove me, run test watch why fails and make it green")
-    value.unsafeRunSync(); ()
+    value.unsafeRunSync();
   }
 
   test("convert from Either to Option") {

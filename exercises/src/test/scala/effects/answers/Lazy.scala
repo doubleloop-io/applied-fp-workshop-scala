@@ -27,14 +27,14 @@ object LazyTests extends SimpleTestSuite {
 
   test("lift a value into a container") {
     val c = Lazy
-      .pure(expensiveComputation)
+      .pure(expensiveComputation _)
 
     assertEquals(c.value(), 10)
   }
 
   test("chain not container-aware functions") {
     val c = Lazy
-      .pure(expensiveComputation)
+      .pure(expensiveComputation _)
       .map(increment)
 
     assertEquals(c.value(), 11)
@@ -42,7 +42,7 @@ object LazyTests extends SimpleTestSuite {
 
   test("chain container-aware functions") {
     val c = Lazy
-      .pure(expensiveComputation)
+      .pure(expensiveComputation _)
       .flatMap(reversedString)
 
     assertEquals(c.value(), "01")

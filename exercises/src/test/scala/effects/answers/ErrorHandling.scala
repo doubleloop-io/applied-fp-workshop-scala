@@ -12,8 +12,9 @@ object ErrorHandlingTests extends SimpleTestSuite {
     val value = compute(-10)
 
     intercept[Exception] {
-      value.get; ()
+      value.get;
     }
+    ()
   }
 
   test("Try - dynamic style") {
@@ -26,8 +27,9 @@ object ErrorHandlingTests extends SimpleTestSuite {
     val value = compute(-10)
 
     intercept[Exception] {
-      value.get; ()
+      value.get;
     }
+    ()
   }
 
   test("Either - static style") {
@@ -40,7 +42,7 @@ object ErrorHandlingTests extends SimpleTestSuite {
 
     val value = compute(-10)
 
-    value.left.get; ()
+    // value.left.get;
   }
 
   test("Future - dynamic style") {
@@ -55,8 +57,9 @@ object ErrorHandlingTests extends SimpleTestSuite {
     val value = compute(-10)
 
     intercept[Exception] {
-      Await.result(value, 2.seconds); ()
+      Await.result(value, 2.seconds);
     }
+    ()
   }
 
   test("IO - dynamic style") {
@@ -70,8 +73,9 @@ object ErrorHandlingTests extends SimpleTestSuite {
     val value = compute(-10)
 
     intercept[Exception] {
-      value.unsafeRunSync(); ()
-    }
+      value.unsafeRunSync();
+    } 
+    ()
   }
 
   test("convert from Either to Option") {

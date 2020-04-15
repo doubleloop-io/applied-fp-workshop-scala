@@ -61,7 +61,6 @@ lazy val scalacSettings = Seq(
   "-opt-inline-from:<source>",
   "-Yrangepos",
   "-Ywarn-numeric-widen",
-  "-Ywarn-value-discard",
   "-Ywarn-extra-implicit",
   "-Xlint:_,-type-parameter-shadow,-unused",
   "-Xfatal-warnings"

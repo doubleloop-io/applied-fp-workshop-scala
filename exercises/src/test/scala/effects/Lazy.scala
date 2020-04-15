@@ -32,7 +32,7 @@ object LazyTests extends SimpleTestSuite {
   test("lift a value into a container") {
     ignore("implement 'pure' function")
     val c = Lazy
-      .pure(expensiveComputation)
+      .pure(expensiveComputation _)
 
     assertEquals(c.value(), 10)
   }
@@ -40,7 +40,7 @@ object LazyTests extends SimpleTestSuite {
   test("chain not container-aware functions") {
     ignore("implement 'map' function")
     val c = Lazy
-      .pure(expensiveComputation)
+      .pure(expensiveComputation _)
       .map(increment)
 
     assertEquals(c.value(), 11)
@@ -49,7 +49,7 @@ object LazyTests extends SimpleTestSuite {
   test("chain container-aware functions") {
     ignore("implement 'flatMap' function")
     val c = Lazy
-      .pure(expensiveComputation)
+      .pure(expensiveComputation _)
       .flatMap(reversedString)
 
     assertEquals(c.value(), "01")
