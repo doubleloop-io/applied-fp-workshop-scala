@@ -74,7 +74,7 @@ object ErrorHandlingTests extends SimpleTestSuite {
 
     intercept[Exception] {
       value.unsafeRunSync();
-    } 
+    }
     ()
   }
 

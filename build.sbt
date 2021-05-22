@@ -73,9 +73,9 @@ lazy val resolversSettings = Seq(
 )
 
 lazy val libsSettings = Seq(
-  "org.typelevel" %% "cats-core"     % "2.1.1",
-  "org.typelevel" %% "cats-effect"   % "2.1.2",
+  "org.typelevel" %% "cats-core"     % "2.6.1",
+  "org.typelevel" %% "cats-effect"   % "2.5.1",
   "org.typelevel" %% "cats-mtl-core" % "0.7.1",
-  "net.debasishg" %% "redisclient"   % "3.20",
-  "io.monix"      %% "minitest"      % "2.8.2" % Test
+  "net.debasishg" %% "redisclient"   % "3.30",
+  "io.monix"      %% "minitest"      % "2.9.6" % Test
 )
