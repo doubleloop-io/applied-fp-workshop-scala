@@ -1,7 +1,5 @@
 package exercises
 
-import minitest._
-
 /*
  * ADT models data while Function models behaviour.
  * A function is simply something that accepts an input value
@@ -12,7 +10,7 @@ import minitest._
  *  f:  InType => OutType
  */
 
-object FunctionsTests extends SimpleTestSuite {
+class FunctionsTests extends munit.FunSuite {
 
   /*
    * TODO: implements functions marked with `???`
@@ -30,8 +28,8 @@ object FunctionsTests extends SimpleTestSuite {
     ???
   }
 
-  test("from string to string throught reciprocal") {
-    ignore("use existing function to compute a reciprocal in string")
+  test("from string to string throught reciprocal".ignore) {
+    // TODO: ingore(use existing function to compute a reciprocal in string")
     assertEquals(reciprocalString("42"), "0.023809523809523808")
   }
 }

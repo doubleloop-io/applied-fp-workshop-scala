@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object TypeclassHKTests extends SimpleTestSuite {
+class TypeclassHKTests extends munit.FunSuite {
 
   trait Stack[F[_]] {
     def push[A](fa: F[A])(value: A): F[A]

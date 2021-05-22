@@ -1,10 +1,8 @@
 package marsroverkata.answers
 
-import minitest._
-
 import marsroverkata.answers.Version1._
 
-object Version1Tests extends SimpleTestSuite {
+class Version1Tests extends munit.FunSuite {
   test("three times right") {
     val mission  = Mission(Planet(Size(5, 4)), Rover(Position(0, 0), N))
     val commands = List(Turn(OnRight), Turn(OnRight), Turn(OnRight))

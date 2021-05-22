@@ -1,14 +1,12 @@
 package marsroverkata.answers
 
-import minitest._
-
 import cats._
 import cats.data._
 import cats.implicits._
 
 import marsroverkata.answers.Version2._
 
-object Version2Tests extends SimpleTestSuite {
+class Version2Tests extends munit.FunSuite {
 
   test("opposite angle") {
     val rover  = ("0,0", "N")

@@ -1,7 +1,5 @@
 package exercises
 
-import minitest._
-
 /*
  * In OOP model object that encapsulate data and expose behaviours.
  * This two concepts are brigs together thanks to class definitions.
@@ -26,7 +24,7 @@ import minitest._
  * We can mix ADT as we want, like a product type that compose a type with a sum type.
  */
 
-object ModelData extends SimpleTestSuite {
+class ModelData extends munit.FunSuite {
 
   // Typical product type in Scala
   case class Person(name: String, age: Int)
@@ -50,12 +48,12 @@ object ModelData extends SimpleTestSuite {
    * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
-  test("represent initial match state") {
-    ignore("build the first player w/ 2 of Golds, 5 of Swords and 7 of Clubs")
-    ignore("build the second player w/ 1 of Cups, 2 of Clubs and 9 of Golds")
-    ignore("build the table w/ 4 of Clubs, 10 of Swords, 8 of Golds and 1 of Swords")
-    ignore("build the deck w/ only 1 of Swords and 10 of Clubs")
-    ignore("build the game")
+  test("represent initial match state".ignore) {
+    // TODO: ingore(build the first player w/ 2 of Golds, 5 of Swords and 7 of Clubs")
+    // TODO: ingore(build the second player w/ 1 of Cups, 2 of Clubs and 9 of Golds")
+    // TODO: ingore(build the table w/ 4 of Clubs, 10 of Swords, 8 of Golds and 1 of Swords")
+    // TODO: ingore(build the deck w/ only 1 of Swords and 10 of Clubs")
+    // TODO: ingore(build the game")
     () // don't delete
   }
 }

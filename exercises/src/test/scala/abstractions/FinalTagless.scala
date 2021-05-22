@@ -1,7 +1,5 @@
 package exercises
 
-import minitest._
-
 /*
  * Program with F-Algebras.
  *
@@ -13,7 +11,7 @@ import minitest._
  * Monad Transformer.
  */
 
-object FinalTaglessTests extends SimpleTestSuite {
+class FinalTaglessTests extends munit.FunSuite {
   /*
    * TODO: add num, plus and times operations to
    *       Exp (F-algebra). Implements IOEvaluator

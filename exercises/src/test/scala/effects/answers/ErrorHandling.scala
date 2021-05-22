@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object ErrorHandlingTests extends SimpleTestSuite {
+class ErrorHandlingTests extends munit.FunSuite {
 
   test("Option - dynamic style") {
     def compute(value: Int): Option[Int] =

@@ -1,8 +1,6 @@
 package exercises
 
-import minitest._
-
-object FoldableTests extends SimpleTestSuite {
+class FoldableTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
@@ -15,16 +13,16 @@ object FoldableTests extends SimpleTestSuite {
   def checkIn(item: Item, qty: Int): Item =
     item.copy(qty = item.qty + qty)
 
-  test("total qty") {
+  test("total qty".ignore) {
     val items = List(Item(100), Item(10), Item(45))
-    ignore("use foldLeft to make test green")
+    // TODO: ingore(use foldLeft to make test green")
     val result = ???
     assertEquals(result, 155)
   }
 
-  test("reduce to single total item") {
+  test("reduce to single total item".ignore) {
     val items = List(Item(100), Item(10), Item(45))
-    ignore("use foldLeft to make test green")
+    // TODO: ingore(use foldLeft to make test green")
     val result = ???
     assertEquals(result, Item(155))
   }

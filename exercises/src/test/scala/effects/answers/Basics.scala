@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object BasicsTests extends SimpleTestSuite {
+class BasicsTests extends munit.FunSuite {
 
   case class Container[A](value: A) {
     def chain[B](f: A => B): Container[B] =

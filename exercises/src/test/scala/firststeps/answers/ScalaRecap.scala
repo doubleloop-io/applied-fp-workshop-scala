@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object ScalaRecap extends SimpleTestSuite {
+class ScalaRecap extends munit.FunSuite {
 
   trait Fruit {
     def eatenBy(name: String): String =

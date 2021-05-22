@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object TryMonadTests extends SimpleTestSuite {
+class TryMonadTests extends munit.FunSuite {
 
   import scala.util._
   import cats.implicits._

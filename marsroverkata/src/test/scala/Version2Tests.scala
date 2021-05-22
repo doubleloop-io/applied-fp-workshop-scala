@@ -1,7 +1,5 @@
 package marsroverkata
 
-import minitest._
-
 import cats._
 import cats.data._
 import cats.implicits._
@@ -9,7 +7,7 @@ import cats.implicits._
 // TODO: uncomment import
 // import marsroverkata.Version2._
 
-object Version2Tests extends SimpleTestSuite {
+class Version2Tests extends munit.FunSuite {
 
 // +-----+-----+-----+-----+-----+
 // | 0,3 |     |     |     | 4,3 |
@@ -21,8 +19,7 @@ object Version2Tests extends SimpleTestSuite {
 // | 0,0 |     |     |     | 4,0 |
 // +-----+-----+-----+-----+-----+
 
-  test("opposite angle") {
-    ignore()
+  test("opposite angle".ignore) {
     /*
         Plant: 5 4
         Rover: 0 0 N
@@ -33,8 +30,7 @@ object Version2Tests extends SimpleTestSuite {
     // val result = run("5x4", "0,0:N", "RBBLBRF")
   }
 
-  test("all inputs are bad") {
-    ignore()
+  test("all inputs are bad".ignore) {
     /*
         Plant: a 4
         Rover: 1 c X

@@ -1,8 +1,6 @@
 package exercises
 
-import minitest._
-
-object FlatMapTests extends SimpleTestSuite {
+class FlatMapTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
@@ -23,18 +21,18 @@ object FlatMapTests extends SimpleTestSuite {
     if (qty <= item.qty) Some(item.copy(qty = item.qty - qty))
     else None
 
-  test("valid creation, can checkOut") {
+  test("valid creation, can checkOut".ignore) {
     val item = createItem("100")
-    ignore("chain checkOut of 10 items and write the assert")
+    // TODO: ingore(chain checkOut of 10 items and write the assert")
   }
 
-  test("valid creation, can't checkOut (too much) - flatMap short circuit") {
+  test("valid creation, can't checkOut (too much) - flatMap short circuit".ignore) {
     val item = createItem("100")
-    ignore("chain checkOut of 110 items and write the assert")
+    // TODO: ingore(chain checkOut of 110 items and write the assert")
   }
 
-  test("invalid creation - flatMap short circuit") {
+  test("invalid creation - flatMap short circuit".ignore) {
     val item = createItem("asd")
-    ignore("chain checkOut of 10 items and write the assert")
+    // TODO: ingore(chain checkOut of 10 items and write the assert")
   }
 }

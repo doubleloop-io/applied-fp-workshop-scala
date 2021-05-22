@@ -1,7 +1,5 @@
 package exercises
 
-import minitest._
-
 /*
  * For a happy fp programming in Scala we need
  * to add all these type classes and many more
@@ -23,7 +21,7 @@ import minitest._
  * val result = Semigroup[String].combine("foo", "bar")
  */
 
-object TypeclassCatsTests extends SimpleTestSuite {
+class TypeclassCatsTests extends munit.FunSuite {
 
   /*
    * TODO: uncomment tests and add cats imports

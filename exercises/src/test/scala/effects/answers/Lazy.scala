@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object LazyTests extends SimpleTestSuite {
+class LazyTests extends munit.FunSuite {
 
   case class Lazy[A](value: () => A) {
     def map[B](f: A => B): Lazy[B] =

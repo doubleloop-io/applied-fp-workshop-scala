@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object PatternMatchDispatch extends SimpleTestSuite {
+class PatternMatchDispatch extends munit.FunSuite {
 
   sealed trait Direction {
     def turnRight: Direction = this match {

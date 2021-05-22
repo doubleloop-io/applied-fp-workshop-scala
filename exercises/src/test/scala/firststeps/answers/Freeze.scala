@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object FreezeTests extends SimpleTestSuite {
+class FreezeTests extends munit.FunSuite {
 
   object Immediate {
 

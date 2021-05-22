@@ -1,8 +1,6 @@
 package exercises
 
-import minitest._
-
-object MapTests extends SimpleTestSuite {
+class MapTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
@@ -19,13 +17,13 @@ object MapTests extends SimpleTestSuite {
   def checkIn(qty: Int, item: Item): Item =
     item.copy(qty = item.qty + qty)
 
-  test("valid creation, can checkIn") {
+  test("valid creation, can checkIn".ignore) {
     val item = createItem("100")
-    ignore("chain checkIn of 10 items and write the assert")
+    // TODO: ingore(chain checkIn of 10 items and write the assert")
   }
 
-  test("invalid creation - map short circuit") {
+  test("invalid creation - map short circuit".ignore) {
     val item = createItem("asd")
-    ignore("chain checkIn of 10 items and write the assert")
+    // TODO: ingore(chain checkIn of 10 items and write the assert")
   }
 }

@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object FinalTaglessTests extends SimpleTestSuite {
+class FinalTaglessTests extends munit.FunSuite {
 
   import cats.data._
   import cats.implicits._

@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object ModelData extends SimpleTestSuite {
+class ModelData extends munit.FunSuite {
 
   sealed trait Suit
   case object Cups   extends Suit

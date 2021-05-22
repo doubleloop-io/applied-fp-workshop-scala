@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object FunctionsTests extends SimpleTestSuite {
+class FunctionsTests extends munit.FunSuite {
 
   val asString: Double => String = in => in.toString
 

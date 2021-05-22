@@ -1,8 +1,6 @@
 package exercises
 
-import minitest._
-
-object TryMonadTests extends SimpleTestSuite {
+class TryMonadTests extends munit.FunSuite {
 
   import scala.util._
   import cats.implicits._
@@ -20,8 +18,8 @@ object TryMonadTests extends SimpleTestSuite {
   def checkIn(qty: Int, item: Item): Item =
     item.copy(qty = item.qty + qty)
 
-  test("scenario") {
-    ignore("implement follow steps")
+  test("scenario".ignore) {
+    // TODO: ingore(implement follow steps")
     // load an item
     // checkIn 10
     // save item

@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object TypeclassIntroTests extends SimpleTestSuite {
+class TypeclassIntroTests extends munit.FunSuite {
 
   object Concrete {
     case class BoxInt(value: Int)

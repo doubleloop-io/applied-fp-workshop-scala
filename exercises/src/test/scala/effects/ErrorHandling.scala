@@ -1,7 +1,5 @@
 package exercises
 
-import minitest._
-
 /*
  * The effects seen so far are all useful for
  * handling errors. Each effect has different
@@ -13,7 +11,7 @@ import minitest._
  * - static: expose the error type e.g. Either[E, A]
  */
 
-object ErrorHandlingTests extends SimpleTestSuite {
+class ErrorHandlingTests extends munit.FunSuite {
 
   /*
    * TODO: remove ignores and
@@ -32,18 +30,18 @@ object ErrorHandlingTests extends SimpleTestSuite {
     ()
   }
 
-  test("Option - dynamic style") {
+  test("Option - dynamic style".ignore) {
     def compute(value: Int): Option[Int] =
       if (value > 0) Some(value * 2)
       else None
 
     val value = compute(-10)
 
-    ignore("remove me, run test watch why fails and make it green")
+    // TODO: ingore(remove me, run test watch why fails and make it green")
     value.get;
   }
 
-  test("Try - dynamic style") {
+  test("Try - dynamic style".ignore) {
     import scala.util.{ Failure, Success, Try }
 
     def compute(value: Int): Try[Int] =
@@ -52,11 +50,11 @@ object ErrorHandlingTests extends SimpleTestSuite {
 
     val value = compute(-10)
 
-    ignore("remove me, run test watch why fails and make it green")
+    // TODO: ingore(remove me, run test watch why fails and make it green")
     value.get;
   }
 
-  test("Either - static style") {
+  test("Either - static style".ignore) {
     sealed trait ComputeError
     case class InvalidNumber(n: Int) extends ComputeError
 
@@ -66,11 +64,11 @@ object ErrorHandlingTests extends SimpleTestSuite {
 
     val value = compute(-10)
 
-    ignore("remove me, run test watch why fails and make it green")
+    // TODO: ingore(remove me, run test watch why fails and make it green")
     // value.get;
   }
 
-  test("Future - dynamic style") {
+  test("Future - dynamic style".ignore) {
     import scala.concurrent._
     import scala.concurrent.duration._
     import scala.concurrent.ExecutionContext.Implicits.global
@@ -81,11 +79,11 @@ object ErrorHandlingTests extends SimpleTestSuite {
 
     val value = compute(-10)
 
-    ignore("remove me, run test watch why fails and make it green")
+    // TODO: ingore(remove me, run test watch why fails and make it green")
     Await.result(value, 2.seconds); ()
   }
 
-  test("IO - dynamic style") {
+  test("IO - dynamic style".ignore) {
     import cats._
     import cats.effect._
 
@@ -95,15 +93,15 @@ object ErrorHandlingTests extends SimpleTestSuite {
 
     val value = compute(-10)
 
-    ignore("remove me, run test watch why fails and make it green")
+    // TODO: ingore(remove me, run test watch why fails and make it green")
     value.unsafeRunSync();
   }
 
-  test("convert from Either to Option") {
+  test("convert from Either to Option".ignore) {
     sealed trait AppError
     case class BadParam() extends AppError
 
-    ignore("implement convert function")
+    // TODO: ingore(implement convert function")
     def convert[E, A](e: Either[E, A]): Option[A] =
       ???
 
@@ -111,12 +109,12 @@ object ErrorHandlingTests extends SimpleTestSuite {
     assertEquals(convert(Left(BadParam)), None)
   }
 
-  test("convert from Try to Either") {
+  test("convert from Try to Either".ignore) {
     import scala.util.{ Failure, Success, Try }
 
     case class BadParamException() extends RuntimeException("bad param")
 
-    ignore("implement convert function")
+    // TODO: ingore(implement convert function")
     def convert[A](t: Try[A]): Either[Throwable, A] =
       ???
 

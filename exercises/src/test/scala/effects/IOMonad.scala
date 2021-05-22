@@ -1,8 +1,6 @@
 package exercises
 
-import minitest._
-
-object IOMonadTests extends SimpleTestSuite {
+class IOMonadTests extends munit.FunSuite {
 
   import cats.implicits._
   import cats.effect._
@@ -19,8 +17,8 @@ object IOMonadTests extends SimpleTestSuite {
   def checkIn(qty: Int, item: Item): Item =
     item.copy(qty = item.qty + qty)
 
-  test("scenario") {
-    ignore("implement follow steps")
+  test("scenario".ignore) {
+    // TODO: ingore(implement follow steps")
     // load an item
     // checkIn 10
     // save item

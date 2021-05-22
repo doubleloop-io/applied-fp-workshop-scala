@@ -1,8 +1,6 @@
 package exercises
 
-import minitest._
-
-object ApTests extends SimpleTestSuite {
+class ApTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
@@ -25,23 +23,23 @@ object ApTests extends SimpleTestSuite {
   def createItem(name: String, qty: String): Option[Item] =
     (checkName(name), checkQty(qty)).mapN(Item.apply)
 
-  test("valid creation") {
+  test("valid creation".ignore) {
     val item = createItem("foo", "100")
-    ignore("write the assert")
+    // TODO: ingore(write the assert")
   }
 
-  test("invalid creation (name)") {
+  test("invalid creation (name)".ignore) {
     val item = createItem("", "100")
-    ignore("write the assert")
+    // TODO: ingore(write the assert")
   }
 
-  test("invalid creation (qty)") {
+  test("invalid creation (qty)".ignore) {
     val item = createItem("foo", "asd")
-    ignore("write the assert")
+    // TODO: ingore(write the assert")
   }
 
-  test("invalid creation (both)") {
+  test("invalid creation (both)".ignore) {
     val item = createItem("", "asd")
-    ignore("write the assert")
+    // TODO: ingore(write the assert")
   }
 }

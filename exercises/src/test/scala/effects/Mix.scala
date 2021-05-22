@@ -1,8 +1,6 @@
 package exercises
 
-import minitest._
-
-object MixTests extends SimpleTestSuite {
+class MixTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
@@ -46,22 +44,22 @@ object MixTests extends SimpleTestSuite {
     e
   }
 
-  test("complex scenario - ok") {
-    ignore("implement complex function")
+  test("complex scenario - ok".ignore) {
+    // TODO: ingore(implement complex function")
     val values = List(("foo", "100"), ("bar", "10"))
     val result = complex(values)
     assertEquals(result, "100")
   }
 
-  test("complex scenario - bad name") {
-    ignore("implement complex function")
+  test("complex scenario - bad name".ignore) {
+    // TODO: ingore(implement complex function")
     val values = List(("", "100"), ("bar", "10"))
     val result = complex(values)
     assertEquals(result, "we can't, sorry")
   }
 
-  test("complex scenario - bad qty") {
-    ignore("implement complex function")
+  test("complex scenario - bad qty".ignore) {
+    // TODO: ingore(implement complex function")
     val values = List(("foo", "100"), ("bar", "zanzan"))
     val result = complex(values)
     assertEquals(result, "we can't, sorry")

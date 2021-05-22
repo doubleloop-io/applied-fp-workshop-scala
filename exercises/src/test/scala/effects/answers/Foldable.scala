@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object FoldableTests extends SimpleTestSuite {
+class FoldableTests extends munit.FunSuite {
 
   case class Item(qty: Int)
 

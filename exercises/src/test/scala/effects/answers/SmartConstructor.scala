@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object SmartConstructorTests extends SimpleTestSuite {
+class SmartConstructorTests extends munit.FunSuite {
 
   sealed trait MaybeItem
   case class ValidItem(value: Item) extends MaybeItem

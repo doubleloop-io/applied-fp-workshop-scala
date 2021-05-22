@@ -1,7 +1,5 @@
 package exercises
 
-import minitest._
-
 /*
  * Pattern match enable the structural recursion
  * a fancy name to express a way to dispatch logic
@@ -11,7 +9,7 @@ import minitest._
  * data type?
  */
 
-object PatternMatchDispatch extends SimpleTestSuite {
+class PatternMatchDispatch extends munit.FunSuite {
 
   /*
    * TODO: rewrite the dispatch logic

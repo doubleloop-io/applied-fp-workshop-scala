@@ -1,8 +1,6 @@
 package exercises
 
-import minitest._
-
-object FoldTests extends SimpleTestSuite {
+class FoldTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
@@ -16,16 +14,16 @@ object FoldTests extends SimpleTestSuite {
     if (qty.matches("^[0-9]+$")) Some(Item(qty.toInt))
     else None
 
-  test("valid creation") {
+  test("valid creation".ignore) {
     val item = createItem("100")
-    ignore("use fold to make test green")
+    // TODO: ingore(use fold to make test green")
     val result = ???
     assertEquals(result, "100")
   }
 
-  test("invalid creation") {
+  test("invalid creation".ignore) {
     val item = createItem("asd")
-    ignore("use fold to make test green")
+    // TODO: ingore(use fold to make test green")
     val result = ???
     assertEquals(result, "alternative value")
   }

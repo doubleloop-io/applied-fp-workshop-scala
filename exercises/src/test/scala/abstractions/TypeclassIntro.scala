@@ -1,7 +1,5 @@
 package exercises
 
-import minitest._
-
 /*
  * Type classes are a programming pattern originating in Haskell.
  * They are a way to extends program w/out change it.
@@ -17,7 +15,7 @@ import minitest._
  * generic/abstract logic and reuse it for different types.
  */
 
-object TypeclassIntroTests extends SimpleTestSuite {
+class TypeclassIntroTests extends munit.FunSuite {
 
   /*
    * TODO: remove ignores and
@@ -66,10 +64,10 @@ object TypeclassIntroTests extends SimpleTestSuite {
     assertEquals(Box("foo").value, "foo")
   }
 
-  test("sum boxes - polymorphic") {
+  test("sum boxes - polymorphic".ignore) {
     import Polymorphic._
 
-    ignore("implements sum[A] function")
+    // TODO: ingore(implements sum[A] function")
 
     assertEquals(sum(Box(42), Box(100)).value, 142)
     assertEquals(sum(Box("foo"), Box("bar")).value, "foobar")

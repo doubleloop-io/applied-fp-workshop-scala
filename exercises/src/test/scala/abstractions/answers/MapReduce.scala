@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object MapReduceTests extends SimpleTestSuite {
+class MapReduceTests extends munit.FunSuite {
 
   import cats.{ Monoid, Traverse }
 

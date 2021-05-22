@@ -1,8 +1,6 @@
 package exercises
 
-import minitest._
-
-object TraverseTests extends SimpleTestSuite {
+class TraverseTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
@@ -18,27 +16,27 @@ object TraverseTests extends SimpleTestSuite {
     if (qty.matches("^[0-9]+$")) Some(Item(qty.toInt))
     else None
 
-  test("all valid creation - idividual result with map") {
+  test("all valid creation - idividual result with map".ignore) {
     val values = List("1", "10", "100")
     val items  = values.map(createItem)
-    ignore("write the assert")
+    // TODO: ingore(write the assert")
   }
 
-  test("some invalid creation - idividual result with map") {
+  test("some invalid creation - idividual result with map".ignore) {
     val values = List("1", "asf", "100")
     val items  = values.map(createItem)
-    ignore("write the assert")
+    // TODO: ingore(write the assert")
   }
 
-  test("all valid creation - omni result with traverse") {
+  test("all valid creation - omni result with traverse".ignore) {
     val values = List("1", "10", "100")
     val items  = values.traverse(createItem)
-    ignore("write the assert")
+    // TODO: ingore(write the assert")
   }
 
-  test("some invalid creation - omni result with traverse") {
+  test("some invalid creation - omni result with traverse".ignore) {
     val values = List("1", "asd", "100")
     val items  = values.traverse(createItem)
-    ignore("write the assert")
+    // TODO: ingore(write the assert")
   }
 }

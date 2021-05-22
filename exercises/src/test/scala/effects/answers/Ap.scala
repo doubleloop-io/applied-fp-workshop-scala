@@ -1,8 +1,6 @@
 package exercises.answers
 
-import minitest._
-
-object ApTests extends SimpleTestSuite {
+class ApTests extends munit.FunSuite {
 
   import cats.implicits._
 

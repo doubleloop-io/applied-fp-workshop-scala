@@ -1,7 +1,5 @@
 package exercises
 
-import minitest._
-
 /*
  * In a type system we deal with different kind of types.
  *
@@ -32,7 +30,7 @@ import minitest._
  * aka function that accepts/returns other functions.
  */
 
-object TypeclassHKTests extends SimpleTestSuite {
+class TypeclassHKTests extends munit.FunSuite {
 
   /*
    * TODO: Define push and pop operations.
@@ -51,10 +49,10 @@ object TypeclassHKTests extends SimpleTestSuite {
       ???
   }
 
-  test("add an element to the MRU list") {
+  test("add an element to the MRU list".ignore) {
     import MRUList._
 
-    ignore("implement missing functions")
+    // TODO: ingore(implement missing functions")
     val items  = List("first")
     val result = add("second", items)
     assertEquals(result, List("second", "first"))

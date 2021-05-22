@@ -43,7 +43,7 @@ lazy val settings = Seq(
   scalacOptions ++= scalacSettings,
   resolvers ++= resolversSettings,
   libraryDependencies ++= libsSettings,
-  testFrameworks += new TestFramework("minitest.runner.Framework"),
+  testFrameworks += new TestFramework("munit.Framework"),
   addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1")
 )
 
@@ -77,5 +77,5 @@ lazy val libsSettings = Seq(
   "org.typelevel" %% "cats-effect"   % "2.5.1",
   "org.typelevel" %% "cats-mtl-core" % "0.7.1",
   "net.debasishg" %% "redisclient"   % "3.30",
-  "io.monix"      %% "minitest"      % "2.9.6" % Test
+  "org.scalameta" %% "munit"         % "0.7.26" % Test
 )

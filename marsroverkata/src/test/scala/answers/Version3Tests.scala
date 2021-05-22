@@ -1,14 +1,12 @@
 package marsroverkata.answers
 
-import minitest._
-
 import cats._
 import cats.data._
 import cats.implicits._
 
 import marsroverkata.answers.Version3._
 
-object Version3Tests extends SimpleTestSuite {
+class Version3Tests extends munit.FunSuite {
 
   test("opposite angle") {
     val planet = ("5x4", "2,0 0,3 3,2")

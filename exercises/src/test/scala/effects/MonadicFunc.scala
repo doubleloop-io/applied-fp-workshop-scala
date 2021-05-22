@@ -1,8 +1,6 @@
 package exercises
 
-import minitest._
-
-object MonadicFuncTests extends SimpleTestSuite {
+class MonadicFuncTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
@@ -55,11 +53,11 @@ object MonadicFuncTests extends SimpleTestSuite {
       }
   }
 
-  test("count find iterations") {
+  test("count find iterations".ignore) {
     import CountHowManyIteration._
 
-    ignore("keep test green but w/out side-effects")
-    ignore("use state monad and findM")
+    // TODO: ingore(keep test green but w/out side-effects")
+    // TODO: ingore(use state monad and findM")
     val result = people.find(ageOver(40))
     var count  = iterationCount
 
@@ -77,11 +75,11 @@ object MonadicFuncTests extends SimpleTestSuite {
       }
   }
 
-  test("log find iterations") {
+  test("log find iterations".ignore) {
     import WhatWereInspected._
 
-    ignore("keep test green but w/out side-effects")
-    ignore("use writer monad and findM")
+    // TODO: ingore(keep test green but w/out side-effects")
+    // TODO: ingore(use writer monad and findM")
     val result = people.find(ageOver(40))
     val log    = inspected
 
@@ -104,31 +102,31 @@ object MonadicFuncTests extends SimpleTestSuite {
     case class UnreachableServer(error: String) extends RuntimeException
   }
 
-  test("io - found") {
+  test("io - found".ignore) {
     import OutOfProc._
 
-    ignore("keep test green but w/out side-effects")
-    ignore("use IO monad, attempt and findM")
+    // TODO: ingore(keep test green but w/out side-effects")
+    // TODO: ingore(use IO monad, attempt and findM")
     val result = people.find(ageOver(40))
 
     assertEquals(result, Some(john))
   }
 
-  test("io - not found") {
+  test("io - not found".ignore) {
     import OutOfProc._
 
-    ignore("keep test green but w/out side-effects")
-    ignore("use IO monad, attempt and findM")
+    // TODO: ingore(keep test green but w/out side-effects")
+    // TODO: ingore(use IO monad, attempt and findM")
     val result = people.find(ageOver(50))
 
     assertEquals(result, None)
   }
 
-  test("io - fail") {
+  test("io - fail".ignore) {
     import OutOfProc._
 
-    ignore("keep test green but w/out side-effects")
-    ignore("use IO monad, attempt and findM")
+    // TODO: ingore(keep test green but w/out side-effects")
+    // TODO: ingore(use IO monad, attempt and findM")
     intercept[UnreachableServer] {
       val result = people.find(ageOverKaboom(40))
     }

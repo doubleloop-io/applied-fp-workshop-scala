@@ -1,7 +1,5 @@
 package exercises
 
-import minitest._
-
 /*
  * Combine program is different from combine values.
  *
@@ -24,7 +22,7 @@ import minitest._
  * that enable a better program composition.
  */
 
-object FreezeTests extends SimpleTestSuite {
+class FreezeTests extends munit.FunSuite {
 
   /*
    * TODO: implements functions marked with `???`
@@ -60,8 +58,8 @@ object FreezeTests extends SimpleTestSuite {
       ???
   }
 
-  test("split building a program from executing it") {
-    ignore("implements SplitBuildFromExecute functions")
+  test("split building a program from executing it".ignore) {
+    // TODO: ingore(implements SplitBuildFromExecute functions")
     import SplitBuildFromExecute._
     val program = times(plus(num(1), num(1)), num(2))
     val result  = program()
@@ -87,8 +85,8 @@ object FreezeTests extends SimpleTestSuite {
       ???
   }
 
-  test("execute program w/ different evaluator") {
-    ignore("implements DifferentEvaluator functions")
+  test("execute program w/ different evaluator".ignore) {
+    // TODO: ingore(implements DifferentEvaluator functions")
     import DifferentEvaluator._
     val program = times(plus(num(1), num(1)), num(2))
     assertEquals(eval(program), 4)

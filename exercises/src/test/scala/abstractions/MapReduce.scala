@@ -1,7 +1,5 @@
 package exercises
 
-import minitest._
-
 /*
  * Let's see a real example of programming with type classes.
  *
@@ -11,7 +9,7 @@ import minitest._
  * - a reduce function: which performs a summary operation
  */
 
-object MapReduceTests extends SimpleTestSuite {
+class MapReduceTests extends munit.FunSuite {
 
   /*
    * TODO: Implements mapReduce function.
@@ -31,7 +29,7 @@ object MapReduceTests extends SimpleTestSuite {
   def mapReduce[F[_], A, B](fa: F[A])(f: A => B): B =
     ???
 
-  test("order total price") {
+  test("order total price".ignore) {
     case class Order(lines: List[OrderLine]) {
       def total: Int = mapReduce(lines)(l => l.price)
     }
@@ -39,18 +37,18 @@ object MapReduceTests extends SimpleTestSuite {
 
     val order = Order(List(OrderLine("foo", 50), OrderLine("bar", 20), OrderLine("bar", 15)))
 
-    ignore("implements mapReduce")
+    // TODO: ingore(implements mapReduce")
     val result = order.total
     assertEquals(result, 50 + 20 + 15)
   }
 
-  test("major students") {
+  test("major students".ignore) {
     case class Classroom(students: List[Student]) {
       def adultCount: Int = ???
     }
     case class Student(name: String, age: Int)
 
-    ignore("implements mapReduce")
+    // TODO: ingore(implements mapReduce")
     val classroom = Classroom(List(Student("foo", 16), Student("bar", 20), Student("bar", 19)))
     val result    = classroom.adultCount
     assertEquals(result, 2)

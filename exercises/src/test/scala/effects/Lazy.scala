@@ -1,8 +1,6 @@
 package exercises
 
-import minitest._
-
-object LazyTests extends SimpleTestSuite {
+class LazyTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
@@ -29,16 +27,16 @@ object LazyTests extends SimpleTestSuite {
   def reversedString(x: Int): Lazy[String] =
     Lazy.pure(() => x.toString.reverse)
 
-  test("lift a value into a container") {
-    ignore("implement 'pure' function")
+  test("lift a value into a container".ignore) {
+    // TODO: ingore(implement 'pure' function")
     val c = Lazy
       .pure(expensiveComputation _)
 
     assertEquals(c.value(), 10)
   }
 
-  test("chain not container-aware functions") {
-    ignore("implement 'map' function")
+  test("chain not container-aware functions".ignore) {
+    // TODO: ingore(implement 'map' function")
     val c = Lazy
       .pure(expensiveComputation _)
       .map(increment)
@@ -46,8 +44,8 @@ object LazyTests extends SimpleTestSuite {
     assertEquals(c.value(), 11)
   }
 
-  test("chain container-aware functions") {
-    ignore("implement 'flatMap' function")
+  test("chain container-aware functions".ignore) {
+    // TODO: ingore(implement 'flatMap' function")
     val c = Lazy
       .pure(expensiveComputation _)
       .flatMap(reversedString)
