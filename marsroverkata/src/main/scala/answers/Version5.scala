@@ -19,7 +19,7 @@ object Instances {
       IO(println(message))
 
     def reads(): IO[String] =
-      IO(scala.io.StdIn.readLine)
+      IO(scala.io.StdIn.readLine())
   }
 
   implicit def loggerConsoleIO(implicit C: Console[IO]) = new Logger[IO] {
@@ -39,7 +39,7 @@ object Version5 {
     def reads(): F[String]
 
     def ask(question: String)(implicit A: Applicative[F]): F[String] =
-      puts(question) *> reads
+      puts(question) *> reads()
   }
 
   trait Logger[F[_]] {
@@ -54,7 +54,7 @@ object Version5 {
     Resource
       .fromAutoCloseable(IO(Source.fromURL(getClass.getClassLoader.getResource(file))))
       .use { source =>
-        IO(source.getLines.toArray match {
+        IO(source.getLines().toArray match {
           case Array(first, second) => (first, second)
           case _                    => throw new RuntimeException("invalid content")
         })

@@ -38,7 +38,7 @@ lazy val inventory = project
 
 lazy val settings = Seq(
   organization := "io.doubleloop",
-  scalaVersion := "2.13.1",
+  scalaVersion := "2.13.6",
   version := "0.1.0-SNAPSHOT",
   scalacOptions ++= scalacSettings,
   resolvers ++= resolversSettings,

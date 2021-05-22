@@ -75,7 +75,7 @@ object FPStyle {
   }
 
   def strings(length: Int): Generator[String] =
-    listsN(alphanumerics, length).map(_.mkString)
+    listsN(alphanumerics(), length).map(_.mkString)
 
   case class Item(description: String, qty: Int, size: String)
 
