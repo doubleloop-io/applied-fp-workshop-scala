@@ -7,6 +7,7 @@ import cats.effect._
 import cats.effect.concurrent._
 
 import marsroverkata.answers.Version5._
+import cats.effect.Ref
 
 class Version5Tests extends munit.FunSuite {
 
