@@ -22,7 +22,7 @@ class Version1Tests extends munit.FunSuite {
         Commands: RRR
         --
         Rover: 0 0 W
-   */
+     */
   }
 
   test("two times left".ignore) {
@@ -32,7 +32,7 @@ class Version1Tests extends munit.FunSuite {
         Commands: LL
         --
         Rover: 0 0 S
-   */
+     */
   }
 
   test("wrap on North".ignore) {
@@ -42,7 +42,7 @@ class Version1Tests extends munit.FunSuite {
         Commands: FFFFFF
         --
         Rover: 0 2 N
-   */
+     */
   }
 
   test("wrap on South".ignore) {
@@ -52,7 +52,7 @@ class Version1Tests extends munit.FunSuite {
         Commands: F
         --
         Rover: 0 3 S
-   */
+     */
   }
 
   test("wrap on Est".ignore) {
@@ -62,7 +62,7 @@ class Version1Tests extends munit.FunSuite {
         Commands: FFFFF
         --
         Rover: 0 0 E
-   */
+     */
   }
 
   test("wrap on West".ignore) {
@@ -72,7 +72,7 @@ class Version1Tests extends munit.FunSuite {
         Commands: FF
         --
         Rover: 3 0 W
-   */
+     */
   }
 
   test("opposite angle".ignore) {
@@ -82,6 +82,6 @@ class Version1Tests extends munit.FunSuite {
         Commands: RBBLBRF
         --
         Rover: 4 3 E
-   */
+     */
   }
 }

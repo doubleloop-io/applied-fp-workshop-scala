@@ -46,10 +46,10 @@ class Version1Tests extends munit.FunSuite {
   }
 
   test("opposite angle") {
-    val mission = Mission(Planet(Size(5, 4)), Rover(Position(0, 0), N))
+    val mission  = Mission(Planet(Size(5, 4)), Rover(Position(0, 0), N))
     val commands =
       List(Turn(OnRight), Move(Backward), Move(Backward), Turn(OnLeft), Move(Backward), Turn(OnRight), Move(Forward))
-    val result = execute(mission, commands)
+    val result   = execute(mission, commands)
     assertEquals(result, Mission(Planet(Size(5, 4)), Rover(Position(4, 3), E)))
   }
 }

@@ -9,7 +9,7 @@ class PatternMatchDispatch extends munit.FunSuite {
       case S() => W()
       case W() => N()
     }
-    def turnLeft: Direction = this match {
+    def turnLeft: Direction  = this match {
       case N() => W()
       case W() => S()
       case S() => E()

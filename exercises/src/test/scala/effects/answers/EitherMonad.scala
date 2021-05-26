@@ -23,7 +23,7 @@ class EitherMonadTests extends munit.FunSuite {
   test("scenario") {
     // load an item
     val program = load(ItemId(1))
-    // checkIn 10
+      // checkIn 10
       .map(checkIn(10, _))
       // save item
       .flatMap(save)

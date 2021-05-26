@@ -37,10 +37,10 @@ class ScalaRecap extends munit.FunSuite {
 
     def isFake(p: Person): Boolean =
       p match {
-        case Person("foo", _)            => true
-        case Person("bar", _)            => true
-        case Person(_, age) if (age < 0) => true
-        case _                           => false
+        case Person("foo", _)          => true
+        case Person("bar", _)          => true
+        case Person(_, age) if age < 0 => true
+        case _                         => false
       }
   }
 

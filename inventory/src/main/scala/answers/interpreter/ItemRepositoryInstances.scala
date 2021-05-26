@@ -15,9 +15,9 @@ trait ItemRepositoryInstances {
   type Stateful[F[_]] = MonadState[F, ItemRepositoryState]
 
   object Stateful {
-    def apply[F[_]](implicit S: Stateful[F]): Stateful[F] =
+    def apply[F[_]](implicit S: Stateful[F]): Stateful[F]                                             =
       S
-    def get[F[_]](implicit S: Stateful[F]): F[ItemRepositoryState] =
+    def get[F[_]](implicit S: Stateful[F]): F[ItemRepositoryState]                                    =
       S.get
     def modify[F[_]](f: ItemRepositoryState => ItemRepositoryState)(implicit S: Stateful[F]): F[Unit] =
       S.modify(f)
@@ -32,9 +32,9 @@ trait ItemRepositoryInstances {
 
     def load(id: ItemId): F[Item] =
       for {
-        s     <- get
+        s    <- get
         itemO = s.items.get(id)
-        item  <- itemO.fold(raiseError[Item](new ItemNotFoundException(id)))(pure)
+        item <- itemO.fold(raiseError[Item](new ItemNotFoundException(id)))(pure)
       } yield item
 
     def save(item: Item): F[Item] =

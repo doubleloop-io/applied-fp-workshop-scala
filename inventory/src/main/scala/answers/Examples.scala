@@ -12,7 +12,7 @@ object Examples {
   def demoOk[F[_]: Monad: ItemService]: F[Unit] =
     for {
       item0 <- create("books", 5)
-      uuid  = item0.id.value
+      uuid   = item0.id.value
       _     <- checkin(uuid, 10)
       _     <- rename(uuid, "pens")
       _     <- checkout(uuid, 3)
@@ -22,7 +22,7 @@ object Examples {
   def demoBad[F[_]: Monad: ItemService]: F[Unit] =
     for {
       item0 <- create("@books!", -5)
-      uuid  = item0.id.value
+      uuid   = item0.id.value
       _     <- checkin(uuid, 10)
     } yield ()
 
