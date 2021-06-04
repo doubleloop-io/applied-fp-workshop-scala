@@ -1,13 +1,13 @@
-package exercises
+package firststeps
 
 /*
- * Our most used Scala features:
+ * Our most used Scala features are:
  * - Case class
  * - Companion Object
  * - Apply function
- * - Trait as interface/mixin
  * - Implicit parameter
  * - Pattern match
+ * - Trait as interface
  */
 
 class ScalaRecap extends munit.FunSuite {
@@ -28,50 +28,32 @@ class ScalaRecap extends munit.FunSuite {
   }
 
   test("define the case class's companion object".ignore) {
-    // TODO: define a companion object w/ a custom factory method
-    // val result = Person.create("foo, 56")
+    // TODO: define a companion object w/ a creation method that takes one string
+    // val result = Person.create("foo;56")
     // assertEquals(result, Person("foo", 56))
   }
 
   test("case class apply".ignore) {
-    // TODO: add an apply function on Person case class
+    // TODO: define an apply function on Person case class
     // val result = Person("foo", 56)("Ciao,")
     // assertEquals(result, "Ciao, mi chiamo foo!")
   }
 
   test("companion object apply".ignore) {
-    // TODO: add an apply function on Person object
-    // val result = Person("foo, 56")("Ciao,")
+    // TODO: define an apply function on Person companion object
+    // val result = Person("foo;56")("Ciao,")
     // assertEquals(result, "Ciao, mi chiamo foo!")
   }
 
-  test("case class update".ignore) {
-    // TODO: add 100 years to the person
+  test("update case class state".ignore) {
+    // TODO: define makeOlder function to increase age
     // val p      = Person("foo", 56)
     // val result = p.makeOlder(100)
     // assertEquals(result.age, 156)
   }
 
-  test("trait as interface (part 1)".ignore) {
-    // TODO: add a Fruit trait w/ two subclass Apple and Banana
-    // assert(Apple().isInstanceOf[Fruit])
-    // assert(Banana().isInstanceOf[Fruit])
-  }
-
-  test("trait as interface (part 2)".ignore) {
-    // TODO: add empty stringify function to Fruit and implement it in Apple and Banana
-    // assertEquals(Apple().stringify, "an apple")
-    // assertEquals(Banana().stringify, "a banana")
-  }
-
-  test("trait as mixin".ignore) {
-    // TODO: add function w/ default implementation to Fruit trait
-    // assertEquals(Apple().eatenBy("foo"), "foo ate an apple")
-    // assertEquals(Banana().eatenBy("bar"), "bar ate a banana")
-  }
-
   test("implicit parameter".ignore) {
-    // TODO: add a function w/ an implicit parameter to the Person class
+    // TODO: define makeYounger function w/ an implicit parameter
     // implicit val years = 30
     // val p              = Person("foo", 56)
     // val result         = p.makeYounger
@@ -79,15 +61,33 @@ class ScalaRecap extends munit.FunSuite {
   }
 
   test("pattern match".ignore) {
-    // TODO: add a function to Person object that...
-    // TODO: ...return true when name is foo
-    // TODO: ...return true when name is bar
-    // TODO: ...return true when age is negative
-    // TODO: ...otherwise return false
+    // TODO: define isFake function on Person object that...
     // import Person._
+    // TODO: ...return true when name is foo
     // assert(isFake(Person("foo", 10)))
+    // TODO: ...return true when name is bar
     // assert(isFake(Person("bar", 10)))
+    // TODO: ...return true when age is negative
     // assert(isFake(Person("matte", -10)))
+    // TODO: ...otherwise return false
     // assert(!isFake(Person("matte", 10)))
+  }
+
+  test("trait as interface (part 1)".ignore) {
+    // TODO: define a Fruit trait w/ two subclass Apple and Banana
+    // assert(Apple().isInstanceOf[Fruit])
+    // assert(Banana().isInstanceOf[Fruit])
+  }
+
+  test("trait as interface (part 2)".ignore) {
+    // TODO: define stringify function on Fruit and implement it in Apple and Banana
+    // assertEquals(Apple().stringify, "an apple")
+    // assertEquals(Banana().stringify, "a banana")
+  }
+
+  test("trait as mixin".ignore) {
+    // TODO: define function w/ implementation on Fruit trait
+    // assertEquals(Apple().eatenBy("foo"), "foo ate an apple")
+    // assertEquals(Banana().eatenBy("bar"), "bar ate a banana")
   }
 }
