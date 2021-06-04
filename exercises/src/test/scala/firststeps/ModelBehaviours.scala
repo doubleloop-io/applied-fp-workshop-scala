@@ -1,4 +1,4 @@
-package exercises
+package firststeps
 
 /*
  * ADT models data while Function models behaviour.
@@ -10,7 +10,7 @@ package exercises
  *  f:  InType => OutType
  */
 
-class FunctionsTests extends munit.FunSuite {
+class ModelBehaviours extends munit.FunSuite {
 
   /*
    * TODO: implements functions marked with `???`
