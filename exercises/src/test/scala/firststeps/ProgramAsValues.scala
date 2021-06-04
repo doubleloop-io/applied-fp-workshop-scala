@@ -1,4 +1,4 @@
-package exercises
+package firststeps
 
 /*
  * Combine program is different from combine values.
@@ -22,7 +22,7 @@ package exercises
  * that enable a better program composition.
  */
 
-class FreezeTests extends munit.FunSuite {
+class ProgramAsValues extends munit.FunSuite {
 
   /*
    * TODO: implements functions marked with `???`
@@ -59,7 +59,7 @@ class FreezeTests extends munit.FunSuite {
   }
 
   test("split building a program from executing it".ignore) {
-    // TODO: ingore(implements SplitBuildFromExecute functions")
+    // TODO: implements SplitBuildFromExecute functions
     import SplitBuildFromExecute._
     val program = times(plus(num(1), num(1)), num(2))
     val result  = program()
@@ -86,7 +86,7 @@ class FreezeTests extends munit.FunSuite {
   }
 
   test("execute program w/ different evaluator".ignore) {
-    // TODO: ingore(implements DifferentEvaluator functions")
+    // TODO: implements DifferentEvaluator functions
     import DifferentEvaluator._
     val program = times(plus(num(1), num(1)), num(2))
     assertEquals(eval(program), 4)

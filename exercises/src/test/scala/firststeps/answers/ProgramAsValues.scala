@@ -1,6 +1,6 @@
-package exercises.answers
+package firststeps.answers
 
-class FreezeTests extends munit.FunSuite {
+class ProgramAsValues extends munit.FunSuite {
 
   object Immediate {
 

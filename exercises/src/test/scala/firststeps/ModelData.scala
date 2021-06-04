@@ -1,4 +1,4 @@
-package exercises
+package firststeps
 
 /*
  * In OOP model object that encapsulate data and expose behaviours.
@@ -35,7 +35,7 @@ class ModelData extends munit.FunSuite {
   case class Off() extends LightState
 
   /*
-   * TODO: Model Scopa the italian card game, below the game description. :-)
+   * TODO: Model "Scopa" the italian card game, below the game description. :-)
    *       After modeling the domain implements the test following the description of ignores.
    *
    * DESCRIPTION:
@@ -49,11 +49,10 @@ class ModelData extends munit.FunSuite {
    */
 
   test("represent initial match state".ignore) {
-    // TODO: ingore(build the first player w/ 2 of Golds, 5 of Swords and 7 of Clubs")
-    // TODO: ingore(build the second player w/ 1 of Cups, 2 of Clubs and 9 of Golds")
-    // TODO: ingore(build the table w/ 4 of Clubs, 10 of Swords, 8 of Golds and 1 of Swords")
-    // TODO: ingore(build the deck w/ only 1 of Swords and 10 of Clubs")
-    // TODO: ingore(build the game")
-    () // don't delete
+    // TODO: build the first player w/ 2 of Golds, 5 of Swords and 7 of Clubs
+    // TODO: build the second player w/ 1 of Cups, 2 of Clubs and 9 of Golds
+    // TODO: build the table w/ 4 of Clubs, 10 of Swords, 8 of Golds and 1 of Swords
+    // TODO: build the deck w/ only 1 of Swords and 10 of Clubs
+    // TODO: build the game
   }
 }

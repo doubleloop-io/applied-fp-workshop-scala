@@ -15,15 +15,15 @@ class FoldTests extends munit.FunSuite {
     else None
 
   test("valid creation".ignore) {
-    val item   = createItem("100")
-    // TODO: ingore(use fold to make test green")
+    val item = createItem("100")
+    // TODO: use fold to make test green
     val result = ???
     assertEquals(result, "100")
   }
 
   test("invalid creation".ignore) {
-    val item   = createItem("asd")
-    // TODO: ingore(use fold to make test green")
+    val item = createItem("asd")
+    // TODO: use fold to make test green
     val result = ???
     assertEquals(result, "alternative value")
   }

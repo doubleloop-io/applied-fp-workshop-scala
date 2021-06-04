@@ -1,4 +1,4 @@
-package exercises.answers
+package firststeps.answers
 
 class ModelData extends munit.FunSuite {
 
@@ -32,8 +32,6 @@ class ModelData extends munit.FunSuite {
     val t  = Table(List(Card(Four, Clubs), Card(King, Swords), Card(Knight, Golds), Card(Ace, Swords)))
     val d  = Deck(List(Card(Ace, Swords), Card(King, Clubs))) // and many more
     Game(d, t, p1, p2)
-
-    () // don't delete
   }
 
 }

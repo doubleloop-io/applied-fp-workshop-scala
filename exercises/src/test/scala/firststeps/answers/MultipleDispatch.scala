@@ -1,6 +1,6 @@
-package exercises.answers
+package firststeps.answers
 
-class PatternMatchDispatch extends munit.FunSuite {
+class MultipleDispatch extends munit.FunSuite {
 
   sealed trait Direction {
     def turnRight: Direction = this match {

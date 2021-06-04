@@ -1,6 +1,6 @@
-package exercises.answers
+package firststeps.answers
 
-class FunctionsTests extends munit.FunSuite {
+class ModelBehaviours extends munit.FunSuite {
 
   val asString: Double => String = in => in.toString
 

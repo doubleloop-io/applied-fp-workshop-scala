@@ -67,7 +67,7 @@ class TypeclassIntroTests extends munit.FunSuite {
   test("sum boxes - polymorphic".ignore) {
     import Polymorphic._
 
-    // TODO: ingore(implements sum[A] function")
+    // TODO: implements sum[A] function
 
     assertEquals(sum(Box(42), Box(100)).value, 142)
     assertEquals(sum(Box("foo"), Box("bar")).value, "foobar")
