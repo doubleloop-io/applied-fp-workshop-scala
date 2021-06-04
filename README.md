@@ -2,23 +2,26 @@
 
 ### Presentation
 
-[Why functional programming?](https://gitpitch.com/doubleloop-io/avanscoperta-applied-fp-workshop-scala/master)
+[Why functional programming?](https://gitpitch.com/doubleloop-io/applied-fp-workshop-scala/master)
 
 ### Scala
 
-- [ScalaFiddle](https://scalafiddle.io/)
-- [Scala Doc](https://www.scala-lang.org/api/current/index.html)
 - [Scala Cheatsheet](https://docs.scala-lang.org/cheatsheets/)
 - [Tour Of Scala](https://docs.scala-lang.org/tour/tour-of-scala.html)
+- [Scala API](https://www.scala-lang.org/api/current/index.html)
+- [Scala Online Compiler](https://scastie.scala-lang.org/)
+
+## Test
+
+- [MUnit](https://scalameta.org/munit/)
 
 ## Cats
 
 - [Cats](https://typelevel.org/cats/)
-- [Cats Doc](https://typelevel.org/cats/api/cats/index.html)
-- [Cats-Effect](https://typelevel.org/cats-effect/)
-- [Cats-Effect Doc](https://typelevel.org/cats-effect/api/)
+- [Cats API](https://typelevel.org/cats/api/cats/index.html)
 - [Cats Type Classes](https://github.com/tpolecat/cats-infographic)
 
-## Test
+## Cats Effect
 
-- [Minitest](https://github.com/monix/minitest)
+- [Cats-Effect](https://typelevel.org/cats-effect/docs/2.x/getting-started)
+- [Cats-Effect API](https://typelevel.org/cats-effect/api/2.x/)
