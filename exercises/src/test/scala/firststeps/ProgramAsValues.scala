@@ -1,4 +1,4 @@
-package exercises
+package firststeps
 
 /*
  * Combine program is different from combine values.
@@ -22,7 +22,7 @@ package exercises
  * that enable a better program composition.
  */
 
-class FreezeTests extends munit.FunSuite {
+class ProgramAsValues extends munit.FunSuite {
 
   /*
    * TODO: implements functions marked with `???`
