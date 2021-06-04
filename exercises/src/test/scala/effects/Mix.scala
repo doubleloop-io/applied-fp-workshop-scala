@@ -45,21 +45,21 @@ class MixTests extends munit.FunSuite {
   }
 
   test("complex scenario - ok".ignore) {
-    // TODO: ingore(implement complex function")
+    // TODO: implement complex function
     val values = List(("foo", "100"), ("bar", "10"))
     val result = complex(values)
     assertEquals(result, "100")
   }
 
   test("complex scenario - bad name".ignore) {
-    // TODO: ingore(implement complex function")
+    // TODO: implement complex function
     val values = List(("", "100"), ("bar", "10"))
     val result = complex(values)
     assertEquals(result, "we can't, sorry")
   }
 
   test("complex scenario - bad qty".ignore) {
-    // TODO: ingore(implement complex function")
+    // TODO: implement complex function
     val values = List(("foo", "100"), ("bar", "zanzan"))
     val result = complex(values)
     assertEquals(result, "we can't, sorry")

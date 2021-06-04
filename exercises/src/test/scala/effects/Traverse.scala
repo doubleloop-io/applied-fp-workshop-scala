@@ -19,24 +19,24 @@ class TraverseTests extends munit.FunSuite {
   test("all valid creation - idividual result with map".ignore) {
     val values = List("1", "10", "100")
     val items  = values.map(createItem)
-    // TODO: ingore(write the assert")
+    // TODO: write the assert
   }
 
   test("some invalid creation - idividual result with map".ignore) {
     val values = List("1", "asf", "100")
     val items  = values.map(createItem)
-    // TODO: ingore(write the assert")
+    // TODO: write the assert
   }
 
   test("all valid creation - omni result with traverse".ignore) {
     val values = List("1", "10", "100")
     val items  = values.traverse(createItem)
-    // TODO: ingore(write the assert")
+    // TODO: write the assert
   }
 
   test("some invalid creation - omni result with traverse".ignore) {
     val values = List("1", "asd", "100")
     val items  = values.traverse(createItem)
-    // TODO: ingore(write the assert")
+    // TODO: write the assert
   }
 }

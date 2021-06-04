@@ -19,11 +19,11 @@ class MapTests extends munit.FunSuite {
 
   test("valid creation, can checkIn".ignore) {
     val item = createItem("100")
-    // TODO: ingore(chain checkIn of 10 items and write the assert")
+    // TODO: chain checkIn of 10 items and write the assert
   }
 
   test("invalid creation - map short circuit".ignore) {
     val item = createItem("asd")
-    // TODO: ingore(chain checkIn of 10 items and write the assert")
+    // TODO: chain checkIn of 10 items and write the assert
   }
 }

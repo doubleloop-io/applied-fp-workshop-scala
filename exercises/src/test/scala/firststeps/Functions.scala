@@ -29,7 +29,7 @@ class FunctionsTests extends munit.FunSuite {
   }
 
   test("from string to string throught reciprocal".ignore) {
-    // TODO: ingore(use existing function to compute a reciprocal in string")
+    // TODO: use existing function to compute a reciprocal in string
     assertEquals(reciprocalString("42"), "0.023809523809523808")
   }
 }

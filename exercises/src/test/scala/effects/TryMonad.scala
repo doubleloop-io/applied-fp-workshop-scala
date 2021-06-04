@@ -19,7 +19,7 @@ class TryMonadTests extends munit.FunSuite {
     item.copy(qty = item.qty + qty)
 
   test("scenario".ignore) {
-    // TODO: ingore(implement follow steps")
+    // TODO: implement follow steps
     // load an item
     // checkIn 10
     // save item

@@ -37,7 +37,7 @@ class MapReduceTests extends munit.FunSuite {
 
     val order = Order(List(OrderLine("foo", 50), OrderLine("bar", 20), OrderLine("bar", 15)))
 
-    // TODO: ingore(implements mapReduce")
+    // TODO: implements mapReduce
     val result = order.total
     assertEquals(result, 50 + 20 + 15)
   }
@@ -48,7 +48,7 @@ class MapReduceTests extends munit.FunSuite {
     }
     case class Student(name: String, age: Int)
 
-    // TODO: ingore(implements mapReduce")
+    // TODO: implements mapReduce
     val classroom = Classroom(List(Student("foo", 16), Student("bar", 20), Student("bar", 19)))
     val result    = classroom.adultCount
     assertEquals(result, 2)

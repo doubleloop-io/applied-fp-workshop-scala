@@ -28,7 +28,7 @@ class LazyTests extends munit.FunSuite {
     Lazy.pure(() => x.toString.reverse)
 
   test("lift a value into a container".ignore) {
-    // TODO: ingore(implement 'pure' function")
+    // TODO: implement 'pure' function
     val c = Lazy
       .pure(expensiveComputation _)
 
@@ -36,7 +36,7 @@ class LazyTests extends munit.FunSuite {
   }
 
   test("chain not container-aware functions".ignore) {
-    // TODO: ingore(implement 'map' function")
+    // TODO: implement 'map' function
     val c = Lazy
       .pure(expensiveComputation _)
       .map(increment)
@@ -45,7 +45,7 @@ class LazyTests extends munit.FunSuite {
   }
 
   test("chain container-aware functions".ignore) {
-    // TODO: ingore(implement 'flatMap' function")
+    // TODO: implement 'flatMap' function
     val c = Lazy
       .pure(expensiveComputation _)
       .flatMap(reversedString)

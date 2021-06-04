@@ -49,11 +49,11 @@ class ModelData extends munit.FunSuite {
    */
 
   test("represent initial match state".ignore) {
-    // TODO: ingore(build the first player w/ 2 of Golds, 5 of Swords and 7 of Clubs")
-    // TODO: ingore(build the second player w/ 1 of Cups, 2 of Clubs and 9 of Golds")
-    // TODO: ingore(build the table w/ 4 of Clubs, 10 of Swords, 8 of Golds and 1 of Swords")
-    // TODO: ingore(build the deck w/ only 1 of Swords and 10 of Clubs")
-    // TODO: ingore(build the game")
+    // TODO: build the first player w/ 2 of Golds, 5 of Swords and 7 of Clubs
+    // TODO: build the second player w/ 1 of Cups, 2 of Clubs and 9 of Golds
+    // TODO: build the table w/ 4 of Clubs, 10 of Swords, 8 of Golds and 1 of Swords
+    // TODO: build the deck w/ only 1 of Swords and 10 of Clubs
+    // TODO: build the game
     () // don't delete
   }
 }

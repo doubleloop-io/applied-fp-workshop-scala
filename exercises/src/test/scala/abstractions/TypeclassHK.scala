@@ -52,7 +52,7 @@ class TypeclassHKTests extends munit.FunSuite {
   test("add an element to the MRU list".ignore) {
     import MRUList._
 
-    // TODO: ingore(implement missing functions")
+    // TODO: implement missing functions
     val items  = List("first")
     val result = add("second", items)
     assertEquals(result, List("second", "first"))

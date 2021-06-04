@@ -15,12 +15,12 @@ class SmartConstructorTests extends munit.FunSuite {
     else null
 
   test("valid".ignore) {
-    // TODO: ingore(remove null with a custom container w/ valid state")
+    // TODO: remove null with a custom container w/ valid state
     assertEquals(createItem("100"), Item(100))
   }
 
   test("invalid".ignore) {
-    // TODO: ingore(remove null with a custom container w/ invalid state")
+    // TODO: remove null with a custom container w/ invalid state
     assertEquals(createItem("asd"), null)
     assertEquals(createItem("1 0 0"), null)
     assertEquals(createItem(""), null)

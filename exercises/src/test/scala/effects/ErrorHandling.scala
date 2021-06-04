@@ -37,7 +37,7 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     val value = compute(-10)
 
-    // TODO: ingore(remove me, run test watch why fails and make it green")
+    // TODO: remove me, run test watch why fails and make it green
     value.get;
   }
 
@@ -50,7 +50,7 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     val value = compute(-10)
 
-    // TODO: ingore(remove me, run test watch why fails and make it green")
+    // TODO: remove me, run test watch why fails and make it green
     value.get;
   }
 
@@ -64,7 +64,7 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     val value = compute(-10)
 
-    // TODO: ingore(remove me, run test watch why fails and make it green")
+    // TODO: remove me, run test watch why fails and make it green
     // value.get;
   }
 
@@ -79,7 +79,7 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     val value = compute(-10)
 
-    // TODO: ingore(remove me, run test watch why fails and make it green")
+    // TODO: remove me, run test watch why fails and make it green
     Await.result(value, 2.seconds); ()
   }
 
@@ -93,7 +93,7 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     val value = compute(-10)
 
-    // TODO: ingore(remove me, run test watch why fails and make it green")
+    // TODO: remove me, run test watch why fails and make it green
     value.unsafeRunSync();
   }
 
@@ -101,7 +101,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     sealed trait AppError
     case class BadParam() extends AppError
 
-    // TODO: ingore(implement convert function")
+    // TODO: implement convert function
     def convert[E, A](e: Either[E, A]): Option[A] =
       ???
 
@@ -114,7 +114,7 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     case class BadParamException() extends RuntimeException("bad param")
 
-    // TODO: ingore(implement convert function")
+    // TODO: implement convert function
     def convert[A](t: Try[A]): Either[Throwable, A] =
       ???
 

@@ -25,21 +25,21 @@ class ApTests extends munit.FunSuite {
 
   test("valid creation".ignore) {
     val item = createItem("foo", "100")
-    // TODO: ingore(write the assert")
+    // TODO: write the assert
   }
 
   test("invalid creation (name)".ignore) {
     val item = createItem("", "100")
-    // TODO: ingore(write the assert")
+    // TODO: write the assert
   }
 
   test("invalid creation (qty)".ignore) {
     val item = createItem("foo", "asd")
-    // TODO: ingore(write the assert")
+    // TODO: write the assert
   }
 
   test("invalid creation (both)".ignore) {
     val item = createItem("", "asd")
-    // TODO: ingore(write the assert")
+    // TODO: write the assert
   }
 }
