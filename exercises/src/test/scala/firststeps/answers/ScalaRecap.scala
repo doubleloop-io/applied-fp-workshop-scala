@@ -81,8 +81,8 @@ class ScalaRecap extends munit.FunSuite {
     import Person._
     assert(isFake(Person("foo", 10)))
     assert(isFake(Person("bar", 10)))
-    assert(isFake(Person("matte", -10)))
-    assert(!isFake(Person("matte", 10)))
+    assert(isFake(Person("baz", -10)))
+    assert(!isFake(Person("baz", 10)))
   }
 
   test("trait as interface (part 1)") {
