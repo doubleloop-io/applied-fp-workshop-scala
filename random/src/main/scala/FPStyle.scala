@@ -1,5 +1,3 @@
-package random
-
 object FPStyle {
 
   trait Generator[+A] { self =>
@@ -18,7 +16,7 @@ object FPStyle {
 
   val integers = new Generator[Int] {
     val rand  = new scala.util.Random()
-    def run() = rand.nextInt()
+    def run(): Int = rand.nextInt()
   }
 
   val booleans = integers.map(_ > 0)
@@ -29,7 +27,7 @@ object FPStyle {
     ga.flatMap(x => gb.map(y => (x, y)))
 
   def const[A](a: A) = new Generator[A] {
-    def run() = a
+    def run(): A = a
   }
 
   def choose(lo: Int, hi: Int): Generator[Int] =

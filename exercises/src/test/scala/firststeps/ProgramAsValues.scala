@@ -26,8 +26,6 @@ class ProgramAsValues extends munit.FunSuite {
 
   /*
    * TODO: implements functions marked with `???`
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   object Immediate {

@@ -1,11 +1,9 @@
-package exercises
+package effects
 
 class TraverseTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   import cats.implicits._

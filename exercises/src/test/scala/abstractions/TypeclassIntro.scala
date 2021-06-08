@@ -1,4 +1,4 @@
-package exercises
+package abstractions
 
 /*
  * Type classes are a programming pattern originating in Haskell.
@@ -20,8 +20,6 @@ class TypeclassIntroTests extends munit.FunSuite {
   /*
    * TODO: remove ignores and
    *       implements functions marked with `???`
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   object Concrete {

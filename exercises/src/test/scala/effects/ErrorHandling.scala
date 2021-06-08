@@ -1,4 +1,4 @@
-package exercises
+package effects
 
 /*
  * The effects seen so far are all useful for
@@ -14,10 +14,7 @@ package exercises
 class ErrorHandlingTests extends munit.FunSuite {
 
   /*
-   * TODO: remove ignores and
-   *       implements functions marked with `???`
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
+   * TODO: remove ignores and run test one by one
    */
 
   test("should throw demo") {
@@ -25,9 +22,8 @@ class ErrorHandlingTests extends munit.FunSuite {
     def test(): String = throw new DummyException
 
     intercept[DummyException] {
-      test();
+      test()
     }
-    ()
   }
 
   test("Option - dynamic style".ignore) {
@@ -38,7 +34,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     // TODO: remove me, run test watch why fails and make it green
-    value.get;
+    value.get
   }
 
   test("Try - dynamic style".ignore) {
@@ -51,7 +47,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     // TODO: remove me, run test watch why fails and make it green
-    value.get;
+    value.get
   }
 
   test("Either - static style".ignore) {
@@ -65,13 +61,12 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     // TODO: remove me, run test watch why fails and make it green
-    // value.get;
+    value.left.getOrElse(42)
   }
 
   test("Future - dynamic style".ignore) {
     import scala.concurrent._
     import scala.concurrent.duration._
-    import scala.concurrent.ExecutionContext.Implicits.global
 
     def compute(value: Int): Future[Int] =
       if (value > 0) Future.successful(value * 2)
@@ -80,11 +75,10 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     // TODO: remove me, run test watch why fails and make it green
-    Await.result(value, 2.seconds); ()
+    Await.result(value, 2.seconds)
   }
 
   test("IO - dynamic style".ignore) {
-    import cats._
     import cats.effect._
 
     def compute(value: Int): IO[Int] =
@@ -94,31 +88,6 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     // TODO: remove me, run test watch why fails and make it green
-    value.unsafeRunSync();
-  }
-
-  test("convert from Either to Option".ignore) {
-    sealed trait AppError
-    case class BadParam() extends AppError
-
-    // TODO: implement convert function
-    def convert[E, A](e: Either[E, A]): Option[A] =
-      ???
-
-    assertEquals(convert(Right("foo")), Some("foo"))
-    assertEquals(convert(Left(BadParam)), None)
-  }
-
-  test("convert from Try to Either".ignore) {
-    import scala.util.{ Failure, Success, Try }
-
-    case class BadParamException() extends RuntimeException("bad param")
-
-    // TODO: implement convert function
-    def convert[A](t: Try[A]): Either[Throwable, A] =
-      ???
-
-    assertEquals(convert(Success("foo")), Right("foo"))
-    assertEquals(convert(Failure(BadParamException())), Left(BadParamException()))
+    value.unsafeRunSync()
   }
 }

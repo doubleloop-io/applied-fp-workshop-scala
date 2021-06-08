@@ -25,11 +25,19 @@ package firststeps
  */
 
 class ModelData extends munit.FunSuite {
+  // Proper type
+  // es: Int, String
 
-  // Typical product type in Scala
+  // Type alias
+  type Name = String
+
+  // Type wrapper
+  case class Age(value: Int)
+
+  // Product type
   case class Person(name: String, age: Int)
 
-  // Typical sum type in Scala
+  // Sum type
   sealed trait LightState
   case class On()  extends LightState
   case class Off() extends LightState
@@ -44,8 +52,6 @@ class ModelData extends munit.FunSuite {
    *       The values on the cards range numerically from one through seven,
    *       plus three face cards in each suit: Knight (worth 8), Queen (worth 9) and King (worth 10).
    *       Each player receives three cards. The dealer will also place four cards face up on the table.
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   test("represent initial match state".ignore) {
