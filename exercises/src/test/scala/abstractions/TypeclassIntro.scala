@@ -20,8 +20,6 @@ class TypeclassIntroTests extends munit.FunSuite {
   /*
    * TODO: remove ignores and
    *       implements functions marked with `???`
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   object Concrete {

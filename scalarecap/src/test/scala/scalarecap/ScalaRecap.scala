@@ -18,8 +18,6 @@ class ScalaRecap extends munit.FunSuite {
    *       read description
    *       uncomment the code,
    *       and add the code to get a green test
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   test("define case class") {

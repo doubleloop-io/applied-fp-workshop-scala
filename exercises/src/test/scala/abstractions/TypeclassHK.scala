@@ -36,8 +36,6 @@ class TypeclassHKTests extends munit.FunSuite {
    * TODO: Define push and pop operations.
    *       Implements class instance.
    *       Implements MRUList.add.
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   trait Stack[F[_]] {}

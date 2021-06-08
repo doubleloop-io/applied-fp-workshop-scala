@@ -25,8 +25,6 @@ class TypeclassCatsTests extends munit.FunSuite {
 
   /*
    * TODO: uncomment tests and add cats imports
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   case class Box[A](value: A)

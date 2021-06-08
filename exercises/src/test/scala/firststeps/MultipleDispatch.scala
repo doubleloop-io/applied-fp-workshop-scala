@@ -18,8 +18,6 @@ class MultipleDispatch extends munit.FunSuite {
    *       from polymorphic dispatch (a fundamental OOP technique)
    *       to pattern match dispatch.
    *       Keep tests green.
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   trait Direction {

@@ -44,8 +44,6 @@ class ModelData extends munit.FunSuite {
    *       The values on the cards range numerically from one through seven,
    *       plus three face cards in each suit: Knight (worth 8), Queen (worth 9) and King (worth 10).
    *       Each player receives three cards. The dealer will also place four cards face up on the table.
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   test("represent initial match state".ignore) {

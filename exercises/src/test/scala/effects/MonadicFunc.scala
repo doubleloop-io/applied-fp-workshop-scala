@@ -4,8 +4,6 @@ class MonadicFuncTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   import cats.data._

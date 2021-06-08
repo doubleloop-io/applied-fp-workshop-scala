@@ -4,8 +4,6 @@ class FlatMapTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   case class Item(qty: Int)
