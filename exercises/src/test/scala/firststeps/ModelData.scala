@@ -25,11 +25,19 @@ package firststeps
  */
 
 class ModelData extends munit.FunSuite {
+  // Proper type
+  // es: Int, String
 
-  // Typical product type in Scala
+  // Type alias
+  type Name = String
+
+  // Type wrapper
+  case class Age(value: Int)
+
+  // Product type
   case class Person(name: String, age: Int)
 
-  // Typical sum type in Scala
+  // Sum type
   sealed trait LightState
   case class On()  extends LightState
   case class Off() extends LightState

@@ -22,7 +22,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     def test(): String = throw new DummyException
 
     intercept[DummyException] {
-      test();
+      test()
     }
   }
 
@@ -34,7 +34,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     // TODO: remove me, run test watch why fails and make it green
-    value.get;
+    value.get
   }
 
   test("Try - dynamic style".ignore) {
@@ -47,7 +47,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     // TODO: remove me, run test watch why fails and make it green
-    value.get;
+    value.get
   }
 
   test("Either - static style".ignore) {
@@ -61,7 +61,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     // TODO: remove me, run test watch why fails and make it green
-    value.left.getOrElse(42);
+    value.left.getOrElse(42)
   }
 
   test("Future - dynamic style".ignore) {
@@ -75,7 +75,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     // TODO: remove me, run test watch why fails and make it green
-    Await.result(value, 2.seconds);
+    Await.result(value, 2.seconds)
   }
 
   test("IO - dynamic style".ignore) {
@@ -88,6 +88,6 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     // TODO: remove me, run test watch why fails and make it green
-    value.unsafeRunSync();
+    value.unsafeRunSync()
   }
 }

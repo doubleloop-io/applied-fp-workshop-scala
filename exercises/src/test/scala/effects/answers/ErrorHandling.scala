@@ -10,7 +10,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     intercept[Exception] {
-      value.get;
+      value.get
     }
   }
 
@@ -24,7 +24,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     intercept[Exception] {
-      value.get;
+      value.get
     }
   }
 
@@ -38,7 +38,7 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     val value = compute(-10)
 
-    value.left.getOrElse(42);
+    value.left.getOrElse(42)
   }
 
   test("Future - dynamic style") {
@@ -52,7 +52,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     intercept[Exception] {
-      Await.result(value, 2.seconds);
+      Await.result(value, 2.seconds)
     }
   }
 
@@ -66,7 +66,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     intercept[Exception] {
-      value.unsafeRunSync();
+      value.unsafeRunSync()
     }
   }
 }
