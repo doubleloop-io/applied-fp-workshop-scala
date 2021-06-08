@@ -1,4 +1,4 @@
-package firststeps.answers
+package scalarecap.answers
 
 class ScalaRecap extends munit.FunSuite {
 

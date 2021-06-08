@@ -1,4 +1,4 @@
-package firststeps
+package scalarecap
 
 /*
  * Our most used Scala features are:
@@ -8,6 +8,7 @@ package firststeps
  * - Implicit parameter
  * - Pattern match
  * - Trait as interface
+ * - Trait as mixin
  */
 
 class ScalaRecap extends munit.FunSuite {
