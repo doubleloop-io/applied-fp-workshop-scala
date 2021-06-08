@@ -2,12 +2,15 @@ package effects.answers
 
 class LazyTests extends munit.FunSuite {
 
-  case class Lazy[A](run: () => A) {
+  case class Lazy[A](value: () => A) {
     def map[B](f: A => B): Lazy[B] =
-      Lazy.pure(() => f(run()))
+      Lazy.pure(() => f(value()))
 
     def flatMap[B](f: A => Lazy[B]): Lazy[B] =
-      Lazy.pure(() => f(run()).run())
+      Lazy.pure(() => f(value()).value())
+
+    def run(): A =
+      value()
   }
 
   object Lazy {

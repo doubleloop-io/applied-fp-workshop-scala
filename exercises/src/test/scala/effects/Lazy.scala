@@ -6,10 +6,12 @@ class LazyTests extends munit.FunSuite {
    * TODO: Follow the instruction in the ignores
    */
 
-  case class Lazy[A](run: () => A) {
+  case class Lazy[A](value: () => A) {
     def map[B](f: A => B): Lazy[B] = ???
 
     def flatMap[B](f: A => Lazy[B]): Lazy[B] = ???
+
+    def run(): A = ???
   }
 
   object Lazy {
