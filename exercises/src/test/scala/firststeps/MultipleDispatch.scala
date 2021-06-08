@@ -6,52 +6,34 @@ package firststeps
  * Pattern match enable the structural recursion
  * a fancy name to express a way to dispatch logic
  * by type and data. It goes hand in hand with ADT
- * specially Sum Type. Think, how we can implement
- * some special logic `foo` for an "exclusive-or"
- * data type?
+ * specially Sum Type.
  */
 
 class MultipleDispatch extends munit.FunSuite {
 
   /*
-   * TODO: rewrite the dispatch logic
+   * TODO: rewrite the logic
    *       from polymorphic dispatch (a fundamental OOP technique)
    *       to pattern match dispatch.
    *       Keep tests green.
    */
 
-  trait Direction {
-    def turnRight: Direction
-    def turnLeft: Direction
+  trait TrafficLight {
+    def next: TrafficLight
   }
-  case class N() extends Direction {
-    def turnRight: Direction = E()
-    def turnLeft: Direction  = W()
+  case class Red() extends TrafficLight {
+    def next: TrafficLight = Green()
   }
-  case class E() extends Direction {
-    def turnRight: Direction = S()
-    def turnLeft: Direction  = N()
+  case class Green() extends TrafficLight {
+    def next: TrafficLight = Yellow()
   }
-  case class W() extends Direction {
-    def turnRight: Direction = N()
-    def turnLeft: Direction  = S()
-  }
-  case class S() extends Direction {
-    def turnRight: Direction = W()
-    def turnLeft: Direction  = E()
+  case class Yellow() extends TrafficLight {
+    def next: TrafficLight = Red()
   }
 
   test("turn right") {
-    assertEquals(N().turnRight, E())
-    assertEquals(E().turnRight, S())
-    assertEquals(S().turnRight, W())
-    assertEquals(W().turnRight, N())
-  }
-
-  test("turn left") {
-    assertEquals(N().turnLeft, W())
-    assertEquals(W().turnLeft, S())
-    assertEquals(S().turnLeft, E())
-    assertEquals(E().turnLeft, N())
+    assertEquals(Red().next, Green())
+    assertEquals(Green().next, Yellow())
+    assertEquals(Yellow().next, Red())
   }
 }

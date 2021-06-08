@@ -2,57 +2,38 @@ package firststeps.answers
 
 class MultipleDispatch extends munit.FunSuite {
 
-  sealed trait Direction {
-    def turnRight: Direction = this match {
-      case N() => E()
-      case E() => S()
-      case S() => W()
-      case W() => N()
-    }
-    def turnLeft: Direction = this match {
-      case N() => W()
-      case W() => S()
-      case S() => E()
-      case E() => N()
+  sealed trait TrafficLight {
+    def next: TrafficLight = this match {
+      case Red() => Green()
+      case Green() => Yellow()
+      case Yellow() => Red()
     }
   }
-  case class N() extends Direction
-  case class E() extends Direction
-  case class W() extends Direction
-  case class S() extends Direction
+  case class Red()    extends TrafficLight
+  case class Green()  extends TrafficLight
+  case class Yellow() extends TrafficLight
+
+  test("next") {
+    assertEquals(Red().next, Green())
+    assertEquals(Green().next, Yellow())
+    assertEquals(Yellow().next, Red())
+  }
 
   // Alternative style, same implementation
   // but place it in the companion object
-  object Direction {
+  object TrafficLight {
 
-    def turnRight(current: Direction): Direction =
+    def next(current: TrafficLight): TrafficLight =
       current match {
-        case N() => E()
-        case E() => S()
-        case S() => W()
-        case W() => N()
-      }
-
-    def turnLeft(current: Direction): Direction =
-      current match {
-        case N() => W()
-        case W() => S()
-        case S() => E()
-        case E() => N()
+        case Red() => Green()
+        case Green() => Yellow()
+        case Yellow() => Red()
       }
   }
 
-  test("turn right") {
-    assertEquals(N().turnRight, E())
-    assertEquals(E().turnRight, S())
-    assertEquals(S().turnRight, W())
-    assertEquals(W().turnRight, N())
-  }
-
-  test("turn left") {
-    assertEquals(N().turnLeft, W())
-    assertEquals(W().turnLeft, S())
-    assertEquals(S().turnLeft, E())
-    assertEquals(E().turnLeft, N())
+  test("next - alternative") {
+    assertEquals(TrafficLight.next(Red()), Green())
+    assertEquals(TrafficLight.next(Green()), Yellow())
+    assertEquals(TrafficLight.next(Yellow()), Red())
   }
 }
