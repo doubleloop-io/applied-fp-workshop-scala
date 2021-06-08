@@ -6,6 +6,7 @@ class ApTests extends munit.FunSuite {
    * TODO: Follow the instruction in the ignores
    */
 
+  import cats.Applicative
   import cats.implicits._
 
   case class Item(name: String, qty: Int)
@@ -19,6 +20,9 @@ class ApTests extends munit.FunSuite {
     else None
 
   def createItem(name: String, qty: String): Option[Item] =
+    Applicative[Option].map2(checkName(name), checkQty(qty))(Item.apply)
+
+  def createItem_withExtension(name: String, qty: String): Option[Item] =
     (checkName(name), checkQty(qty)).mapN(Item.apply)
 
   test("valid creation".ignore) {
