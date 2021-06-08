@@ -1,4 +1,4 @@
-package exercises
+package abstractions
 
 /*
  * Let's see a real example of programming with type classes.

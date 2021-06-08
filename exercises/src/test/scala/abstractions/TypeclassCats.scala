@@ -1,4 +1,4 @@
-package exercises
+package abstractions
 
 /*
  * For a happy fp programming in Scala we need

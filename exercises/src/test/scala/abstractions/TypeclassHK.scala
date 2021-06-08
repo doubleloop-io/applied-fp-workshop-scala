@@ -1,4 +1,4 @@
-package exercises
+package abstractions
 
 /*
  * In a type system we deal with different kind of types.

@@ -1,4 +1,4 @@
-package exercises
+package effects
 
 class TryMonadTests extends munit.FunSuite {
 

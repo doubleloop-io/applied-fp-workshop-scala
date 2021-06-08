@@ -1,4 +1,4 @@
-package exercises
+package effects
 
 class SmartConstructorTests extends munit.FunSuite {
 

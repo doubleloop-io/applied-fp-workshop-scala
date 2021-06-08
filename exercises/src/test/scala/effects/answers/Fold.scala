@@ -1,4 +1,4 @@
-package exercises.answers
+package effects.answers
 
 class FoldTests extends munit.FunSuite {
 

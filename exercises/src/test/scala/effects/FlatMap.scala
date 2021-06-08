@@ -1,4 +1,4 @@
-package exercises
+package effects
 
 class FlatMapTests extends munit.FunSuite {
 

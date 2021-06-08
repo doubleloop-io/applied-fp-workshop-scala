@@ -1,4 +1,4 @@
-package exercises
+package abstractions
 
 /*
  * Program with F-Algebras.

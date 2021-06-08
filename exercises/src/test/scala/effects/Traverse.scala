@@ -1,4 +1,4 @@
-package exercises
+package effects
 
 class TraverseTests extends munit.FunSuite {
 

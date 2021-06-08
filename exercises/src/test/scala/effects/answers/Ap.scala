@@ -1,4 +1,4 @@
-package exercises.answers
+package effects.answers
 
 class ApTests extends munit.FunSuite {
 

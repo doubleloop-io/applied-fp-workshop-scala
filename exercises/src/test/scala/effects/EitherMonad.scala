@@ -1,4 +1,4 @@
-package exercises
+package effects
 
 class EitherMonadTests extends munit.FunSuite {
 

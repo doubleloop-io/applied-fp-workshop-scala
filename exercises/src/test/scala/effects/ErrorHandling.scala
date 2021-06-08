@@ -1,4 +1,4 @@
-package exercises
+package effects
 
 /*
  * The effects seen so far are all useful for

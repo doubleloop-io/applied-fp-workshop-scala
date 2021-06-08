@@ -1,4 +1,4 @@
-package exercises
+package effects
 
 class IOMonadTests extends munit.FunSuite {
 

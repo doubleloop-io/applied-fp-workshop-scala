@@ -1,8 +1,8 @@
 package inventory
 
-import scala.Console._
+import cats.effect.IO
 
-import cats.effect._
+import scala.Console.{GREEN, RED, RESET, println}
 
 object App {
 

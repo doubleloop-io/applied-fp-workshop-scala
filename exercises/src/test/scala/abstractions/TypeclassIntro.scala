@@ -1,4 +1,4 @@
-package exercises
+package abstractions
 
 /*
  * Type classes are a programming pattern originating in Haskell.
