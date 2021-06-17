@@ -1,20 +1,12 @@
-# Scala and SBT
-dist/*
-target/
-lib_managed/
-src_managed/
-project/boot/
-project/plugins/project/
-.history
-.cache
-.lib/
-.bsp/
-*.class
-*.log
-
-# IntelliJ
-.idea
-
-# Vagrant
-.vagrant
-*.log
+.idea/
+*.iml
+*.iws
+*.eml
+out/
+.DS_Store
+.svn
+log/*.log
+tmp/**
+node_modules/
+.sass-cache
+dist/*.map
