@@ -1,90 +1,18 @@
 package marsroverkata.answers
 
 import scala.util._
-
-import cats._
-import cats.data._
 import cats.implicits._
 
 object Version2 {
 
-  def run(planet: String, rover: (String, String), commands: String): Either[List[Error], String] =
-    init(planet, rover)
-      .map(execute(_, parseCommands(commands)))
-      .map(m => render(m.rover))
-      .toEither
-      .leftMap(_.toList)
+  def execute(mission: Mission, commands: List[Command]): Either[Mission, Mission] =
+    commands.foldLeftM(mission)(execute)
 
-  sealed trait Error
-  case class InvalidPlanet(value: String, error: String) extends Error
-  case class InvalidRover(value: String, error: String)  extends Error
-
-  def parseTuple[A](separator: String, raw: String, ctor: (Int, Int) => A): Try[A] =
-    Try {
-      val parts = raw.split(separator)
-      (parts(0).trim.toInt, parts(1).trim.toInt)
-    }.map(ctor.tupled(_))
-
-  def parsePlanet(raw: String): ValidatedNel[Error, Planet] =
-    parseSize(raw).map(Planet.apply)
-
-  def parseSize(raw: String): ValidatedNel[Error, Size] =
-    parseTuple("x", raw, Size.apply).toEither
-      .leftMap(_ => InvalidPlanet(raw, "InvalidSize"))
-      .toValidatedNel
-
-  def parseRover(raw: (String, String)): ValidatedNel[Error, Rover] =
-    raw
-      .bimap(parsePosition, parseDirection)
-      .mapN(Rover.apply)
-
-  def parsePosition(raw: String): ValidatedNel[Error, Position] =
-    parseTuple(",", raw, Position.apply).toEither
-      .leftMap(_ => InvalidRover(raw, "InvalidPosition"))
-      .toValidatedNel
-
-  def parseDirection(raw: String): ValidatedNel[Error, Direction] =
-    Try {
-      raw.trim.toLowerCase match {
-        case "n" => N
-        case "w" => W
-        case "e" => E
-        case "s" => S
-      }
-    }.toEither
-      .leftMap(_ => InvalidRover(raw, "InvalidDirection"))
-      .toValidatedNel
-
-  def parseCommands(raw: String): List[Command] =
-    raw.map(parseCommand).toList
-
-  def parseCommand(raw: Char): Command =
-    raw.toString.toLowerCase match {
-      case "f" => Move(Forward)
-      case "b" => Move(Backward)
-      case "r" => Turn(OnRight)
-      case "l" => Turn(OnLeft)
-      case _   => Unknown
-    }
-
-  def init(planet: String, rover: (String, String)): ValidatedNel[Error, Mission] =
-    (parsePlanet(planet), parseRover(rover))
-      .mapN(Mission.apply)
-
-  def render(rover: Rover): String =
-    s"${rover.position.x}:${rover.position.y}:${rover.direction}"
-
-  def execute(mission: Mission, commands: List[Command]): Mission =
-    commands.foldLeft(mission)(execute)
-
-  def execute(mission: Mission, command: Command): Mission =
-    mission.copy(rover = command match {
-      case Turn(tt) => turn(mission.rover, tt)
+  def execute(mission: Mission, command: Command): Either[Mission, Mission] =
+    (command match {
+      case Turn(tt) => turn(mission.rover, tt).some
       case Move(mt) => move(mission.rover, mission.planet, mt)
-      case Unknown  => noOp(mission.rover)
-    })
-
-  val noOp: Rover => Rover = identity _
+    }).map(r => mission.copy(rover = r)).toRight(mission)
 
   def turn(rover: Rover, turn: TurnType): Rover =
     rover.copy(direction = turn match {
@@ -108,17 +36,17 @@ object Version2 {
       case E => N
     }
 
-  def move(rover: Rover, planet: Planet, move: MoveType): Rover =
-    rover.copy(position = move match {
+  def move(rover: Rover, planet: Planet, move: MoveType): Option[Rover] =
+    (move match {
       case Forward  => forward(rover, planet)
       case Backward => backward(rover, planet)
-    })
+    }).map(p => rover.copy(position = p))
 
-  def forward(rover: Rover, planet: Planet): Position =
-    next(rover.position, planet.size, delta(rover.direction))
+  def forward(rover: Rover, planet: Planet): Option[Position] =
+    next(rover.position, planet, delta(rover.direction))
 
-  def backward(rover: Rover, planet: Planet): Position =
-    next(rover.position, planet.size, delta(opposite(rover.direction)))
+  def backward(rover: Rover, planet: Planet): Option[Position] =
+    next(rover.position, planet, delta(opposite(rover.direction)))
 
   def opposite(direction: Direction): Direction =
     direction match {
@@ -139,23 +67,26 @@ object Version2 {
   def wrap(axis: Int, size: Int, delta: Int): Int =
     (((axis + delta) % size) + size) % size
 
-  def next(position: Position, size: Size, delta: Delta): Position =
-    position.copy(
-      x = wrap(position.x, size.x, delta.x),
-      y = wrap(position.y, size.y, delta.y)
+  def next(position: Position, planet: Planet, delta: Delta): Option[Position] = {
+    val candidate = Position(
+      wrap(position.x, planet.size.x, delta.x),
+      wrap(position.y, planet.size.y, delta.y)
     )
+    if (planet.obstacles.map(_.position).contains(candidate)) None
+    else candidate.some
+  }
 
   case class Delta(x: Int, y: Int)
   case class Position(x: Int, y: Int)
   case class Size(x: Int, y: Int)
-  case class Planet(size: Size)
+  case class Obstacle(position: Position)
+  case class Planet(size: Size, obstacles: List[Obstacle])
   case class Rover(position: Position, direction: Direction)
   case class Mission(planet: Planet, rover: Rover)
 
   sealed trait Command
   case class Move(direction: MoveType) extends Command
   case class Turn(direction: TurnType) extends Command
-  case object Unknown                  extends Command
 
   sealed trait MoveType
   case object Forward  extends MoveType

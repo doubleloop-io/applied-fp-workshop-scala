@@ -1,7 +1,6 @@
 package marsroverkata.answers
 
-import cats._
-import cats.data._
+import scala.util._
 import cats.implicits._
 import cats.effect._
 import cats.effect.concurrent._
@@ -25,13 +24,13 @@ class Version5Tests extends munit.FunSuite {
     val commands = IO.pure("RFF")
     val app      = (planet, rover, commands).mapN(run)
     val result   = app.unsafeRunSync()
-    assertEquals(result, Left(NonEmptyList.of(InvalidPlanet("ax4", "InvalidSize"))))
+    assertEquals(result, Left(InvalidPlanet("ax4", "InvalidSize")))
   }
 
   test("simulate app throws RuntimeException") {
 
     def scenario(ref: Ref[IO, Int]) = {
-      implicit val silent = new Logger[IO] {
+      implicit val silent: Logger[IO] = new Logger[IO] {
 
         private val increment = ref.modify(x => (x + 1, x))
 

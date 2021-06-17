@@ -8,45 +8,42 @@ The idea is to get a quick and cheap responsibility distribution phase.
 
 For a full kata explanation see: https://kata-log.rocks/mars-rover-kata
 
-## V1 - Focus on the center (pure domain logic and types)
+## V1 - Focus on the center (pure domain logic)
 
-Develop an API that translates the commands sent from earth to instructions that are executed by the rover.
+Develop an API (types and functions) that executes single commands:
 
 - The planet is divided into a grid with x (width) and y (height) size.
 - The rover has a position expressed as x, y co-ordinates and an orientation (North, Est, West, South).
 - The rover can handle four commands: turn left or right, move forward or backward.
-- Commands are sent in batch (like an array)
 - Implement wrapping from one edge of the grid to another (pacman effect).
 
-## V2 - Focus on boundaries (from primitive types to domain types and viceversa)
+## V2 - More domain logic (effect in domain logic)
 
-Our domain is composed by rich types but input/output data must be privitive
+Extend the API to handle many commands and obstacle:
+
+- Commands are sent in batch (like an array) and executed sequentially. Report only the final position.
+- There are many obstacles on the planet. An obstacle has a position expressed as x, y co-ordinates.
+- If a given sequence of commands encounters an obstacle, the rover moves up to the last possible point and aborts the sequence.
+
+## V3 - Focus on boundaries (from primitive types to domain types and viceversa)
+
+Our domain is declared with rich types but inputs/outputs are primitives
 
 - Write a parser for the planet (grid) size: "5x4"
-- Write a rover initial state parser: "1,3:W"
-- Write an rendering as string: "positionX:positionY:direction"
+- Write a parser for a list of obstacles: "1,2 0,0 3,4"
+- Write a parser for rover initial state: "1,3:W"
+- Render result as string: 
+  - normal: "positionX:positionY:direction"
+  - when hit obstacle "O:positionX:positionY:direction"
 
-## V3 - More domain logic (partial function in domain logic)
-
-We discover that there are obstacles on the planet.
-
-- domain logic:
-  - An obstacle has a position expressed as x, y co-ordinates.
-  - There are many obstacles.
-  - Implement obstacle detection before each move to a new position.
-  - If a given sequence of commands encounters an obstacle, the rover moves up to the last possible point and aborts the sequence.
-- boundaries:
-  - Write a parser for a list of obstacles: "1,2 0,0 3,4"
-  - Update rendering, show hit obstacle info: "O:positionX:positionY:direction"
-
-## V4 - Focus on I/O (compose pure IO values)
+## V4 - Focus on infrastructure (compose I/O operations)
 
 Extend the "pure" way of work also to the infrastructural layer
 
 - Build initial state and execute all commands:
   - Read planet.txt from file (size and obstacles)
   - Read rover.txt from file (position and direction)
-  - Read commands from console (ask to the user)
+  - Read commands from console (ask the user)
 - After commands execution:
   - Print final output to the console (happy and not happy paths)
-  - Handle, in a safe way, any unhandled exception and log them
+  - Handle, safely, any unhandled exception and log them

@@ -1,7 +1,6 @@
 package marsroverkata.answers
 
-import cats._
-import cats.data._
+import scala.util._
 import cats.implicits._
 import cats.effect._
 
@@ -24,7 +23,7 @@ class Version4Tests extends munit.FunSuite {
     val commands = IO.pure("RFF")
     val app      = (planet, rover, commands).mapN(run)
     val result   = app.unsafeRunSync()
-    assertEquals(result, Left(List(InvalidPlanet("ax4", "InvalidSize"))))
+    assertEquals(result, Left(InvalidPlanet("ax4", "InvalidSize")))
   }
 
   test("simulate app throws RuntimeException") {

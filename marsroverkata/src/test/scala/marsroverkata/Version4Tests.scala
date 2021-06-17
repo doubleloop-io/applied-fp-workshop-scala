@@ -4,9 +4,7 @@ import cats._
 import cats.data._
 import cats.implicits._
 import cats.effect._
-
-// TODO: uncomment import
-// import marsroverkata.Version4._
+import marsroverkata.Version4._
 
 class Version4Tests extends munit.FunSuite {
 

@@ -1,4 +1,4 @@
 package marsroverkata
 
-object Version1 {
+object Version2 {
 }
