@@ -15,13 +15,14 @@ class Version3Tests extends munit.FunSuite {
 // | 0,0 |     |     |     | 4,0 |
 // +-----+-----+-----+-----+-----+
 
-  test("opposite angle") {
+  test("go to opposite angle") {
     val planet   = ("5x4", "2,0 0,3 3,2")
     val rover    = ("0,0", "N")
     val commands = "RBBLBRF"
 
     // TODO: complete test
     // invoke a function with: planet, obstacles, rover and commands
+
     // assert result, OK "4:3:E"
   }
 
@@ -32,6 +33,7 @@ class Version3Tests extends munit.FunSuite {
 
     // TODO: complete test
     // invoke a function with: planet, obstacles, rover and commands
+
     // assert result, OK "O:1:0:E"
   }
 
@@ -42,6 +44,7 @@ class Version3Tests extends munit.FunSuite {
 
     // TODO: complete test
     // invoke a function with: planet, obstacles, rover and commands
+
     // assert result, ERROR "Invalid planet size"
   }
 
@@ -52,6 +55,7 @@ class Version3Tests extends munit.FunSuite {
 
     // TODO: complete test
     // invoke a function with: planet, obstacles, rover and commands
+
     // assert result, ERROR "Invalid rover direction"
   }
 
@@ -62,6 +66,7 @@ class Version3Tests extends munit.FunSuite {
 
     // TODO: complete test
     // invoke a function with: planet, obstacles, rover and commands
+
     // assert result, OK "0:1:S"
   }
 }

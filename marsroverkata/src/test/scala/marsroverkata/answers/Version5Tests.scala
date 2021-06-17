@@ -9,7 +9,7 @@ import marsroverkata.answers.Version5._
 
 class Version5Tests extends munit.FunSuite {
 
-  test("opposite angle") {
+  test("go to opposite angle") {
     val planet   = IO.pure(("5x4", "2,0 0,3 3,2"))
     val rover    = IO.pure(("0,0", "N"))
     val commands = IO.pure("RBBLBRF")

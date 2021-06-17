@@ -40,10 +40,10 @@ Our domain is declared with rich types but inputs/outputs are primitives
 
 Extend the "pure" way of work also to the infrastructural layer
 
-- Build initial state and execute all commands:
-  - Read planet.txt from file (size and obstacles)
-  - Read rover.txt from file (position and direction)
-  - Read commands from console (ask the user)
+- Lift strings (initial state) into IO monads and execute commands
+- Read planet.txt from file into IO (size and obstacles)
+- Read rover.txt from file into IO (position and direction)
+- Read commands from file into IO (char array)
 - After commands execution:
-  - Print final output to the console (happy and not happy paths)
+  - Print final output to the console
   - Handle, safely, any unhandled exception and log them
