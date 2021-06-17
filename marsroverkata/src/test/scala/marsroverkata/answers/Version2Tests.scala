@@ -1,31 +1,23 @@
 package marsroverkata.answers
 
-import cats._
-import cats.data._
-import cats.implicits._
-
+import scala.util._
 import marsroverkata.answers.Version2._
 
 class Version2Tests extends munit.FunSuite {
 
-  test("opposite angle") {
-    val rover  = ("0,0", "N")
-    val result = run("5x4", rover, "RBBLBRF")
-    assertEquals(result, Right("4:3:E"))
+  test("go to opposite angle") {
+    val planet   = Planet(Size(5, 4), List(Obstacle(Position(2, 0)), Obstacle(Position(0, 3)), Obstacle(Position(3, 2))))
+    val mission  = Mission(planet, Rover(Position(0, 0), N))
+    val commands = List(Turn(OnLeft), Move(Forward), Turn(OnRight), Move(Backward))
+    val result   = execute(mission, commands)
+    assertEquals(result, Right(Mission(planet, Rover(Position(4, 3), N))))
   }
 
-  test("all inputs are bad") {
-    val rover  = ("1,c", "X")
-    val result = run("ax4", rover, "RBRF")
-    assertEquals(
-      result,
-      Left(
-        List(
-          InvalidPlanet("ax4", "InvalidSize"),
-          InvalidRover("1,c", "InvalidPosition"),
-          InvalidRover("X", "InvalidDirection")
-        )
-      )
-    )
+  test("hit obstacle during commands execution") {
+    val planet   = Planet(Size(5, 4), List(Obstacle(Position(2, 0)), Obstacle(Position(0, 3)), Obstacle(Position(3, 2))))
+    val mission  = Mission(planet, Rover(Position(0, 0), N))
+    val commands = List(Turn(OnRight), Move(Forward), Move(Forward))
+    val result   = execute(mission, commands)
+    assertEquals(result, Left(Mission(planet, Rover(Position(1, 0), E))))
   }
 }

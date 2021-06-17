@@ -2,9 +2,6 @@ package marsroverkata.answers
 
 object Version1 {
 
-  def execute(mission: Mission, commands: List[Command]): Mission =
-    commands.foldLeft(mission)(execute)
-
   def execute(mission: Mission, command: Command): Mission =
     mission.copy(rover = command match {
       case Turn(tt) => turn(mission.rover, tt)

@@ -1,11 +1,7 @@
 package marsroverkata
 
-import cats._
-import cats.data._
-import cats.implicits._
-
-// TODO: uncomment import
-// import marsroverkata.Version2._
+import scala.util._
+import marsroverkata.Version2._
 
 class Version2Tests extends munit.FunSuite {
 
@@ -19,27 +15,24 @@ class Version2Tests extends munit.FunSuite {
 // | 0,0 |     |     |     | 4,0 |
 // +-----+-----+-----+-----+-----+
 
-  test("opposite angle".ignore) {
+  test("go to opposite angle") {
     /*
         Plant: 5 4
         Rover: 0 0 N
-        Commands: RBBLBRF
+        Commands: LFRB
         --
-        Right(Rover: 4 3 E)
-     */
-    // val result = run("5x4", "0,0:N", "RBBLBRF")
+        Rover: 4 3 N
+   */
   }
 
-  test("all inputs are bad".ignore) {
+  test("hit obstacle during commands execution") {
     /*
-        Plant: a 4
-        Rover: 1 c X
-        Commands: RBRF
+        Plant: 5 4
+        Obstacles: 2 0; 0 3; 3 3
+        Rover: 0 0 N
+        Commands: RFF
         --
-        Left(["Invalid Planet Size",
-              "Invalid Rover Position",
-              "Invalid Rover Direction"])
-     */
-    // val result = run("ax4", "1,c:N", "RBRF")
+        Rover: STOP 1 0 E
+   */
   }
 }
