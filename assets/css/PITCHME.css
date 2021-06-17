@@ -7,3 +7,7 @@
 .reveal pre code {
   max-height: 450px;
 }
+
+.reveal strong {
+  color: chocolate;
+}
