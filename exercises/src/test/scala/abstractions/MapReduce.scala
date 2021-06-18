@@ -9,7 +9,7 @@ package abstractions
  * - a reduce function: which performs a summary operation
  */
 
-class MapReduceTests extends munit.FunSuite {
+class MapReduce extends munit.FunSuite {
 
   /*
    * TODO: Implements mapReduce function.
@@ -42,13 +42,13 @@ class MapReduceTests extends munit.FunSuite {
 
   test("major students".ignore) {
     case class Classroom(students: List[Student]) {
-      def adultCount: Int = ???
+      // TODO: implements majorsCount in terms of mapReduce
+      def majorsCount: Int = ???
     }
     case class Student(name: String, age: Int)
 
-    // TODO: implements mapReduce
     val classroom = Classroom(List(Student("foo", 16), Student("bar", 20), Student("bar", 19)))
-    val result    = classroom.adultCount
+    val result    = classroom.majorsCount
     assertEquals(result, 2)
   }
 }

@@ -1,8 +1,7 @@
 package effects.answers
 
-class IOMonadTests extends munit.FunSuite {
+class IOMonad extends munit.FunSuite {
 
-  import cats.implicits._
   import cats.effect._
 
   case class ItemId(value: Int)
@@ -18,17 +17,11 @@ class IOMonadTests extends munit.FunSuite {
     item.copy(qty = item.qty + qty)
 
   test("scenario") {
-    // load an item
     val program = load(ItemId(1))
-    // checkIn 10
       .map(checkIn(10, _))
-      // save item
       .flatMap(save)
 
-    // run the computation
     program.unsafeRunSync()
-
-    () // keep for the test
   }
 
 }

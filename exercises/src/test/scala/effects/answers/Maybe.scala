@@ -1,6 +1,6 @@
 package effects.answers
 
-class MaybeTests extends munit.FunSuite {
+class Maybe extends munit.FunSuite {
 
   sealed trait Maybe[A] {
 

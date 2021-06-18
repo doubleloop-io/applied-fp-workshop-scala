@@ -1,10 +1,8 @@
 package effects.answers
 
-class EitherMonadTests extends munit.FunSuite {
+class EitherMonad extends munit.FunSuite {
 
   import scala.util._
-  import cats.implicits._
-  import cats.effect._
 
   case class ItemId(value: Int)
   case class Item(id: ItemId, qty: Int)
@@ -21,17 +19,11 @@ class EitherMonadTests extends munit.FunSuite {
     item.copy(qty = item.qty + qty)
 
   test("scenario") {
-    // load an item
     val program = load(ItemId(1))
-    // checkIn 10
       .map(checkIn(10, _))
-      // save item
       .flatMap(save)
 
-    // run the computation
     program.fold("err " + _, "value " + _)
-
-    () // keep for the test
   }
 
 }

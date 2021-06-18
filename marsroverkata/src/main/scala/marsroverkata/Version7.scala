@@ -1,5 +1,6 @@
-package marsroverkata.answers
+package marsroverkata
 
+import cats._
 import cats.effect._
 import cats.implicits._
 
@@ -7,12 +8,66 @@ import scala.Console._
 import scala.io._
 import scala.util._
 
-object Version5 {
+object Version7 {
+
+  object Instances {
+
+    implicit val consoleIO: Console[IO] = new Console[IO] {
+
+      def puts(message: String): IO[Unit] = ???
+
+      def reads(): IO[String] = ???
+    }
+
+    implicit def loggerConsoleIO(implicit C: Console[IO]): Logger[IO] = new Logger[IO] {
+
+      def logInfo(message: String): IO[Unit] = ???
+
+      def logError(message: String): IO[Unit] = ???
+    }
+
+    implicit val fileMissionSource: MissionSource[IO] = new MissionSource[IO] {
+      def loadPlanetData(file: String): IO[(String, String)] = ???
+
+      def loadRoverData(file: String): IO[(String, String)] = ???
+    }
+
+    private def loadTupled(file: String): IO[(String, String)] =
+      Resource
+        .fromAutoCloseable(IO(Source.fromURL(getClass.getClassLoader.getResource(file))))
+        .use { source =>
+          IO(source.getLines().toArray match {
+            case Array(first, second) => (first, second)
+            case _                    => throw new RuntimeException("invalid content")
+          })
+        }
+  }
+
+  trait Console[F[_]] {
+    def puts(line: String): F[Unit]
+    def reads(): F[String]
+
+    def ask(question: String)(implicit A: Applicative[F]): F[String] =
+      puts(question) *> reads()
+  }
+
+  trait Logger[F[_]] {
+    def logInfo(message: String): F[Unit]
+    def logError(message: String): F[Unit]
+  }
+
+  trait MissionSource[F[_]] {
+    def loadPlanetData(file: String): IO[(String, String)]
+    def loadRoverData(file: String): IO[(String, String)]
+  }
 
   case class AppError(err: Error) extends RuntimeException(err.toString)
 
-  def createApplication(planetFile: String, roverFile: String): IO[Unit] =
-    (loadPlanetData(planetFile), loadRoverData(roverFile), askCommands())
+  def createApplication(
+    planetFile: String,
+    roverFile: String
+  )(implicit C: Console[IO], L: Logger[IO], MF: MissionSource[IO]): IO[Unit] =
+    (MF.loadPlanetData(planetFile), MF.loadRoverData(roverFile), askCommands())
       .mapN(run)
       .flatMap(errorToException)
       .attempt
@@ -21,38 +76,14 @@ object Version5 {
   def errorToException(e: Either[Error, String]): IO[String] =
     IO.fromEither(e.leftMap(AppError))
 
-  def handleResult(result: Either[Throwable, String]): IO[Unit] =
+  def handleResult(result: Either[Throwable, String])(implicit L: Logger[IO]): IO[Unit] =
     result match {
-      case Right(value) => logInfo(value)
-      case Left(t)      => logError(t.getMessage)
+      case Right(value) => L.logInfo(value)
+      case Left(t)      => L.logError(t.getMessage)
     }
 
-  def logInfo(message: String): IO[Unit] =
-    puts(s"$GREEN[OK] $message$RESET")
-
-  def logError(message: String): IO[Unit] =
-    puts(s"$RED[ERROR] $message$RESET")
-
-  def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
-  def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)
-
-  def loadTupled(file: String): IO[(String, String)] =
-    Resource
-      .fromAutoCloseable(IO(Source.fromURL(getClass.getClassLoader.getResource(file))))
-      .use { source =>
-        IO(source.getLines().toArray match {
-          case Array(first, second) => (first, second)
-          case _                    => throw new RuntimeException("invalid content")
-        })
-      }
-
-  def puts(message: String): IO[Unit] = IO(println(message))
-  def reads(): IO[String]             = IO(scala.io.StdIn.readLine())
-  def ask(question: String): IO[String] =
-    puts(question) *> reads()
-
-  def askCommands(): IO[String] =
-    ask("Waiting commands...")
+  def askCommands()(implicit C: Console[IO]): IO[String] =
+    C.ask("Waiting commands...")
 
   def run(planet: (String, String), rover: (String, String), commands: String): Either[Error, String] =
     init(planet, rover)
@@ -63,7 +94,7 @@ object Version5 {
     Try {
       val parts = raw.split(separator)
       (parts(0).trim.toInt, parts(1).trim.toInt)
-    }.map(ctor.tupled(_))
+    }.map(t => ctor(t._1, t._2))
 
   def parsePlanet(raw: (String, String)): Either[Error, Planet] =
     raw

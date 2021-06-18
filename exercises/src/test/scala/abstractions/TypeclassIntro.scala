@@ -8,14 +8,14 @@ package abstractions
  *
  * The main difference is that in OOP a class implements an interface
  * in order to access to it's internal state.
- * Here, in FP, state and behaviour are separated so we need
+ * In FP, state and behaviour are separated so we need
  * a different strategy, enter the Type class pattern.
  *
  * The final payoff is that thanks to them we can write more
  * generic/abstract logic and reuse it for different types.
  */
 
-class TypeclassIntroTests extends munit.FunSuite {
+class TypeclassIntro extends munit.FunSuite {
 
   /*
    * TODO: remove ignores and
@@ -33,13 +33,6 @@ class TypeclassIntroTests extends munit.FunSuite {
       BoxString(a.value + b.value)
   }
 
-  test("create boxes") {
-    import Concrete._
-
-    assertEquals(BoxInt(42).value, 42)
-    assertEquals(BoxString("foo").value, "foo")
-  }
-
   test("sum boxes") {
     import Concrete._
 
@@ -51,21 +44,30 @@ class TypeclassIntroTests extends munit.FunSuite {
 
     case class Box[A](value: A)
 
+    // TODO: implements sum[A] function
     def sum[A](a: Box[A], b: Box[A]): Box[A] =
       ???
-  }
-
-  test("create boxes - polymorphic") {
-    import Polymorphic._
-
-    assertEquals(Box(42).value, 42)
-    assertEquals(Box("foo").value, "foo")
   }
 
   test("sum boxes - polymorphic".ignore) {
     import Polymorphic._
 
-    // TODO: implements sum[A] function
+    assertEquals(sum(Box(42), Box(100)).value, 142)
+    assertEquals(sum(Box("foo"), Box("bar")).value, "foobar")
+  }
+
+  object PolymorphicImplicits {
+
+    case class Box[A](value: A)
+
+    // TODO: implements sum[A] function like in Polymorphic
+    //       but with implicit parameters
+    def sum[A](a: Box[A], b: Box[A]): Box[A] =
+      ???
+  }
+
+  test("sum boxes - polymorphic w/ implicits".ignore) {
+    import PolymorphicImplicits._
 
     assertEquals(sum(Box(42), Box(100)).value, 142)
     assertEquals(sum(Box("foo"), Box("bar")).value, "foobar")

@@ -64,3 +64,10 @@ Use values to obtain a strong separation between domain and infrastructure logic
 - implement infrastructure and test it with integration tests
 
 ## V7 - Obtain interactivity and testability (Dependency Inversion Principle via Typeclasses)
+
+Use custom Higher-Kinded Typeclasses as ports towards the infrastructure
+
+- Define Console[F[_]], Logger[F[_]] and MissionSource[F[_]] traits with basic and derived combinators
+- Implements traits instances
+- Use implicit parameters in application service function
+- Test with mock instances
