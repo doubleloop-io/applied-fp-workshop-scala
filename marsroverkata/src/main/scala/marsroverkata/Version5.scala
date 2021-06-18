@@ -1,13 +1,27 @@
 package marsroverkata
 
 import cats.effect._
-import cats.implicits._
 
 import scala.Console._
 import scala.io._
-import scala.util._
 
-object Version4 {
+object Version5 {
+
+  case class AppError(err: Error) extends RuntimeException(err.toString)
+
+  def createApplication(planetFile: String, roverFile: String): IO[Unit] = ???
+
+  def handleResult(result: Either[Throwable, String]): IO[Unit] =
+    result match {
+      case Right(value) => logInfo(value)
+      case Left(t)      => logError(t.getMessage)
+    }
+
+  def logInfo(message: String): IO[Unit] =
+    puts(s"${GREEN}OK: $message$RESET")
+
+  def logError(message: String): IO[Unit] =
+    puts(s"${RED}ERROR: $message$RESET")
 
   def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
   def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)

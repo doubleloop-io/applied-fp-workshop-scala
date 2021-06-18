@@ -7,7 +7,86 @@ import scala.Console._
 import scala.io._
 import scala.util._
 
-object Version4 {
+object Version6 {
+
+  def createApplication(planetFile: String, roverFile: String): IO[Unit] =
+    Runtime.create(init(planetFile, roverFile), update, infrastructure)
+
+  sealed trait Event
+  case class LoadMissionSuccessful(mission: Mission)   extends Event
+  case class LoadMissionFailed(error: Error)           extends Event
+  case class CommandsReceived(commands: List[Command]) extends Event
+
+  sealed trait Effect
+  case class LoadMission(planetFile: String, roverFile: String) extends Effect
+  case object AskCommands                                       extends Effect
+  case class ReportObstacleHit(rover: Rover)                    extends Effect
+  case class ReportCommandSequenceCompleted(rover: Rover)       extends Effect
+  case class Ko(error: Error)                                   extends Effect
+
+  sealed trait AppState
+  case object Loading                extends AppState
+  case class Ready(mission: Mission) extends AppState
+  case object Failed                 extends AppState
+
+  def init(planetFile: String, roverFile: String): (AppState, Effect) =
+    (Loading, LoadMission(planetFile, roverFile))
+
+  def update(model: AppState, event: Event): (AppState, Effect) =
+    (model, event) match {
+
+      case (Loading, LoadMissionSuccessful(mission)) =>
+        (Ready(mission), AskCommands)
+
+      case (Ready(mission), CommandsReceived(commands)) =>
+        execute(mission, commands)
+          .fold(
+            aborted => (Ready(aborted), ReportObstacleHit(aborted.rover)),
+            completed => (Ready(completed), ReportCommandSequenceCompleted(completed.rover))
+          )
+
+      case (Loading, LoadMissionFailed(error)) =>
+        (Failed, Ko(error))
+
+      case _ =>
+        (Failed, Ko(Generic(s"Cannot handle $event event in $model state.")))
+    }
+
+  def infrastructure(effect: Effect): IO[Option[Event]] =
+    effect match {
+      case LoadMission(pf, rf) =>
+        (loadPlanetData(pf), loadRoverData(rf))
+          .mapN(parseMission)
+          .map(_.fold(LoadMissionFailed, LoadMissionSuccessful))
+          .map(continue)
+
+      case AskCommands =>
+        askCommands()
+          .map(parseCommands)
+          .map(CommandsReceived)
+          .map(continue)
+
+      case ReportObstacleHit(rover) =>
+        logInfo(renderHit(rover))
+          .map(stop)
+
+      case ReportCommandSequenceCompleted(rover) =>
+        logInfo(render(rover))
+          .map(stop)
+
+      case Ko(error) =>
+        logError(error.toString)
+          .map(stop)
+    }
+
+  def continue(ev: Event): Option[Event] = Some(ev)
+  def stop(ignore: Unit): Option[Event]  = None
+
+  def logInfo(message: String): IO[Unit] =
+    puts(s"$GREEN[OK] $message$RESET")
+
+  def logError(message: String): IO[Unit] =
+    puts(s"$RED[ERROR] $message$RESET")
 
   def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
   def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)
@@ -29,16 +108,6 @@ object Version4 {
 
   def askCommands(): IO[String] =
     ask("Waiting commands...")
-
-  def run(planet: (String, String), rover: (String, String), commands: String): Either[Error, String] =
-    init(planet, rover)
-      .map(execute(_, parseCommands(commands)))
-      .map(_.bimap(_.rover, _.rover).fold(renderHit, render))
-
-  sealed trait Error
-  case class InvalidPlanet(value: String, error: String)   extends Error
-  case class InvalidRover(value: String, error: String)    extends Error
-  case class InvalidObstacle(value: String, error: String) extends Error
 
   def parseTuple[A](separator: String, raw: String, ctor: (Int, Int) => A): Try[A] =
     Try {
@@ -95,7 +164,7 @@ object Version4 {
       .map(Obstacle.apply)
       .leftMap(ex => InvalidObstacle(raw, ex.getClass.getSimpleName))
 
-  def init(planet: (String, String), rover: (String, String)): Either[Error, Mission] =
+  def parseMission(planet: (String, String), rover: (String, String)): Either[Error, Mission] =
     (
       parsePlanet(planet),
       parseRover(rover)
@@ -181,6 +250,12 @@ object Version4 {
     else candidate.some
   }
 
+  sealed trait Error
+  case class Generic(error: String)                        extends Error
+  case class InvalidPlanet(value: String, error: String)   extends Error
+  case class InvalidRover(value: String, error: String)    extends Error
+  case class InvalidObstacle(value: String, error: String) extends Error
+
   case class Delta(x: Int, y: Int)
   case class Position(x: Int, y: Int)
   case class Size(x: Int, y: Int)
@@ -207,4 +282,28 @@ object Version4 {
   case object E extends Direction
   case object W extends Direction
   case object S extends Direction
+
+  object Runtime {
+
+    def create[MODEL, EVENT, EFFECT](
+      initFn: => (MODEL, EFFECT),
+      updateFn: (MODEL, EVENT) => (MODEL, EFFECT),
+      infrastructureFn: EFFECT => IO[Option[EVENT]]
+    ): IO[Unit] = {
+
+      def loop(currentState: MODEL, currentEffect: EFFECT): IO[Unit] =
+        infrastructureFn(currentEffect)
+          .flatMap { optEvent =>
+            optEvent match {
+              case Some(ev) =>
+                val (nextState, nextEffect) = updateFn(currentState, ev)
+                loop(nextState, nextEffect)
+              case None => IO.unit
+            }
+          }
+
+      val (beginModel, beginEffect) = initFn
+      loop(beginModel, beginEffect)
+    }
+  }
 }

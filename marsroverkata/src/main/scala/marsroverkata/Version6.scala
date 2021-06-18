@@ -1,4 +1,4 @@
-package marsroverkata.answers
+package marsroverkata
 
 import cats.effect._
 import cats.implicits._
@@ -7,7 +7,83 @@ import scala.Console._
 import scala.io._
 import scala.util._
 
-object Version4b {
+object Version6 {
+
+  def createApplication(planetFile: String, roverFile: String): IO[Unit] =
+    Runtime.create(init(planetFile, roverFile), update, infrastructure)
+
+  sealed trait Event
+  case class LoadMissionSuccessful(mission: Mission)   extends Event
+  case class LoadMissionFailed(error: Error)           extends Event
+  case class CommandsReceived(commands: List[Command]) extends Event
+
+  sealed trait Effect
+  case class LoadMission(planetFile: String, roverFile: String) extends Effect
+  case object AskCommands                                       extends Effect
+  case class ReportObstacleHit(rover: Rover)                    extends Effect
+  case class ReportCommandSequenceCompleted(rover: Rover)       extends Effect
+  case class Ko(error: Error)                                   extends Effect
+
+  sealed trait AppState
+  case object Loading                extends AppState
+  case class Ready(mission: Mission) extends AppState
+  case object Failed                 extends AppState
+
+  def init(planetFile: String, roverFile: String): (AppState, Effect) =
+    // TODO: request to load mission (planet, rover) data
+    ???
+
+  def update(model: AppState, event: Event): (AppState, Effect) =
+    (model, event) match {
+
+      case (Loading, LoadMissionSuccessful(mission)) =>
+        // TODO: request to ask commands
+        ???
+
+      case (Ready(mission), CommandsReceived(commands)) =>
+        // TODO: execute commands and then request to log output and stop
+        ???
+
+      case (Loading, LoadMissionFailed(error)) =>
+        // TODO: request to log error and stop
+        ???
+
+      case _ =>
+        // TODO: generic errror, requesto to log error and stop
+        ???
+    }
+
+  def infrastructure(effect: Effect): IO[Option[Event]] =
+    effect match {
+      case LoadMission(pf, rf) =>
+        // TODO: do the I/O to load mission data and continue
+        ???
+
+      case AskCommands =>
+        // TODO: do the I/O to ask commands and continue
+        ???
+
+      case ReportObstacleHit(rover) =>
+        // TODO: do the I/O to log (info) rover position and stop
+        ???
+
+      case ReportCommandSequenceCompleted(rover) =>
+        // TODO: do the I/O to log (info) rover position and stop
+        ???
+
+      case Ko(error) =>
+        // TODO: do the I/O to log the error and stop
+        ???
+    }
+
+  def continue(ev: Event): Option[Event] = Some(ev)
+  def stop(ignore: Unit): Option[Event]  = None
+
+  def logInfo(message: String): IO[Unit] =
+    puts(s"$GREEN[OK] $message$RESET")
+
+  def logError(message: String): IO[Unit] =
+    puts(s"$RED[ERROR] $message$RESET")
 
   def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
   def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)
@@ -29,31 +105,6 @@ object Version4b {
 
   def askCommands(): IO[String] =
     ask("Waiting commands...")
-
-  def logError(message: String): IO[Unit] =
-    puts(s"${RED}ERROR: $message$RESET")
-
-  def handleApp(logger: String => IO[Unit]): IO[Either[Error, String]] => IO[String] =
-    app =>
-      app
-        .flatMap(e => IO.fromEither(e.leftMap(AppError)))
-        .attempt
-        .flatMap(handleUnexpected(logger))
-
-  def handleUnexpected(logger: String => IO[Unit]): Either[Throwable, String] => IO[String] =
-    e => e.fold(ex => logger(ex.getMessage) *> IO.pure("Ooops :-("), IO.pure)
-
-  def run(planet: (String, String), rover: (String, String), commands: String): Either[Error, String] =
-    init(planet, rover)
-      .map(execute(_, parseCommands(commands)))
-      .map(_.bimap(_.rover, _.rover).fold(renderHit, render))
-
-  case class AppError(errs: Error) extends RuntimeException
-
-  sealed trait Error
-  case class InvalidPlanet(value: String, error: String)   extends Error
-  case class InvalidRover(value: String, error: String)    extends Error
-  case class InvalidObstacle(value: String, error: String) extends Error
 
   def parseTuple[A](separator: String, raw: String, ctor: (Int, Int) => A): Try[A] =
     Try {
@@ -110,7 +161,7 @@ object Version4b {
       .map(Obstacle.apply)
       .leftMap(ex => InvalidObstacle(raw, ex.getClass.getSimpleName))
 
-  def init(planet: (String, String), rover: (String, String)): Either[Error, Mission] =
+  def parseMission(planet: (String, String), rover: (String, String)): Either[Error, Mission] =
     (
       parsePlanet(planet),
       parseRover(rover)
@@ -196,6 +247,12 @@ object Version4b {
     else candidate.some
   }
 
+  sealed trait Error
+  case class Generic(error: String)                        extends Error
+  case class InvalidPlanet(value: String, error: String)   extends Error
+  case class InvalidRover(value: String, error: String)    extends Error
+  case class InvalidObstacle(value: String, error: String) extends Error
+
   case class Delta(x: Int, y: Int)
   case class Position(x: Int, y: Int)
   case class Size(x: Int, y: Int)
@@ -222,4 +279,28 @@ object Version4b {
   case object E extends Direction
   case object W extends Direction
   case object S extends Direction
+
+  object Runtime {
+
+    def create[MODEL, EVENT, EFFECT](
+      initFn: => (MODEL, EFFECT),
+      updateFn: (MODEL, EVENT) => (MODEL, EFFECT),
+      infrastructureFn: EFFECT => IO[Option[EVENT]]
+    ): IO[Unit] = {
+
+      def loop(currentState: MODEL, currentEffect: EFFECT): IO[Unit] =
+        infrastructureFn(currentEffect)
+          .flatMap { optEvent =>
+            optEvent match {
+              case Some(ev) =>
+                val (nextState, nextEffect) = updateFn(currentState, ev)
+                loop(nextState, nextEffect)
+              case None => IO.unit
+            }
+          }
+
+      val (beginModel, beginEffect) = initFn
+      loop(beginModel, beginEffect)
+    }
+  }
 }
