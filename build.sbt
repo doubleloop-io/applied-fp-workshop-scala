@@ -10,7 +10,7 @@ addCommandAlias("p", "project")
 lazy val global = project
   .in(file("."))
   .settings(settings)
-  .aggregate(scalarecap, exercises, marsroverkata, random, inventory)
+  .aggregate(scalarecap, exercises, marsroverkata, random)
 
 lazy val scalarecap = project
   .settings(
@@ -33,12 +33,6 @@ lazy val marsroverkata = project
 lazy val random = project
   .settings(
     name := "random",
-    settings
-  )
-
-lazy val inventory = project
-  .settings(
-    name := "inventory",
     settings
   )
 
@@ -82,6 +76,5 @@ lazy val libsSettings = Seq(
   "org.typelevel" %% "cats-core"     % "2.6.1",
   "org.typelevel" %% "cats-effect"   % "2.5.1",
   "org.typelevel" %% "cats-mtl-core" % "0.7.1",
-  "net.debasishg" %% "redisclient"   % "3.30",
   "org.scalameta" %% "munit"         % "0.7.26" % Test
 )
