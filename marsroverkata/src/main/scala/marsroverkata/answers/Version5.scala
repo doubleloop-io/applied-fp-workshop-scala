@@ -1,50 +1,37 @@
 package marsroverkata.answers
 
-import scala.util._
+import cats.effect._
+import cats.implicits._
+
 import scala.Console._
 import scala.io._
-
-import cats._
-import cats.implicits._
-import cats.effect._
-
-object Instances {
-  import Version5.Console
-  import Version5.Logger
-
-  implicit val consoleIO: Console[IO] = new Console[IO] {
-
-    def puts(message: String): IO[Unit] =
-      IO(println(message))
-
-    def reads(): IO[String] =
-      IO(scala.io.StdIn.readLine())
-  }
-
-  implicit def loggerConsoleIO(implicit C: Console[IO]): Logger[IO] = new Logger[IO] {
-
-    def logInfo(message: String): IO[Unit] =
-      C.puts(s"INFO: $message$RESET")
-
-    def logError(message: String): IO[Unit] =
-      C.puts(s"${RED}ERROR: $message$RESET")
-  }
-}
+import scala.util._
 
 object Version5 {
 
-  trait Console[F[_]] {
-    def puts(line: String): F[Unit]
-    def reads(): F[String]
+  case class AppError(err: Error) extends RuntimeException(err.toString)
 
-    def ask(question: String)(implicit A: Applicative[F]): F[String] =
-      puts(question) *> reads()
-  }
+  def createApplication(planetFile: String, roverFile: String): IO[Unit] =
+    (loadPlanetData(planetFile), loadRoverData(roverFile), askCommands())
+      .mapN(run)
+      .flatMap(errorToException)
+      .attempt
+      .flatMap(handleResult)
 
-  trait Logger[F[_]] {
-    def logInfo(message: String): F[Unit]
-    def logError(message: String): F[Unit]
-  }
+  def errorToException(e: Either[Error, String]): IO[String] =
+    IO.fromEither(e.leftMap(AppError))
+
+  def handleResult(result: Either[Throwable, String]): IO[Unit] =
+    result match {
+      case Right(value) => logInfo(value)
+      case Left(t)      => logError(t.getMessage)
+    }
+
+  def logInfo(message: String): IO[Unit] =
+    puts(s"$GREEN[OK] $message$RESET")
+
+  def logError(message: String): IO[Unit] =
+    puts(s"$RED[ERROR] $message$RESET")
 
   def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
   def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)
@@ -59,24 +46,18 @@ object Version5 {
         })
       }
 
-  def askCommands()(implicit C: Console[IO]): IO[String] =
-    C.ask("Waiting commands...")
+  def puts(message: String): IO[Unit] = IO(println(message))
+  def reads(): IO[String]             = IO(scala.io.StdIn.readLine())
+  def ask(question: String): IO[String] =
+    puts(question) *> reads()
 
-  def handleApp(app: IO[Either[Error, String]])(implicit L: Logger[IO]): IO[String] =
-    app
-      .flatMap(e => IO.fromEither(e.leftMap(AppError)))
-      .attempt
-      .flatMap(handleUnexpected)
-
-  def handleUnexpected(e: Either[Throwable, String])(implicit L: Logger[IO]): IO[String] =
-    e.fold(ex => L.logError(ex.getMessage) *> IO.pure("Ooops :-("), IO.pure)
+  def askCommands(): IO[String] =
+    ask("Waiting commands...")
 
   def run(planet: (String, String), rover: (String, String), commands: String): Either[Error, String] =
     init(planet, rover)
       .map(execute(_, parseCommands(commands)))
       .map(_.bimap(_.rover, _.rover).fold(renderHit, render))
-
-  case class AppError(errs: Error) extends RuntimeException
 
   sealed trait Error
   case class InvalidPlanet(value: String, error: String)   extends Error
@@ -87,7 +68,7 @@ object Version5 {
     Try {
       val parts = raw.split(separator)
       (parts(0).trim.toInt, parts(1).trim.toInt)
-    }.map(t => ctor(t._1, t._2))
+    }.map(ctor.tupled(_))
 
   def parsePlanet(raw: (String, String)): Either[Error, Planet] =
     raw

@@ -43,7 +43,14 @@ Extend the "pure" way of work also to the infrastructural layer
 - Lift strings (initial state) into IO monads and execute commands
 - Read planet.txt from file into IO (size and obstacles)
 - Read rover.txt from file into IO (position and direction)
-- Read commands from file into IO (char array)
-- After commands execution:
-  - Print final output to the console
-  - Handle, safely, any unhandled exception and log them
+- Read commands from console into IO (ask to the user)
+- Simulate handled/unhandled errors
+    
+## V5 - Application service (encapsulate use-case)
+
+Write a use case runner that encapsulate wiring and execution: domain, infrastructure and error handling
+    
+- Define a function that accepts file paths and produce an application:
+    - run the whole app lifted in the IO monad
+    - Print final rover output to the console if everything is ok
+    - Handle, safely, any unhandled exception and print them

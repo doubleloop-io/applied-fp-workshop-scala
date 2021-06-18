@@ -1,60 +1,41 @@
 package marsroverkata.answers
 
-import scala.util._
-import cats.implicits._
 import cats.effect._
-import cats.effect.concurrent._
-
+import cats.implicits._
 import marsroverkata.answers.Version5._
+
+import scala.Console._
+import scala.util._
 
 class Version5Tests extends munit.FunSuite {
 
-  test("go to opposite angle") {
-    val planet   = IO.pure(("5x4", "2,0 0,3 3,2"))
-    val rover    = IO.pure(("0,0", "N"))
-    val commands = IO.pure("RBBLBRF")
-    val app      = (planet, rover, commands).mapN(run)
-    val result   = app.unsafeRunSync()
-    assertEquals(result, Right("4:3:E"))
-  }
+  def execute[A](commands: String)(app: => IO[A]): String = {
+    import java.io.{ ByteArrayOutputStream, StringReader }
 
-  test("bad planet size") {
-    val planet   = IO.pure(("ax4", "2,0 0,3 3,2"))
-    val rover    = IO.pure(("0,0", "N"))
-    val commands = IO.pure("RFF")
-    val app      = (planet, rover, commands).mapN(run)
-    val result   = app.unsafeRunSync()
-    assertEquals(result, Left(InvalidPlanet("ax4", "InvalidSize")))
-  }
-
-  test("simulate app throws RuntimeException") {
-
-    def scenario(ref: Ref[IO, Int]) = {
-      implicit val silent: Logger[IO] = new Logger[IO] {
-
-        private val increment = ref.modify(x => (x + 1, x))
-
-        def logInfo(message: String): IO[Unit] =
-          IO.unit
-
-        def logError(message: String): IO[Unit] =
-          increment *> IO.unit
+    val input = new StringReader(commands)
+    val out   = new ByteArrayOutputStream
+    Console.withIn(input) {
+      Console.withOut(out) {
+        app.unsafeRunSync()
       }
+    }
+    out.toString.replace("\r", "").split('\n').last
+  }
 
-      val planet                      = IO.pure(("5x4", "2,0 0,3 3,2"))
-      val rover: IO[(String, String)] = IO(throw new RuntimeException("boom!"))
-      val commands                    = IO.pure("RFF")
-      val app                         = (planet, rover, commands).mapN(run)
-      val result                      = handleApp(app)
-      (result, ref.get).tupled
+  test("go to opposite angle, system test (with real infrastructure)") {
+    val result = execute("RBBLBRF") {
+      createApplication("planet.txt", "rover.txt")
     }
 
-    val (result, errorCount) = Ref
-      .of[IO, Int](0)
-      .flatMap(scenario)
-      .unsafeRunSync()
-
-    assertEquals(result, "Ooops :-(")
-    assertEquals(errorCount, 1)
+    assertEquals(result, s"$GREEN[OK] 4:3:E$RESET")
   }
+
+  test("invalid planet data, system test (with real infrastructure)") {
+    val result = execute("RBBLBRF") {
+      createApplication("invalid_planet.txt", "rover.txt")
+    }
+
+    assertEquals(result, s"$RED[ERROR] 4:3:E$RESET")
+  }
+
 }
