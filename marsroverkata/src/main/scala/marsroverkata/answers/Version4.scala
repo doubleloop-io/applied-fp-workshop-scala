@@ -1,8 +1,8 @@
 package marsroverkata.answers
 
 import scala.util._
-import scala.Console._
 import scala.io._
+import scala.Console._
 
 import cats.implicits._
 import cats.effect._
@@ -38,27 +38,6 @@ object Version4 {
           case _           => throw new RuntimeException("invalid content")
         })
       }
-
-  def puts(message: String): IO[Unit] = IO(println(message))
-  def reads(): IO[String]             = IO(scala.io.StdIn.readLine())
-  def ask(question: String): IO[String] =
-    puts(question) *> reads()
-
-  def askCommands(): IO[String] =
-    ask("Waiting commands...")
-
-  def logError(message: String): IO[Unit] =
-    puts(s"${RED}ERROR: $message$RESET")
-
-  def handleApp(logger: String => IO[Unit]): IO[Either[Error, String]] => IO[String] =
-    app =>
-      app
-        .flatMap(e => IO.fromEither(e.leftMap(AppError)))
-        .attempt
-        .flatMap(handleUnexpected(logger))
-
-  def handleUnexpected(logger: String => IO[Unit]): Either[Throwable, String] => IO[String] =
-    e => e.fold(ex => logger(ex.getMessage) *> IO.pure("Ooops :-("), IO.pure)
 
   def run(planet: (String, String), rover: (String, String), commands: String): Either[Error, String] =
     init(planet, rover)

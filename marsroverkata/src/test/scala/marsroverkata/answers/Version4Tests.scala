@@ -31,8 +31,8 @@ class Version4Tests extends munit.FunSuite {
   }
 
   test("load planet data (integration test with real filesystem)") {
-    val load   = loadPlanetData("planet.txt")
-    val result = load.unsafeRunSync()
+    val planet = loadPlanetData("planet.txt")
+    val result = planet.unsafeRunSync()
     assertEquals(result, ("5x4", "2,0 0,3 3,2"))
   }
 
@@ -52,30 +52,10 @@ class Version4Tests extends munit.FunSuite {
     val rover: IO[(String, String)] = IO(throw new RuntimeException("boom!"))
     val commands                    = IO.pure("RFF")
 
-    val app          = (planet, rover, commands).mapN(run)
-    val silentLogger = (_: String) => IO.unit
-    val result       = handleApp(silentLogger)(app).unsafeRunSync()
+    val app = (planet, rover, commands).mapN(run)
+    val ex  = intercept[Exception](app.unsafeRunSync())
 
-    assertEquals(result, "Ooops :-(")
+    assertEquals("boom!", ex.getMessage)
   }
 
-  test("ask question (integration test with real console)") {
-    def execute(answer: String): String = {
-      import java.io.ByteArrayOutputStream
-      import java.io.StringReader
-
-      val input = new StringReader(answer)
-      val out   = new ByteArrayOutputStream
-      Console.withIn(input) {
-        Console.withOut(out) {
-          askCommands().unsafeRunSync()
-        }
-      }
-      out.toString.replace("\r", "")
-    }
-
-    val result = execute("RRF")
-
-    assertEquals(result, "Waiting commands...\n")
-  }
 }

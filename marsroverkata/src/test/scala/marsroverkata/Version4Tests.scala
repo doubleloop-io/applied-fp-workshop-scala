@@ -23,7 +23,7 @@ class Version4Tests extends munit.FunSuite {
     val rover    = ("0,0", "N")
     val commands = "RBBLBRF"
 
-    // TODO: complete test
+    // TODO: complete the test
     // lift planet, rover and commands in separated IO monad instances
     // lift domain entry point with: planet, rover and commands
     // run IO monad
@@ -36,7 +36,7 @@ class Version4Tests extends munit.FunSuite {
     val rover    = ("1,2", "N")
     val commands = "RBRF"
 
-    // TODO: complete test
+    // TODO: complete the test
     // lift planet, rover and commands in separated IO monad instances
     // lift domain domain entry point: planet, rover and commands
     // run IO monad
@@ -53,7 +53,7 @@ class Version4Tests extends munit.FunSuite {
   }
 
   test("load and execute data (integration test with real filesystem)") {
-    // TODO: complete test
+    // TODO: complete the test
     // val planet   = load planet data...
     // val rover    = load rover data...
     // val commands = load commands data...
@@ -65,12 +65,14 @@ class Version4Tests extends munit.FunSuite {
   }
 
   test("simulate app throws RuntimeException") {
-    // val planet                      = IO.pure(("5x4", "2,0 0,3 3,2"))
-    // val rover: IO[(String, String)] = IO(throw new RuntimeException("boom!"))
-    // val commands                    = IO.pure("RFF")
-    // val app                         = (planet, rover, commands).mapN(run)
-    // val silentLogger                = (_: String) => IO.unit
-    // val result                      = handleApp(silentLogger)(app).unsafeRunSync()
-    // assertEquals(result, "Ooops :-(")
+    // TODO: complete the test
+    // val planet                      = load planet data (real or stub)...
+    // val rover: IO[(String, String)] = load rover fails with a RuntimeException("boom!")
+    // val commands                    = load commands data (real or stub)...
+    //
+    // val app = (planet, rover, commands).mapN(run)
+    // val ex = intercept[Exception](app.unsafeRunSync())
+    //
+    // assertEquals("boom!", ex.getMessage)
   }
 }

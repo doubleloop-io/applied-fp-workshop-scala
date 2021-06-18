@@ -20,7 +20,7 @@ class Version3Tests extends munit.FunSuite {
     val rover    = ("0,0", "N")
     val commands = "RBBLBRF"
 
-    // TODO: complete test
+    // TODO: complete the test
     // invoke a function with: planet, obstacles, rover and commands
 
     // assert result, OK "4:3:E"
@@ -31,7 +31,7 @@ class Version3Tests extends munit.FunSuite {
     val rover    = ("0,0", "N")
     val commands = "RFF"
 
-    // TODO: complete test
+    // TODO: complete the test
     // invoke a function with: planet, obstacles, rover and commands
 
     // assert result, OK "O:1:0:E"
@@ -42,7 +42,7 @@ class Version3Tests extends munit.FunSuite {
     val rover    = ("1,2", "N")
     val commands = "RBRF"
 
-    // TODO: complete test
+    // TODO: complete the test
     // invoke a function with: planet, obstacles, rover and commands
 
     // assert result, ERROR "Invalid planet size"
@@ -53,7 +53,7 @@ class Version3Tests extends munit.FunSuite {
     val rover    = ("1,2", "X")
     val commands = "RBRF"
 
-    // TODO: complete test
+    // TODO: complete the test
     // invoke a function with: planet, obstacles, rover and commands
 
     // assert result, ERROR "Invalid rover direction"
@@ -64,7 +64,7 @@ class Version3Tests extends munit.FunSuite {
     val rover    = ("1,2", "N")
     val commands = "RBXRF"
 
-    // TODO: complete test
+    // TODO: complete the test
     // invoke a function with: planet, obstacles, rover and commands
 
     // assert result, OK "0:1:S"
