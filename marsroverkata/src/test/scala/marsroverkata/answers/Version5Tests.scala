@@ -22,7 +22,7 @@ class Version5Tests extends munit.FunSuite {
     out.toString.replace("\r", "").split('\n').last
   }
 
-  test("go to opposite angle, system test (with real infrastructure)") {
+  test("go to opposite angle, system test") {
     val result = execute("RBBLBRF") {
       createApplication("planet.txt", "rover.txt")
     }
@@ -30,12 +30,12 @@ class Version5Tests extends munit.FunSuite {
     assertEquals(result, s"$GREEN[OK] 4:3:E$RESET")
   }
 
-  test("invalid planet data, system test (with real infrastructure)") {
+  test("invalid planet data, system test") {
     val result = execute("RBBLBRF") {
       createApplication("invalid_planet.txt", "rover.txt")
     }
 
-    assertEquals(result, s"$RED[ERROR] 4:3:E$RESET")
+    assertEquals(result, s"$RED[ERROR] InvalidPlanet(ax4,InvalidSize)$RESET")
   }
 
 }

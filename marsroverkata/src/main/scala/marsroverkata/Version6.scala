@@ -1,4 +1,4 @@
-package marsroverkata.answers
+package marsroverkata
 
 import cats.effect._
 import cats.implicits._
@@ -30,53 +30,50 @@ object Version6 {
   case object Failed                 extends AppState
 
   def init(planetFile: String, roverFile: String): (AppState, Effect) =
-    (Loading, LoadMission(planetFile, roverFile))
+    // TODO: request to load mission (planet, rover) data
+    ???
 
   def update(model: AppState, event: Event): (AppState, Effect) =
     (model, event) match {
 
       case (Loading, LoadMissionSuccessful(mission)) =>
-        (Ready(mission), AskCommands)
+        // TODO: request to ask commands
+        ???
 
       case (Ready(mission), CommandsReceived(commands)) =>
-        execute(mission, commands)
-          .fold(
-            aborted => (Ready(aborted), ReportObstacleHit(aborted.rover)),
-            completed => (Ready(completed), ReportCommandSequenceCompleted(completed.rover))
-          )
+        // TODO: execute commands and then request to log output and stop
+        ???
 
       case (Loading, LoadMissionFailed(error)) =>
-        (Failed, Ko(error))
+        // TODO: request to log error and stop
+        ???
 
       case _ =>
-        (Failed, Ko(Generic(s"Cannot handle $event event in $model state.")))
+        // TODO: generic errror, requesto to log error and stop
+        ???
     }
 
   def infrastructure(effect: Effect): IO[Option[Event]] =
     effect match {
       case LoadMission(pf, rf) =>
-        (loadPlanetData(pf), loadRoverData(rf))
-          .mapN(parseMission)
-          .map(_.fold(LoadMissionFailed, LoadMissionSuccessful))
-          .map(continue)
+        // TODO: do the I/O to load mission data and continue
+        ???
 
       case AskCommands =>
-        askCommands()
-          .map(parseCommands)
-          .map(CommandsReceived)
-          .map(continue)
+        // TODO: do the I/O to ask commands and continue
+        ???
 
       case ReportObstacleHit(rover) =>
-        logInfo(renderHit(rover))
-          .map(stop)
+        // TODO: do the I/O to log (info) rover position and stop
+        ???
 
       case ReportCommandSequenceCompleted(rover) =>
-        logInfo(render(rover))
-          .map(stop)
+        // TODO: do the I/O to log (info) rover position and stop
+        ???
 
       case Ko(error) =>
-        logError(error.toString)
-          .map(stop)
+        // TODO: do the I/O to log the error and stop
+        ???
     }
 
   def continue(ev: Event): Option[Event] = Some(ev)
