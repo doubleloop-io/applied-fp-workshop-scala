@@ -1,4 +1,4 @@
-package exercises.answers
+package abstractions.answers
 
 class TypeclassHKTests extends munit.FunSuite {
 

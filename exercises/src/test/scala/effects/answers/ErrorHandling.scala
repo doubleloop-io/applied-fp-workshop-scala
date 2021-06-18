@@ -1,4 +1,4 @@
-package exercises.answers
+package effects.answers
 
 class ErrorHandlingTests extends munit.FunSuite {
 
@@ -10,9 +10,8 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     intercept[Exception] {
-      value.get;
+      value.get
     }
-    ()
   }
 
   test("Try - dynamic style") {
@@ -25,9 +24,8 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     intercept[Exception] {
-      value.get;
+      value.get
     }
-    ()
   }
 
   test("Either - static style") {
@@ -40,13 +38,12 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     val value = compute(-10)
 
-    // value.left.get;
+    value.left.getOrElse(42)
   }
 
   test("Future - dynamic style") {
     import scala.concurrent._
     import scala.concurrent.duration._
-    import scala.concurrent.ExecutionContext.Implicits.global
 
     def compute(value: Int): Future[Int] =
       if (value > 0) Future.successful(value * 2)
@@ -55,13 +52,11 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     intercept[Exception] {
-      Await.result(value, 2.seconds);
+      Await.result(value, 2.seconds)
     }
-    ()
   }
 
   test("IO - dynamic style") {
-    import cats._
     import cats.effect._
 
     def compute(value: Int): IO[Int] =
@@ -71,31 +66,7 @@ class ErrorHandlingTests extends munit.FunSuite {
     val value = compute(-10)
 
     intercept[Exception] {
-      value.unsafeRunSync();
+      value.unsafeRunSync()
     }
-    ()
-  }
-
-  test("convert from Either to Option") {
-    sealed trait AppError
-    case class BadParam() extends AppError
-
-    def convert[E, A](e: Either[E, A]): Option[A] =
-      e.fold(_ => None, a => Some(a))
-
-    assertEquals(convert(Right("foo")), Some("foo"))
-    assertEquals(convert(Left(BadParam)), None)
-  }
-
-  test("convert from Try to Either") {
-    import scala.util.{ Failure, Success, Try }
-
-    case class BadParamException() extends RuntimeException("bad param")
-
-    def convert[A](t: Try[A]): Either[Throwable, A] =
-      t.fold(ex => Left(ex), a => Right(a))
-
-    assertEquals(convert(Success("foo")), Right("foo"))
-    assertEquals(convert(Failure(BadParamException())), Left(BadParamException()))
   }
 }

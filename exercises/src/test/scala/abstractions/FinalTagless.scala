@@ -1,4 +1,4 @@
-package exercises
+package abstractions
 
 /*
  * Program with F-Algebras.
@@ -16,8 +16,6 @@ class FinalTaglessTests extends munit.FunSuite {
    * TODO: add num, plus and times operations to
    *       Exp (F-algebra). Implements IOEvaluator
    *       and then uncomment and complete the test
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   import cats.implicits._

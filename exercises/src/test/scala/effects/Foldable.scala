@@ -1,11 +1,9 @@
-package exercises
+package effects
 
 class FoldableTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   case class Item(qty: Int)
@@ -15,14 +13,14 @@ class FoldableTests extends munit.FunSuite {
 
   test("total qty".ignore) {
     val items = List(Item(100), Item(10), Item(45))
-    // TODO: ingore(use foldLeft to make test green")
+    // TODO: use foldLeft to make test green
     val result = ???
     assertEquals(result, 155)
   }
 
   test("reduce to single total item".ignore) {
     val items = List(Item(100), Item(10), Item(45))
-    // TODO: ingore(use foldLeft to make test green")
+    // TODO: use foldLeft to make test green
     val result = ???
     assertEquals(result, Item(155))
   }

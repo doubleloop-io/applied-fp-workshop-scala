@@ -1,17 +1,17 @@
-package exercises
+package effects
 
 class LazyTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   case class Lazy[A](value: () => A) {
     def map[B](f: A => B): Lazy[B] = ???
 
     def flatMap[B](f: A => Lazy[B]): Lazy[B] = ???
+
+    def run(): A = ???
   }
 
   object Lazy {
@@ -27,29 +27,29 @@ class LazyTests extends munit.FunSuite {
   def reversedString(x: Int): Lazy[String] =
     Lazy.pure(() => x.toString.reverse)
 
-  test("lift a value into a container".ignore) {
-    // TODO: ingore(implement 'pure' function")
+  test("lift a value and run the effect".ignore) {
+    // TODO: implement 'pure' function
     val c = Lazy
       .pure(expensiveComputation _)
 
-    assertEquals(c.value(), 10)
+    assertEquals(c.run(), 10)
   }
 
-  test("chain not container-aware functions".ignore) {
-    // TODO: ingore(implement 'map' function")
+  test("chain pure function".ignore) {
+    // TODO: implement 'map' function
     val c = Lazy
       .pure(expensiveComputation _)
       .map(increment)
 
-    assertEquals(c.value(), 11)
+    assertEquals(c.run(), 11)
   }
 
-  test("chain container-aware functions".ignore) {
-    // TODO: ingore(implement 'flatMap' function")
+  test("chain effectful function".ignore) {
+    // TODO: implement 'flatMap' function
     val c = Lazy
       .pure(expensiveComputation _)
       .flatMap(reversedString)
 
-    assertEquals(c.value(), "01")
+    assertEquals(c.run(), "01")
   }
 }

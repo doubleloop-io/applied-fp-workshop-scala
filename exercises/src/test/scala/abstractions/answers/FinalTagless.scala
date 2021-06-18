@@ -1,4 +1,4 @@
-package exercises.answers
+package abstractions.answers
 
 class FinalTaglessTests extends munit.FunSuite {
 

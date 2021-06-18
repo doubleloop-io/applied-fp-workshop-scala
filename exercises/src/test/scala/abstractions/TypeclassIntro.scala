@@ -1,4 +1,4 @@
-package exercises
+package abstractions
 
 /*
  * Type classes are a programming pattern originating in Haskell.
@@ -20,8 +20,6 @@ class TypeclassIntroTests extends munit.FunSuite {
   /*
    * TODO: remove ignores and
    *       implements functions marked with `???`
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   object Concrete {
@@ -67,7 +65,7 @@ class TypeclassIntroTests extends munit.FunSuite {
   test("sum boxes - polymorphic".ignore) {
     import Polymorphic._
 
-    // TODO: ingore(implements sum[A] function")
+    // TODO: implements sum[A] function
 
     assertEquals(sum(Box(42), Box(100)).value, 142)
     assertEquals(sum(Box("foo"), Box("bar")).value, "foobar")

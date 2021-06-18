@@ -1,4 +1,4 @@
-package exercises
+package firststeps
 
 /*
  * In OOP model object that encapsulate data and expose behaviours.
@@ -25,17 +25,25 @@ package exercises
  */
 
 class ModelData extends munit.FunSuite {
+  // Proper type
+  // es: Int, String
 
-  // Typical product type in Scala
+  // Type alias
+  type Name = String
+
+  // Type wrapper
+  case class Age(value: Int)
+
+  // Product type
   case class Person(name: String, age: Int)
 
-  // Typical sum type in Scala
+  // Sum type
   sealed trait LightState
   case class On()  extends LightState
   case class Off() extends LightState
 
   /*
-   * TODO: Model Scopa the italian card game, below the game description. :-)
+   * TODO: Model "Scopa" the italian card game, below the game description. :-)
    *       After modeling the domain implements the test following the description of ignores.
    *
    * DESCRIPTION:
@@ -44,16 +52,13 @@ class ModelData extends munit.FunSuite {
    *       The values on the cards range numerically from one through seven,
    *       plus three face cards in each suit: Knight (worth 8), Queen (worth 9) and King (worth 10).
    *       Each player receives three cards. The dealer will also place four cards face up on the table.
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   test("represent initial match state".ignore) {
-    // TODO: ingore(build the first player w/ 2 of Golds, 5 of Swords and 7 of Clubs")
-    // TODO: ingore(build the second player w/ 1 of Cups, 2 of Clubs and 9 of Golds")
-    // TODO: ingore(build the table w/ 4 of Clubs, 10 of Swords, 8 of Golds and 1 of Swords")
-    // TODO: ingore(build the deck w/ only 1 of Swords and 10 of Clubs")
-    // TODO: ingore(build the game")
-    () // don't delete
+    // TODO: build the first player w/ 2 of Golds, 5 of Swords and 7 of Clubs
+    // TODO: build the second player w/ 1 of Cups, 2 of Clubs and 9 of Golds
+    // TODO: build the table w/ 4 of Clubs, 10 of Swords, 8 of Golds and 1 of Swords
+    // TODO: build the deck w/ only 1 of Swords and 10 of Clubs
+    // TODO: build the game
   }
 }

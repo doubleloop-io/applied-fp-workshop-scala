@@ -1,11 +1,9 @@
-package exercises
+package effects
 
 class MonadicFuncTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   import cats.data._
@@ -56,8 +54,8 @@ class MonadicFuncTests extends munit.FunSuite {
   test("count find iterations".ignore) {
     import CountHowManyIteration._
 
-    // TODO: ingore(keep test green but w/out side-effects")
-    // TODO: ingore(use state monad and findM")
+    // TODO: keep test green but w/out side-effects
+    // TODO: use state monad and findM
     val result = people.find(ageOver(40))
     var count  = iterationCount
 
@@ -78,8 +76,8 @@ class MonadicFuncTests extends munit.FunSuite {
   test("log find iterations".ignore) {
     import WhatWereInspected._
 
-    // TODO: ingore(keep test green but w/out side-effects")
-    // TODO: ingore(use writer monad and findM")
+    // TODO: keep test green but w/out side-effects
+    // TODO: use writer monad and findM
     val result = people.find(ageOver(40))
     val log    = inspected
 
@@ -105,8 +103,8 @@ class MonadicFuncTests extends munit.FunSuite {
   test("io - found".ignore) {
     import OutOfProc._
 
-    // TODO: ingore(keep test green but w/out side-effects")
-    // TODO: ingore(use IO monad, attempt and findM")
+    // TODO: keep test green but w/out side-effects
+    // TODO: use IO monad, attempt and findM
     val result = people.find(ageOver(40))
 
     assertEquals(result, Some(john))
@@ -115,8 +113,8 @@ class MonadicFuncTests extends munit.FunSuite {
   test("io - not found".ignore) {
     import OutOfProc._
 
-    // TODO: ingore(keep test green but w/out side-effects")
-    // TODO: ingore(use IO monad, attempt and findM")
+    // TODO: keep test green but w/out side-effects
+    // TODO: use IO monad, attempt and findM
     val result = people.find(ageOver(50))
 
     assertEquals(result, None)
@@ -125,8 +123,8 @@ class MonadicFuncTests extends munit.FunSuite {
   test("io - fail".ignore) {
     import OutOfProc._
 
-    // TODO: ingore(keep test green but w/out side-effects")
-    // TODO: ingore(use IO monad, attempt and findM")
+    // TODO: keep test green but w/out side-effects
+    // TODO: use IO monad, attempt and findM
     intercept[UnreachableServer] {
       val result = people.find(ageOverKaboom(40))
     }

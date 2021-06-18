@@ -1,4 +1,4 @@
-package exercises
+package effects
 
 class EitherMonadTests extends munit.FunSuite {
 
@@ -21,7 +21,7 @@ class EitherMonadTests extends munit.FunSuite {
     item.copy(qty = item.qty + qty)
 
   test("scenario".ignore) {
-    // TODO: ingore(implement follow steps")
+    // TODO: implement follow steps
     // load an item
     // checkIn 10
     // save item

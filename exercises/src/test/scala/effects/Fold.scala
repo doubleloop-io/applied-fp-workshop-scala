@@ -1,11 +1,9 @@
-package exercises
+package effects
 
 class FoldTests extends munit.FunSuite {
 
   /*
    * TODO: Follow the instruction in the ignores
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   case class Item(qty: Int)
@@ -16,14 +14,14 @@ class FoldTests extends munit.FunSuite {
 
   test("valid creation".ignore) {
     val item = createItem("100")
-    // TODO: ingore(use fold to make test green")
+    // TODO: use fold to make test green
     val result = ???
     assertEquals(result, "100")
   }
 
   test("invalid creation".ignore) {
     val item = createItem("asd")
-    // TODO: ingore(use fold to make test green")
+    // TODO: use fold to make test green
     val result = ???
     assertEquals(result, "alternative value")
   }

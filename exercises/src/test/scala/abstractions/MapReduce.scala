@@ -1,4 +1,4 @@
-package exercises
+package abstractions
 
 /*
  * Let's see a real example of programming with type classes.
@@ -22,8 +22,6 @@ class MapReduceTests extends munit.FunSuite {
    *       - Functor: https://typelevel.org/cats/api/cats/Functor.html
    *       - Foldable: https://typelevel.org/cats/api/cats/Foldable.html
    *       - Traverse: https://typelevel.org/cats/api/cats/Traverse.html
-   *
-   * ADD YOUR CODE HERE INSIDE THE TEST OBJECT
    */
 
   def mapReduce[F[_], A, B](fa: F[A])(f: A => B): B =
@@ -37,7 +35,7 @@ class MapReduceTests extends munit.FunSuite {
 
     val order = Order(List(OrderLine("foo", 50), OrderLine("bar", 20), OrderLine("bar", 15)))
 
-    // TODO: ingore(implements mapReduce")
+    // TODO: implements mapReduce
     val result = order.total
     assertEquals(result, 50 + 20 + 15)
   }
@@ -48,7 +46,7 @@ class MapReduceTests extends munit.FunSuite {
     }
     case class Student(name: String, age: Int)
 
-    // TODO: ingore(implements mapReduce")
+    // TODO: implements mapReduce
     val classroom = Classroom(List(Student("foo", 16), Student("bar", 20), Student("bar", 19)))
     val result    = classroom.adultCount
     assertEquals(result, 2)
