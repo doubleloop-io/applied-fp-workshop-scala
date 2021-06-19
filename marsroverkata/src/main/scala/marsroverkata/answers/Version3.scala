@@ -10,11 +10,6 @@ object Version3 {
       .map(execute(_, parseCommands(commands)))
       .map(_.bimap(_.rover, _.rover).fold(renderHit, render))
 
-  sealed trait Error
-  case class InvalidPlanet(value: String, error: String)   extends Error
-  case class InvalidRover(value: String, error: String)    extends Error
-  case class InvalidObstacle(value: String, error: String) extends Error
-
   def parseTuple[A](separator: String, raw: String, ctor: (Int, Int) => A): Try[A] =
     Try {
       val parts = raw.split(separator)
@@ -155,6 +150,11 @@ object Version3 {
     if (planet.obstacles.map(_.position).contains(candidate)) None
     else candidate.some
   }
+
+  sealed trait Error
+  case class InvalidPlanet(value: String, error: String)   extends Error
+  case class InvalidRover(value: String, error: String)    extends Error
+  case class InvalidObstacle(value: String, error: String) extends Error
 
   case class Delta(x: Int, y: Int)
   case class Position(x: Int, y: Int)

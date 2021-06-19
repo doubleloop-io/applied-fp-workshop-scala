@@ -1,6 +1,6 @@
 package abstractions.answers
 
-class MapReduceTests extends munit.FunSuite {
+class MapReduce extends munit.FunSuite {
 
   import cats.{ Monoid, Traverse }
 
@@ -27,14 +27,14 @@ class MapReduceTests extends munit.FunSuite {
     import cats.instances.option._
 
     case class Classroom(students: List[Student]) {
-      def adultCount: Int =
+      def majorsCount: Int =
         mapReduce(students)(s => if (s.age >= 18) Option(1) else None)
           .getOrElse(0)
     }
     case class Student(name: String, age: Int)
 
     val classroom = Classroom(List(Student("foo", 16), Student("bar", 20), Student("bar", 19)))
-    val result    = classroom.adultCount
+    val result    = classroom.majorsCount
     assertEquals(result, 2)
   }
 }

@@ -1,6 +1,6 @@
 package effects
 
-class IOMonadTests extends munit.FunSuite {
+class IOMonad extends munit.FunSuite {
 
   import cats.implicits._
   import cats.effect._
@@ -26,8 +26,6 @@ class IOMonadTests extends munit.FunSuite {
 
     // run the computation
     program.unsafeRunSync()
-
-    () // keep for the test
   }
 
 }

@@ -1,10 +1,8 @@
 package effects
 
-class TryMonadTests extends munit.FunSuite {
+class TryMonad extends munit.FunSuite {
 
   import scala.util._
-  import cats.implicits._
-  import cats.effect._
 
   case class ItemId(value: Int)
   case class Item(id: ItemId, qty: Int)
@@ -27,8 +25,6 @@ class TryMonadTests extends munit.FunSuite {
 
     // run the computation
     program.fold("err " + _.getMessage, "value " + _)
-
-    () // keep for the test
   }
 
 }

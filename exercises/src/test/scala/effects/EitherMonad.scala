@@ -1,10 +1,8 @@
 package effects
 
-class EitherMonadTests extends munit.FunSuite {
+class EitherMonad extends munit.FunSuite {
 
   import scala.util._
-  import cats.implicits._
-  import cats.effect._
 
   case class ItemId(value: Int)
   case class Item(id: ItemId, qty: Int)
@@ -29,8 +27,6 @@ class EitherMonadTests extends munit.FunSuite {
 
     // run the computation
     program.fold("err " + _, "value " + _)
-
-    () // keep for the test
   }
 
 }
