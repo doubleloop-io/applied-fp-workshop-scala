@@ -2,10 +2,6 @@ package effects
 
 class Maybe extends munit.FunSuite {
 
-  /*
-   * TODO: Follow the instruction in the ignores
-   */
-
   sealed trait Maybe[A] {
 
     def map[B](f: A => B): Maybe[B] = ???

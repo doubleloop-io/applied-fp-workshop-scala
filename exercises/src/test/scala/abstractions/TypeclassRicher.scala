@@ -6,11 +6,6 @@ package abstractions
  * */
 class TypeclassRicher extends munit.FunSuite {
 
-  /*
-   * TODO: remove ignores and
-   *       implements functions marked with `???`
-   */
-
   import cats.Semigroup
 
   test("combine monadic data types".ignore) {

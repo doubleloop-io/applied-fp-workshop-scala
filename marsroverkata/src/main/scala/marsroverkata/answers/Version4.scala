@@ -1,13 +1,13 @@
 package marsroverkata.answers
 
-import cats.effect._
-import cats.implicits._
-
-import scala.Console._
-import scala.io._
-import scala.util._
-
 object Version4 {
+
+  import cats.effect._
+  import cats.implicits._
+
+  import scala.Console._
+  import scala.io._
+  import scala.util._
 
   def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
   def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)

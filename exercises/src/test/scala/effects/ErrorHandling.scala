@@ -1,9 +1,8 @@
 package effects
 
 /*
- * The effects seen so far are all useful for
- * handling errors. Each effect has different
- * properties and fit different needs:
+ * There are different effects to handle errors.
+ * Each one has different properties and fit different needs:
  * no error info, closed error type and open
  * error type. Apart from that error effects
  * embrace one of the following strategies:
@@ -11,10 +10,10 @@ package effects
  * - static: expose the error type e.g. Either[E, A]
  */
 
-class ErrorHandlingTests extends munit.FunSuite {
+class ErrorHandling extends munit.FunSuite {
 
   /*
-   * TODO: remove ignores and run test one by one
+   * TODO: one by one, remove ignore and run test
    */
 
   test("should throw demo") {
@@ -33,7 +32,6 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     val value = compute(-10)
 
-    // TODO: remove me, run test watch why fails and make it green
     value.get
   }
 
@@ -46,7 +44,6 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     val value = compute(-10)
 
-    // TODO: remove me, run test watch why fails and make it green
     value.get
   }
 
@@ -60,7 +57,6 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     val value = compute(-10)
 
-    // TODO: remove me, run test watch why fails and make it green
     value.left.getOrElse(42)
   }
 
@@ -74,7 +70,6 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     val value = compute(-10)
 
-    // TODO: remove me, run test watch why fails and make it green
     Await.result(value, 2.seconds)
   }
 
@@ -87,7 +82,6 @@ class ErrorHandlingTests extends munit.FunSuite {
 
     val value = compute(-10)
 
-    // TODO: remove me, run test watch why fails and make it green
     value.unsafeRunSync()
   }
 }

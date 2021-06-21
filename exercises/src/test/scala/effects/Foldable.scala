@@ -1,10 +1,6 @@
 package effects
 
-class FoldableTests extends munit.FunSuite {
-
-  /*
-   * TODO: Follow the instruction in the ignores
-   */
+class Foldable extends munit.FunSuite {
 
   case class Item(qty: Int)
 

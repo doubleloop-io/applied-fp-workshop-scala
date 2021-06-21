@@ -7,11 +7,7 @@ package effects
  * to another and the other way around.
  */
 
-class TransformationTests extends munit.FunSuite {
-
-  /*
-   * TODO: implements functions marked with `???`
-   */
+class Transformation extends munit.FunSuite {
 
   test("convert from Try to Either".ignore) {
     import scala.util.{ Failure, Success, Try }

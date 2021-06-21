@@ -1,6 +1,6 @@
 package effects.answers
 
-class MapTests extends munit.FunSuite {
+class Map extends munit.FunSuite {
 
   case class Item(qty: Int)
 

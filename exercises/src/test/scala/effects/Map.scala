@@ -1,10 +1,6 @@
 package effects
 
-class MapTests extends munit.FunSuite {
-
-  /*
-   * TODO: Follow the instruction in the ignores
-   */
+class Map extends munit.FunSuite {
 
   case class Item(qty: Int)
 
@@ -15,12 +11,12 @@ class MapTests extends munit.FunSuite {
   def checkIn(qty: Int, item: Item): Item =
     item.copy(qty = item.qty + qty)
 
-  test("valid creation, can checkIn".ignore) {
+  test("valid creation, can checkIn") {
     val item = createItem("100")
     // TODO: chain checkIn of 10 items and write the assert
   }
 
-  test("invalid creation - map short circuit".ignore) {
+  test("invalid creation - map short circuit") {
     val item = createItem("asd")
     // TODO: chain checkIn of 10 items and write the assert
   }

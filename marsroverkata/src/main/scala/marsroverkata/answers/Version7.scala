@@ -1,13 +1,13 @@
 package marsroverkata.answers
 
-import scala.util._
-import scala.Console._
-import scala.io._
-import cats._
-import cats.implicits._
-import cats.effect._
-
 object Version7 {
+
+  import scala.util._
+  import scala.Console._
+  import scala.io._
+  import cats._
+  import cats.implicits._
+  import cats.effect._
 
   object Instances {
 

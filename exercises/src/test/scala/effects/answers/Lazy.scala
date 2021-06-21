@@ -1,6 +1,6 @@
 package effects.answers
 
-class LazyTests extends munit.FunSuite {
+class Lazy extends munit.FunSuite {
 
   case class Lazy[A](value: () => A) {
     def map[B](f: A => B): Lazy[B] =

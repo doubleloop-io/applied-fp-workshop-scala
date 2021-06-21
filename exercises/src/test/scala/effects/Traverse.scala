@@ -1,10 +1,6 @@
 package effects
 
-class TraverseTests extends munit.FunSuite {
-
-  /*
-   * TODO: Follow the instruction in the ignores
-   */
+class Traverse extends munit.FunSuite {
 
   import cats.implicits._
 
@@ -14,13 +10,13 @@ class TraverseTests extends munit.FunSuite {
     if (qty.matches("^[0-9]+$")) Some(Item(qty.toInt))
     else None
 
-  test("all valid creation - idividual result with map".ignore) {
+  test("all valid creation - individual result with map".ignore) {
     val values = List("1", "10", "100")
     val items  = values.map(createItem)
     // TODO: write the assert
   }
 
-  test("some invalid creation - idividual result with map".ignore) {
+  test("some invalid creation - individual result with map".ignore) {
     val values = List("1", "asf", "100")
     val items  = values.map(createItem)
     // TODO: write the assert

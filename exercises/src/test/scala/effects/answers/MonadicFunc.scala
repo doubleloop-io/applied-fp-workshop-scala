@@ -1,6 +1,6 @@
 package effects.answers
 
-class MonadicFuncTests extends munit.FunSuite {
+class MonadicFunc extends munit.FunSuite {
 
   import cats.data._
   import cats.implicits._

@@ -17,7 +17,7 @@ class ModelData extends munit.FunSuite {
   case object Six    extends Value
   case object Seven  extends Value
   case object Knight extends Value
-  case object Queent extends Value
+  case object Queen extends Value
   case object King   extends Value
 
   case class Card(value: Value, suit: Suit)
@@ -28,7 +28,7 @@ class ModelData extends munit.FunSuite {
 
   test("represent initial match state") {
     val p1 = Player("foo", List(Card(Two, Golds), Card(Five, Swords), Card(Seven, Clubs)), List())
-    val p2 = Player("bar", List(Card(Ace, Cups), Card(Two, Clubs), Card(Queent, Golds)), List())
+    val p2 = Player("bar", List(Card(Ace, Cups), Card(Two, Clubs), Card(Queen, Golds)), List())
     val t  = Table(List(Card(Four, Clubs), Card(King, Swords), Card(Knight, Golds), Card(Ace, Swords)))
     val d  = Deck(List(Card(Ace, Swords), Card(King, Clubs))) // and many more
     Game(d, t, p1, p2)

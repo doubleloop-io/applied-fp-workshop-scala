@@ -1,9 +1,9 @@
 package marsroverkata.answers
 
-import scala.util._
-import cats.implicits._
-
 object Version2 {
+
+  import scala.util._
+  import cats.implicits._
 
   def execute(mission: Mission, commands: List[Command]): Either[Mission, Mission] =
     commands.foldLeftM(mission)(execute)

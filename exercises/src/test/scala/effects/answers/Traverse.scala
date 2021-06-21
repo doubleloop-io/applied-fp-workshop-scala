@@ -1,6 +1,6 @@
 package effects.answers
 
-class TraverseTests extends munit.FunSuite {
+class Traverse extends munit.FunSuite {
 
   import cats.implicits._
 
@@ -10,13 +10,13 @@ class TraverseTests extends munit.FunSuite {
     if (qty.matches("^[0-9]+$")) Some(Item(qty.toInt))
     else None
 
-  test("all valid creation - idividual result with map") {
+  test("all valid creation - individual result with map") {
     val values = List("1", "10", "100")
     val items  = values.map(createItem)
     assertEquals(items, List(Some(Item(1)), Some(Item(10)), Some(Item(100))))
   }
 
-  test("some invalid creation - idividual result with map") {
+  test("some invalid creation - individual result with map") {
     val values = List("1", "asf", "100")
     val items  = values.map(createItem)
     assertEquals(items, List(Some(Item(1)), None, Some(Item(100))))

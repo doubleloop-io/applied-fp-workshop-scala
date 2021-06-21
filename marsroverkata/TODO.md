@@ -1,4 +1,4 @@
-# Enanched Mars Rover Kata
+# Enhanced Mars Rover Kata
 
 You’re part of the team that explores Mars by sending remotely controlled vehicles to the surface of the planet.
 Implement an application that simulates the movement of a rover on a planet with data provided by user.

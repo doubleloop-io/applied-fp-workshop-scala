@@ -17,11 +17,6 @@ package abstractions
 
 class TypeclassIntro extends munit.FunSuite {
 
-  /*
-   * TODO: remove ignores and
-   *       implements functions marked with `???`
-   */
-
   object Concrete {
     case class BoxInt(value: Int)
     case class BoxString(value: String)

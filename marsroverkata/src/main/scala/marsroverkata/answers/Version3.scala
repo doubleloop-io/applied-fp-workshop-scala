@@ -1,9 +1,9 @@
 package marsroverkata.answers
 
-import scala.util._
-import cats.implicits._
-
 object Version3 {
+
+  import scala.util._
+  import cats.implicits._
 
   def run(planet: (String, String), rover: (String, String), commands: String): Either[Error, String] =
     init(planet, rover)

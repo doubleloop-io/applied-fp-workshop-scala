@@ -1,10 +1,6 @@
 package effects
 
-class ApTests extends munit.FunSuite {
-
-  /*
-   * TODO: Follow the instruction in the ignores
-   */
+class Ap extends munit.FunSuite {
 
   import cats.Applicative
   import cats.implicits._
@@ -12,7 +8,7 @@ class ApTests extends munit.FunSuite {
   case class Item(name: String, qty: Int)
 
   def checkName(value: String): Option[String] =
-    if (!value.isEmpty) Some(value)
+    if (value.nonEmpty) Some(value)
     else None
 
   def checkQty(qty: String): Option[Int] =

@@ -1,6 +1,6 @@
 package effects.answers
 
-class SmartConstructorTests extends munit.FunSuite {
+class SmartConstructor extends munit.FunSuite {
 
   sealed trait MaybeItem
   case class ValidItem(value: Item) extends MaybeItem

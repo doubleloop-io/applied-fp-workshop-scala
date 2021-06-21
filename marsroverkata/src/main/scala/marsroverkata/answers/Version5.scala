@@ -1,13 +1,13 @@
 package marsroverkata.answers
 
-import cats.effect._
-import cats.implicits._
-
-import scala.Console._
-import scala.io._
-import scala.util._
-
 object Version5 {
+
+  import cats.effect._
+  import cats.implicits._
+
+  import scala.Console._
+  import scala.io._
+  import scala.util._
 
   case class AppError(err: Error) extends RuntimeException(err.toString)
 

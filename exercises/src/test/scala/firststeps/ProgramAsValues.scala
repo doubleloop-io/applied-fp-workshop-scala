@@ -5,17 +5,16 @@ package firststeps
  *
  * In order to compose program we need to work at a meta level.
  * We must split a program in two parts:
- * - description: build a program description
+ * - description: build a program description w/ values
  * - evaluation: execute logic based on the description
  *
  * Is the good old idea of separation of concerns applied
  * to the whole program.
  *
- * The final result is that when a we invokes functions
- * they aren't executed but instead build data structures.
- * At this point we can combine those data structures as we want
- * and combine different programs in one.
- * In the end the data structure tree will be evaluated and
+ * The final result is that when we invokes functions
+ * they aren't executed but instead they build values.
+ * At this point we can combine those values (programs) in one.
+ * In the end the tree of values will be evaluated to
  * produce a final result.
  *
  * In this context we gain an inversion of control on execution

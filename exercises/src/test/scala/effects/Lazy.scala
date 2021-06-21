@@ -1,10 +1,6 @@
 package effects
 
-class LazyTests extends munit.FunSuite {
-
-  /*
-   * TODO: Follow the instruction in the ignores
-   */
+class Lazy extends munit.FunSuite {
 
   case class Lazy[A](value: () => A) {
     def map[B](f: A => B): Lazy[B] = ???

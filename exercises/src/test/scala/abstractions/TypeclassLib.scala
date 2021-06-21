@@ -15,10 +15,6 @@ package abstractions
 
 class TypeclassLib extends munit.FunSuite {
 
-  /*
-   * TODO: uncomment tests and add cats imports
-   */
-
   case class Box[A](value: A)
 
   // Typeclass (contract)

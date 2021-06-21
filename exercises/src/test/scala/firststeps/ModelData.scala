@@ -44,7 +44,7 @@ class ModelData extends munit.FunSuite {
 
   /*
    * TODO: Model "Scopa" the italian card game, below the game description. :-)
-   *       After modeling the domain implements the test following the description of ignores.
+   *       After modeling the domain implements the test.
    *
    * DESCRIPTION:
    *       It is played (let simplify) between two players with

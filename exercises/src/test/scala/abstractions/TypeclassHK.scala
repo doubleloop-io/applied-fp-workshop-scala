@@ -34,25 +34,22 @@ package abstractions
 
 class TypeclassHK extends munit.FunSuite {
 
-  /*
-   * TODO: Define push and pop operations on Stack.
-   *       Implements Stack class instance for List.
-   *       Complete the MRUList.add function implementation.
-   */
-
+  // TODO: Define push and pop operations on Stack.
   trait Stack[F[_]] {}
 
+  // TODO: Implements Stack class instance for List.
   implicit val listStack: Stack[List] = new Stack[List] {}
 
   object MRUList {
+    // TODO: Complete the MRUList.add function implementation.
     def add[F[_]: Stack, A](value: A, items: F[A])(implicit S: Stack[F]): F[A] =
       ???
   }
 
+  // TODO: remove ignore
   test("add an element to the MRU list".ignore) {
     import MRUList._
 
-    // TODO: implement missing functions
     val empty   = List.empty[String]
     val updated = add("first", empty)
     val result  = add("second", updated)

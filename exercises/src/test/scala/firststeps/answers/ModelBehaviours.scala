@@ -31,7 +31,7 @@ class ModelBehaviours extends munit.FunSuite {
   val reciprocalString_III: String => String =
     asString.compose(reciprocal).compose(parseString)
 
-  test("from string to string throught reciprocal") {
+  test("reciprocal of string number") {
     assertEquals(reciprocalString("42"), "0.023809523809523808")
   }
 }

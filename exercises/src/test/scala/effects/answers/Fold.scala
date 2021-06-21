@@ -1,6 +1,6 @@
 package effects.answers
 
-class FoldTests extends munit.FunSuite {
+class Fold extends munit.FunSuite {
 
   case class Item(qty: Int)
 

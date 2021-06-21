@@ -1,10 +1,6 @@
 package effects
 
-class MonadicFuncTests extends munit.FunSuite {
-
-  /*
-   * TODO: Follow the instruction in the ignores
-   */
+class MonadicFunc extends munit.FunSuite {
 
   import cats.data._
   import cats.implicits._
@@ -41,7 +37,7 @@ class MonadicFuncTests extends munit.FunSuite {
     assertEquals(result, None)
   }
 
-  object CountHowManyIteration {
+  object CountHowManyIterations {
     var iterationCount = 0
 
     def ageOver(age: Int): Person => Boolean =
@@ -51,8 +47,8 @@ class MonadicFuncTests extends munit.FunSuite {
       }
   }
 
-  test("count find iterations".ignore) {
-    import CountHowManyIteration._
+  test("count find iterations") {
+    import CountHowManyIterations._
 
     // TODO: keep test green but w/out side-effects
     // TODO: use state monad and findM
@@ -73,7 +69,7 @@ class MonadicFuncTests extends munit.FunSuite {
       }
   }
 
-  test("log find iterations".ignore) {
+  test("log find iterations") {
     import WhatWereInspected._
 
     // TODO: keep test green but w/out side-effects
@@ -100,7 +96,7 @@ class MonadicFuncTests extends munit.FunSuite {
     case class UnreachableServer(error: String) extends RuntimeException
   }
 
-  test("io - found".ignore) {
+  test("io - found") {
     import OutOfProc._
 
     // TODO: keep test green but w/out side-effects
@@ -110,7 +106,7 @@ class MonadicFuncTests extends munit.FunSuite {
     assertEquals(result, Some(john))
   }
 
-  test("io - not found".ignore) {
+  test("io - not found") {
     import OutOfProc._
 
     // TODO: keep test green but w/out side-effects
@@ -120,7 +116,7 @@ class MonadicFuncTests extends munit.FunSuite {
     assertEquals(result, None)
   }
 
-  test("io - fail".ignore) {
+  test("io - fail") {
     import OutOfProc._
 
     // TODO: keep test green but w/out side-effects

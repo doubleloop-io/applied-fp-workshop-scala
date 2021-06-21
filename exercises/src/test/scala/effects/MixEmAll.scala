@@ -1,17 +1,13 @@
 package effects
 
-class MixTests extends munit.FunSuite {
-
-  /*
-   * TODO: Follow the instruction in the ignores
-   */
+class MixEmAll extends munit.FunSuite {
 
   import cats.implicits._
 
   case class Item(name: String, qty: Int)
 
   def checkName(value: String): Option[String] =
-    if (!value.isEmpty) Some(value)
+    if (value.nonEmpty) Some(value)
     else None
 
   def checkQty(qty: String): Option[Int] =

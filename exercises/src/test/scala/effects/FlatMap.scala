@@ -1,10 +1,6 @@
 package effects
 
-class FlatMapTests extends munit.FunSuite {
-
-  /*
-   * TODO: Follow the instruction in the ignores
-   */
+class FlatMap extends munit.FunSuite {
 
   case class Item(qty: Int)
 
@@ -19,17 +15,17 @@ class FlatMapTests extends munit.FunSuite {
     if (qty <= item.qty) Some(item.copy(qty = item.qty - qty))
     else None
 
-  test("valid creation, can checkOut".ignore) {
+  test("valid creation, can checkOut") {
     val item = createItem("100")
     // TODO: chain checkOut of 10 items and write the assert
   }
 
-  test("valid creation, can't checkOut (too much) - flatMap short circuit".ignore) {
+  test("valid creation, can't checkOut (too much) - flatMap short circuit") {
     val item = createItem("100")
     // TODO: chain checkOut of 110 items and write the assert
   }
 
-  test("invalid creation - flatMap short circuit".ignore) {
+  test("invalid creation - flatMap short circuit") {
     val item = createItem("asd")
     // TODO: chain checkOut of 10 items and write the assert
   }

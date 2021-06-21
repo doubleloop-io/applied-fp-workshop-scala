@@ -2,7 +2,7 @@ package firststeps
 
 /*
  * Multiple dispatch is a feature in which a function can be dispatched
- * based on the type of more than one of its arguments.
+ * based on the type of one of its arguments.
  * Pattern match enable the structural recursion
  * a fancy name to express a way to dispatch logic
  * by type and data. It goes hand in hand with ADT
@@ -13,9 +13,8 @@ class MultipleDispatch extends munit.FunSuite {
 
   /*
    * TODO: rewrite the logic
-   *       from polymorphic dispatch (a fundamental OOP technique)
+   *       from polymorphic dispatch (OOP inheritance)
    *       to pattern match dispatch.
-   *       Keep tests green.
    */
 
   trait TrafficLight {

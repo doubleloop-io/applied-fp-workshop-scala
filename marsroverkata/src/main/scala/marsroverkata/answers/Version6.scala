@@ -1,13 +1,13 @@
 package marsroverkata.answers
 
-import cats.effect._
-import cats.implicits._
-
-import scala.Console._
-import scala.io._
-import scala.util._
-
 object Version6 {
+
+  import cats.effect._
+  import cats.implicits._
+
+  import scala.Console._
+  import scala.io._
+  import scala.util._
 
   def createApplication(planetFile: String, roverFile: String): IO[Unit] =
     Runtime.create(init(planetFile, roverFile), update, infrastructure)

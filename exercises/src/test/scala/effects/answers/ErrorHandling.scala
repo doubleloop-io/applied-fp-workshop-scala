@@ -1,6 +1,6 @@
 package effects.answers
 
-class ErrorHandlingTests extends munit.FunSuite {
+class ErrorHandling extends munit.FunSuite {
 
   test("Option - dynamic style") {
     def compute(value: Int): Option[Int] =

@@ -1,6 +1,6 @@
 package effects.answers
 
-class TransformationTests extends munit.FunSuite {
+class Transformation extends munit.FunSuite {
 
   test("convert from Try to Either") {
     import scala.util.{ Failure, Success, Try }
