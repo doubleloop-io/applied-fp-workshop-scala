@@ -13,5 +13,6 @@
 
 - [Domain Modeling Made Functional - Scott Wlaschin](https://pragprog.com/book/swdddf/domain-modeling-made-functional)
 - [Functional and Reactive Domain Modeling - Debasish Ghosh](https://www.manning.com/books/functional-and-reactive-domain-modeling)
-- [Scala with Cats - Noel Welsh, Dave Gurnell](https://www.scalawithcats.com/)
 - [Functional Programming in Scala - Paul Chiusano, Runar Bjarnason](https://www.manning.com/books/functional-programming-in-scala)
+- [Scala with Cats - Noel Welsh, Dave Gurnell](https://www.scalawithcats.com/)
+- [Category Theory for Programmers - Bartosz Milewski](https://github.com/hmemcpy/milewski-ctfp-pdf)
