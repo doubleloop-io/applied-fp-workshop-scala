@@ -38,7 +38,10 @@ class ProgramAsValues extends munit.FunSuite {
 
   test("immediate execution") {
     import Immediate._
+
+    // BUILD && EXECUTE
     val result = times(plus(1, 1), 2)
+
     assertEquals(result, 4)
   }
 
@@ -56,10 +59,16 @@ class ProgramAsValues extends munit.FunSuite {
   }
 
   test("split building a program from executing it".ignore) {
-    // TODO: implements SplitBuildFromExecute functions
     import SplitBuildFromExecute._
+
+    // TODO: implements SplitBuildFromExecute functions
+
+    // BUILD
     val program = times(plus(num(1), num(1)), num(2))
+
+    // EXECUTE
     val result  = program()
+
     assertEquals(result, 4)
   }
 
@@ -83,10 +92,17 @@ class ProgramAsValues extends munit.FunSuite {
   }
 
   test("execute program w/ different evaluator".ignore) {
-    // TODO: implements DifferentEvaluator functions
     import DifferentEvaluator._
+    
+    // TODO: implements DifferentEvaluator functions
+
+    // BUILD
     val program = times(plus(num(1), num(1)), num(2))
+
+    // EXECUTE 1
     assertEquals(eval(program), 4)
+
+    // EXECUTE 2
     assertEquals(evalPrint(program), "((1 + 1) * 2)")
   }
 }
