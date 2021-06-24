@@ -10,7 +10,7 @@ For a full kata explanation see: https://kata-log.rocks/mars-rover-kata
 
 ## V1 - Focus on the center (pure domain logic)
 
-Develop an API (types and functions) that executes single commands:
+Develop an API (types and functions) that executes single command:
 
 - The planet is divided into a grid with x (width) and y (height) size.
 - The rover has a position expressed as x, y co-ordinates and an orientation (North, Est, West, South).

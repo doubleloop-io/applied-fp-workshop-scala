@@ -67,7 +67,7 @@ class ProgramAsValues extends munit.FunSuite {
     val program = times(plus(num(1), num(1)), num(2))
 
     // EXECUTE
-    val result  = program()
+    val result = program()
 
     assertEquals(result, 4)
   }
@@ -93,7 +93,7 @@ class ProgramAsValues extends munit.FunSuite {
 
   test("execute program w/ different evaluator".ignore) {
     import DifferentEvaluator._
-    
+
     // TODO: implements DifferentEvaluator functions
 
     // BUILD
