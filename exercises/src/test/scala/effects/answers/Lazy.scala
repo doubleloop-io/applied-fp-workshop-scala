@@ -28,14 +28,14 @@ class Lazy extends munit.FunSuite {
 
   test("lift a value and run the effect") {
     val c = Lazy
-      .pure(expensiveComputation _)
+      .pure(expensiveComputation)
 
     assertEquals(c.run(), 10)
   }
 
   test("chain pure function") {
     val c = Lazy
-      .pure(expensiveComputation _)
+      .pure(expensiveComputation)
       .map(increment)
 
     assertEquals(c.run(), 11)
@@ -43,7 +43,7 @@ class Lazy extends munit.FunSuite {
 
   test("chain effectful function") {
     val c = Lazy
-      .pure(expensiveComputation _)
+      .pure(expensiveComputation)
       .flatMap(reversedString)
 
     assertEquals(c.run(), "01")
