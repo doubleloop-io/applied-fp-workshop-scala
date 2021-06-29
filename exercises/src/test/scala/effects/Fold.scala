@@ -11,14 +11,14 @@ class Fold extends munit.FunSuite {
   test("valid creation".ignore) {
     val item = createItem("100")
     // TODO: use fold to make test green and remove ignore
-    val result = ???
+    val result: String = ???
     assertEquals(result, "100")
   }
 
   test("invalid creation".ignore) {
     val item = createItem("asd")
     // TODO: use fold to make test green and remove ignore
-    val result = ???
+    val result: String = ???
     assertEquals(result, "alternative value")
   }
 }

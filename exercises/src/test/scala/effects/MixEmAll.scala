@@ -24,6 +24,7 @@ class MixEmAll extends munit.FunSuite {
     if (qty <= item.qty) Some(item.copy(qty = item.qty - qty))
     else None
 
+  // TODO: implement complex function
   def complex(values: List[(String, String)]): String = {
     // create items from values
     val a = ???
@@ -38,25 +39,24 @@ class MixEmAll extends munit.FunSuite {
     e
   }
 
+  // TODO: Remove ignore
   test("complex scenario - ok".ignore) {
-    // TODO: implement complex function
     val values = List(("foo", "100"), ("bar", "10"))
     val result = complex(values)
     assertEquals(result, "100")
   }
 
+  // TODO: Remove ignore
   test("complex scenario - bad name".ignore) {
-    // TODO: implement complex function
     val values = List(("", "100"), ("bar", "10"))
     val result = complex(values)
     assertEquals(result, "we can't, sorry")
   }
 
+  // TODO: Remove ignore
   test("complex scenario - bad qty".ignore) {
-    // TODO: implement complex function
     val values = List(("foo", "100"), ("bar", "zanzan"))
     val result = complex(values)
     assertEquals(result, "we can't, sorry")
   }
-
 }

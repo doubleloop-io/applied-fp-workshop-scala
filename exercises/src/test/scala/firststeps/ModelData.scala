@@ -54,7 +54,7 @@ class ModelData extends munit.FunSuite {
    *       Each player receives three cards. The dealer will also place four cards face up on the table.
    */
 
-  test("represent initial match state".ignore) {
+  test("represent initial match state") {
     // TODO: build the first player w/ 2 of Golds, 5 of Swords and 7 of Clubs
     // TODO: build the second player w/ 1 of Cups, 2 of Clubs and 9 of Golds
     // TODO: build the table w/ 4 of Clubs, 10 of Swords, 8 of Golds and 1 of Swords

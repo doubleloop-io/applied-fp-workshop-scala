@@ -21,22 +21,22 @@ class Ap extends munit.FunSuite {
   def createItem_withExtension(name: String, qty: String): Option[Item] =
     (checkName(name), checkQty(qty)).mapN(Item.apply)
 
-  test("valid creation".ignore) {
+  test("valid creation") {
     val item = createItem("foo", "100")
     // TODO: write the assert
   }
 
-  test("invalid creation (name)".ignore) {
+  test("invalid creation (name)") {
     val item = createItem("", "100")
     // TODO: write the assert
   }
 
-  test("invalid creation (qty)".ignore) {
+  test("invalid creation (qty)") {
     val item = createItem("foo", "asd")
     // TODO: write the assert
   }
 
-  test("invalid creation (both)".ignore) {
+  test("invalid creation (both)") {
     val item = createItem("", "asd")
     // TODO: write the assert
   }

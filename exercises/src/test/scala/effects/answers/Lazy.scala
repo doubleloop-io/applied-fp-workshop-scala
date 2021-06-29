@@ -17,7 +17,7 @@ class Lazy extends munit.FunSuite {
     def pure[A](a: () => A): Lazy[A] = Lazy(a)
   }
 
-  def expensiveComputation() =
+  def expensiveComputation(): Int =
     6 + 4
 
   def increment(x: Int): Int =
@@ -28,14 +28,14 @@ class Lazy extends munit.FunSuite {
 
   test("lift a value and run the effect") {
     val c = Lazy
-      .pure(expensiveComputation)
+      .pure(expensiveComputation _)
 
     assertEquals(c.run(), 10)
   }
 
   test("chain pure function") {
     val c = Lazy
-      .pure(expensiveComputation)
+      .pure(expensiveComputation _)
       .map(increment)
 
     assertEquals(c.run(), 11)
@@ -43,7 +43,7 @@ class Lazy extends munit.FunSuite {
 
   test("chain effectful function") {
     val c = Lazy
-      .pure(expensiveComputation)
+      .pure(expensiveComputation _)
       .flatMap(reversedString)
 
     assertEquals(c.run(), "01")

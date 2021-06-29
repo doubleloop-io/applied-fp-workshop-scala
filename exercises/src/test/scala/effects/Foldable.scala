@@ -10,14 +10,14 @@ class Foldable extends munit.FunSuite {
   test("total qty".ignore) {
     val items = List(Item(100), Item(10), Item(45))
     // TODO: use foldLeft to make test green
-    val result = ???
+    val result: Int = ???
     assertEquals(result, 155)
   }
 
   test("reduce to single total item".ignore) {
     val items = List(Item(100), Item(10), Item(45))
     // TODO: use foldLeft to make test green
-    val result = ???
+    val result: Item = ???
     assertEquals(result, Item(155))
   }
 }

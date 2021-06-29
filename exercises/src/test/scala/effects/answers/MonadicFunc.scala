@@ -23,13 +23,17 @@ class MonadicFunc extends munit.FunSuite {
 
   test("normal - result found") {
     import SimplePredicate._
+
     val result = people.find(ageOver(40))
+
     assertEquals(result, Some(john))
   }
 
   test("normal - result not found") {
     import SimplePredicate._
+
     val result = people.find(ageOver(50))
+
     assertEquals(result, None)
   }
 
@@ -64,11 +68,6 @@ class MonadicFunc extends munit.FunSuite {
   }
 
   object OutOfProc {
-    // can be anythig:
-    //    - a query to the database
-    //    - a cloud-native FaaS microservice deployed somewhere
-    // particularly it can fial for many reasons
-
     def ageOver(age: Int): Person => IO[Boolean] =
       p => IO(p.age > age)
 
@@ -104,5 +103,4 @@ class MonadicFunc extends munit.FunSuite {
 
     assertEquals(result, Left(UnreachableServer("server unreachable")))
   }
-
 }

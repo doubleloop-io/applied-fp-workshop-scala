@@ -38,7 +38,7 @@ class MonadicFunc extends munit.FunSuite {
   }
 
   object CountHowManyIterations {
-    var iterationCount = 0
+    var iterationCount: Int = 0
 
     def ageOver(age: Int): Person => Boolean =
       p => {
@@ -82,10 +82,10 @@ class MonadicFunc extends munit.FunSuite {
   }
 
   object OutOfProc {
-    // can be anythig:
+    // can be anything:
     //    - a query to the database
     //    - a cloud-native FaaS microservice deployed somewhere
-    // particularly it can fial for many reasons
+    // particularly it can fail for many reasons
 
     def ageOver(age: Int): Person => Boolean =
       p => p.age > age
