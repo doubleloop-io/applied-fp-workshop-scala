@@ -22,16 +22,13 @@ object Version5 {
     IO.fromEither(e.leftMap(AppError))
 
   def handleResult(result: Either[Throwable, String]): IO[Unit] =
-    result match {
-      case Right(value) => logInfo(value)
-      case Left(t)      => logError(t.getMessage)
-    }
+    result.fold(logError, logInfo)
 
   def logInfo(message: String): IO[Unit] =
     puts(s"$GREEN[OK] $message$RESET")
 
-  def logError(message: String): IO[Unit] =
-    puts(s"$RED[ERROR] $message$RESET")
+  def logError(error: Throwable): IO[Unit] =
+    puts(s"$RED[ERROR] ${error.getMessage}$RESET")
 
   def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
   def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)

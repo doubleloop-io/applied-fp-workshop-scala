@@ -36,10 +36,10 @@ class Version7Tests extends munit.FunSuite {
   }
 
   def execute(
-               planet: (String, String),
-               rover: (String, String),
-               commands: String
-             ): Ref[IO, TestState] => IO[(Unit, TestState)] =
+    planet: (String, String),
+    rover: (String, String),
+    commands: String
+  ): Ref[IO, TestState] => IO[(Unit, TestState)] =
     ref => {
       implicit val console: Console[IO] = new Console[IO] {
         def puts(line: String): IO[Unit] = IO.unit
@@ -49,8 +49,8 @@ class Version7Tests extends munit.FunSuite {
       implicit val logger: Logger[IO] = new Logger[IO] {
         def logInfo(message: String): IO[Unit] =
           ref.update(ts => ts.copy(info = Some(message)))
-        def logError(message: String): IO[Unit] =
-          ref.update(ts => ts.copy(error = Some(message)))
+        def logError(error: Throwable): IO[Unit] =
+          ref.update(ts => ts.copy(error = Some(error.getMessage)))
       }
 
       implicit val source: MissionSource[IO] = new MissionSource[IO] {

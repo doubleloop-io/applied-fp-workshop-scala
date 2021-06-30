@@ -50,7 +50,7 @@ class Version4Tests extends munit.FunSuite {
     assertEquals(result, "Waiting commands...\n")
   }
 
-  test("go to opposite angle, system test (with real infrastructure)") {
+  test("go to opposite angle, system test (with real infrastructure)".ignore) {
     // TODO: complete the test
 
     def execute[A](commands: String)(app: => IO[A]): A = {
@@ -66,55 +66,56 @@ class Version4Tests extends munit.FunSuite {
       }
     }
 
-    val result = execute("RBBLBRF") {
+    val result: Either[Error, String] = execute("RBBLBRF") {
       // val planet   = load planet data...
       // val rover    = load rover data...
       // val commands = ask commands data...
       // lift domain domain entry point: planet, rover and commands
-      // delete the line below
-      IO.pure("delete me")
+      ???
     }
 
-    // assert result, OK "4:3:E"
+    assertEquals(result, Right("4:3:E"))
   }
 
-  test("go to opposite angle, stubbed") {
+  test("go to opposite angle, stubbed".ignore) {
     // TODO: complete the test
 
     // val planet   = lift ("5x4", "2,0 0,3 3,2") into IO
     // val rover    = lift ("0,0", "N") into IO
     // val commands = lift "RBBLBRF" into IO
     // lift domain entry point with: planet, rover and commands
+    val app: IO[Either[Error, String]] = ???
 
-    // run IO monad
+    val result = app.unsafeRunSync()
 
-    // assert result, OK "4:3:E"
+    assertEquals(result, Right("4:3:E"))
   }
 
-  test("unhandled RuntimeException") {
+  test("unhandled RuntimeException".ignore) {
     // TODO: complete the test
 
     // val planet   = lift ("5x4", "2,0 0,3 3,2") into IO
     // val rover    = lift RuntimeException("boom!") into IO
     // val commands = lift "RBBLBRF" into IO
     // val app = lift domain domain entry point: planet, rover and commands...
+    val app: IO[Either[Error, String]] = ???
 
-    // val ex = intercept[Exception](app.unsafeRunSync())
+    val ex = intercept[Exception](app.unsafeRunSync())
 
-    // assertEquals("boom!", ex.getMessage)
+    assertEquals("boom!", ex.getMessage)
   }
 
-  test("handled RuntimeException") {
+  test("handled RuntimeException".ignore) {
     // TODO: complete the test
 
     // val planet   = lift ("5x4", "2,0 0,3 3,2") into IO
     // val rover    = lift RuntimeException("boom!") into IO
     // val commands = lift "RBBLBRF" into IO
     // val app = lift domain domain entry point: planet, rover and commands...
+    val app: IO[Either[Error, String]] = ???
 
-    // val result = app.attempt.unsafeRunSync()
+    val result = app.attempt.unsafeRunSync()
 
-    // assert(result.isLeft)
+    assert(result.isLeft)
   }
-
 }

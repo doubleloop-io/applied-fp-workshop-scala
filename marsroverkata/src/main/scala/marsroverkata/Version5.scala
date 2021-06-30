@@ -14,16 +14,13 @@ object Version5 {
   def createApplication(planetFile: String, roverFile: String): IO[Unit] = ???
 
   def handleResult(result: Either[Throwable, String]): IO[Unit] =
-    result match {
-      case Right(value) => logInfo(value)
-      case Left(t)      => logError(t.getMessage)
-    }
+    result.fold(logError, logInfo)
 
   def logInfo(message: String): IO[Unit] =
-    puts(s"${GREEN}OK: $message$RESET")
+    puts(s"$GREEN[OK] $message$RESET")
 
-  def logError(message: String): IO[Unit] =
-    puts(s"${RED}ERROR: $message$RESET")
+  def logError(error: Throwable): IO[Unit] =
+    puts(s"$RED[ERROR] ${error.getMessage}$RESET")
 
   def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
   def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)
@@ -110,7 +107,7 @@ object Version5 {
     (
       parsePlanet(planet),
       parseRover(rover)
-      ).mapN(Mission.apply)
+    ).mapN(Mission.apply)
 
   def render(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.direction}"

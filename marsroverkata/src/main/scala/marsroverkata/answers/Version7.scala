@@ -25,8 +25,8 @@ object Version7 {
       def logInfo(message: String): IO[Unit] =
         C.puts(s"INFO: $message$RESET")
 
-      def logError(message: String): IO[Unit] =
-        C.puts(s"${RED}ERROR: $message$RESET")
+      def logError(error: Throwable): IO[Unit] =
+        C.puts(s"${RED}ERROR: ${error.getMessage}$RESET")
     }
 
     implicit val fileMissionSource: MissionSource[IO] = new MissionSource[IO] {
@@ -56,7 +56,7 @@ object Version7 {
 
   trait Logger[F[_]] {
     def logInfo(message: String): F[Unit]
-    def logError(message: String): F[Unit]
+    def logError(error: Throwable): F[Unit]
   }
 
   trait MissionSource[F[_]] {
@@ -80,10 +80,7 @@ object Version7 {
     IO.fromEither(e.leftMap(AppError))
 
   def handleResult(result: Either[Throwable, String])(implicit L: Logger[IO]): IO[Unit] =
-    result match {
-      case Right(value) => L.logInfo(value)
-      case Left(t)      => L.logError(t.getMessage)
-    }
+    result.fold(L.logError, L.logInfo)
 
   def askCommands()(implicit C: Console[IO]): IO[String] =
     C.ask("Waiting commands...")

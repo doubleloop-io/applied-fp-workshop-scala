@@ -90,5 +90,4 @@ class Version4Tests extends munit.FunSuite {
 
     assert(result.isLeft)
   }
-
 }
