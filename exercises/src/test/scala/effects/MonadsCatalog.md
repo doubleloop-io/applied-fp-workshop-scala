@@ -6,7 +6,9 @@ Maybe[A]
 
 Try[A]        // Computations which can fail or throw exceptions 
 
-Either[A, B]  // Computations which can produce/complete with two possibile values
+Either[A, B]  // Computations which can complete with two possibile values
+
+Validated[E, A] // Like Either but with an accumulating Applicative on E
 
 List[A]       // Non-deterministic computations which can return multiple possible results
 
