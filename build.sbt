@@ -76,5 +76,5 @@ lazy val libsSettings = Seq(
   "org.typelevel" %% "cats-core"     % "2.6.1",
   "org.typelevel" %% "cats-effect"   % "2.5.1",
   "org.typelevel" %% "cats-mtl-core" % "0.7.1",
-  "org.scalameta" %% "munit"         % "0.7.26" % Test
+  "org.scalameta" %% "munit"         % "0.7.28" % Test
 )
