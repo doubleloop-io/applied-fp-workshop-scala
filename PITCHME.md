@@ -8,14 +8,11 @@
 
 ---
 
-## How do we **solve** problems?
+## How do we **solve**<br /> complex problems?
 
 ---
 
 > We decompose bigger problems into smaller problems. <br />
-
----
-
 > If the smaller problems are still too big, we decompose them further, and so on. <br />
 
 ---
@@ -56,7 +53,7 @@ we dedicate a **significant** portion of code and **effort** to compose pieces t
 ### not **composable**
 
 ```scala
-def toString(n: Int): String = {
+def foo(n: Int): String = {
   appendAll("log.txt", "some content")
   n.toString
 }
@@ -69,7 +66,7 @@ def toString(n: Int): String = {
 ```scala
 val list = collection.mutable.ListBuffer[Int]()
 
-def toString(n: Int): String = {
+def foo(n: Int): String = {
   list += n
   if (list.size < 42) n.toString
   else "Yo!"
@@ -86,7 +83,7 @@ def toString(n: Int): String = {
 
 ---
 
-> ...most of the issues that I was presenting techniques for in the Working Effectively Legacy Code book were issues of mutable state.
+> ...most of the issues that I was presenting techniques for in the Working Effectively with Legacy Code book were issues of mutable state.
 >
 > Michael Feathers (https://bit.ly/3cQacaz)
 
