@@ -24,7 +24,7 @@ class Version5Tests extends munit.FunSuite {
       createApplication("invalid_planet.txt", "rover.txt")
     }
 
-    assertEquals(result, s"$RED[ERROR] 4:3:E$RESET")
+    assertEquals(result, s"$RED[ERROR] InvalidPlanet(ax4,InvalidSize)$RESET")
   }
 
   def execute[A](commands: String)(app: => IO[A]): String = {
