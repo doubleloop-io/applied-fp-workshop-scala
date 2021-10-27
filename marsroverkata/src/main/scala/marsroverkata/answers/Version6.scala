@@ -39,11 +39,12 @@ object Version6 {
         (Ready(mission), AskCommands)
 
       case (Ready(mission), CommandsReceived(commands)) =>
-        execute(mission, commands)
-          .fold(
-            aborted => (Ready(aborted), ReportObstacleHit(aborted.rover)),
-            completed => (Ready(completed), ReportCommandSequenceCompleted(completed.rover))
-          )
+        def obstacleHit(mission: Mission): (AppState, Effect) =
+          (Ready(mission), ReportObstacleHit(mission.rover))
+        def completed(mission: Mission): (AppState, Effect) =
+          (Ready(mission), ReportCommandSequenceCompleted(mission.rover))
+
+        execute(mission, commands).fold(obstacleHit, completed)
 
       case (Loading, LoadMissionFailed(error)) =>
         (Failed, Ko(error))
