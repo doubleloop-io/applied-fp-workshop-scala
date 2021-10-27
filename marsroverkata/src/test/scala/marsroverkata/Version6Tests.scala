@@ -1,10 +1,10 @@
 package marsroverkata
 
-import cats.effect.IO
-import marsroverkata.Version6._
-import scala.Console._
-
 class Version6Tests extends munit.FunSuite {
+
+  import cats.effect.IO
+  import marsroverkata.Version6._
+  import scala.Console._
 
   // TODO: Test after test, implement: init, update and infrastructure functions
 

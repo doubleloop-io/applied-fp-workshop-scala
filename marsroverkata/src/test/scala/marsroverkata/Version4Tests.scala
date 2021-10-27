@@ -1,12 +1,12 @@
 package marsroverkata
 
-import scala.util._
-import cats.implicits._
-import cats.effect._
-
-import marsroverkata.Version4._
-
 class Version4Tests extends munit.FunSuite {
+
+  import scala.util._
+  import cats.implicits._
+  import cats.effect._
+
+  import marsroverkata.Version4._
 
 // +-----+-----+-----+-----+-----+
 // | 0,3 |     |     |     | 4,3 |

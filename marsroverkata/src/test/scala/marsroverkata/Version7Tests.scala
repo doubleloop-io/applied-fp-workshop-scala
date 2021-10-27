@@ -1,11 +1,12 @@
 package marsroverkata
 
-import cats.effect._
-import cats.effect.concurrent._
-import cats.implicits._
-import marsroverkata.answers.Version7._
-
 class Version7Tests extends munit.FunSuite {
+
+  import cats.effect._
+  import cats.effect.concurrent._
+  import cats.implicits._
+  import marsroverkata.answers.Version7._
+
   /*
    * TODO: Implements Console, Logger, MissionSource real instances
    *       Check out test implementations

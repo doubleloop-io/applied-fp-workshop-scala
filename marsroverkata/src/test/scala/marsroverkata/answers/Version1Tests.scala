@@ -1,8 +1,9 @@
 package marsroverkata.answers
 
-import marsroverkata.answers.Version1._
-
 class Version1Tests extends munit.FunSuite {
+
+  import marsroverkata.answers.Version1._
+
   test("turn right command") {
     val mission = Mission(Planet(Size(5, 4)), Rover(Position(0, 0), N))
     val command = Turn(OnRight)

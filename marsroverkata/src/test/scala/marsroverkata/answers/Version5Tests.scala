@@ -1,10 +1,10 @@
 package marsroverkata.answers
 
-import cats.effect._
-import marsroverkata.answers.Version5._
-import scala.Console._
-
 class Version5Tests extends munit.FunSuite {
+
+  import cats.effect._
+  import marsroverkata.answers.Version5._
+  import scala.Console._
 
   test("go to opposite angle, system test") {
     val result = execute("RBBLBRF") {

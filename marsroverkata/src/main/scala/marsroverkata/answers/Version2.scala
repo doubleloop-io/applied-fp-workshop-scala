@@ -2,7 +2,6 @@ package marsroverkata.answers
 
 object Version2 {
 
-  import scala.util._
   import cats.implicits._
 
   def execute(mission: Mission, commands: List[Command]): Either[Mission, Mission] =

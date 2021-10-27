@@ -2,6 +2,8 @@ package marsroverkata
 
 object Version2 {
 
+  import cats.implicits._
+
   def execute(mission: Mission, command: Command): Mission =
     mission.copy(rover = command match {
       case Turn(tt) => turn(mission.rover, tt)

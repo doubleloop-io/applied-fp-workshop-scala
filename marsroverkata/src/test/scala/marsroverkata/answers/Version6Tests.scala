@@ -1,10 +1,10 @@
 package marsroverkata.answers
 
-import cats.effect.IO
-import marsroverkata.answers.Version6._
-import scala.Console._
-
 class Version6Tests extends munit.FunSuite {
+
+  import cats.effect.IO
+  import marsroverkata.answers.Version6._
+  import scala.Console._
 
   def execute[A](commands: String)(app: => IO[A]): String = {
     import java.io.{ ByteArrayOutputStream, StringReader }

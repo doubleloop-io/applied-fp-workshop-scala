@@ -1,9 +1,9 @@
 package marsroverkata.answers
 
-import scala.util._
-import marsroverkata.answers.Version2._
-
 class Version2Tests extends munit.FunSuite {
+
+  import scala.util._
+  import marsroverkata.answers.Version2._
 
   test("go to opposite angle") {
     val planet   = Planet(Size(5, 4), List(Obstacle(Position(2, 0)), Obstacle(Position(0, 3)), Obstacle(Position(3, 2))))
