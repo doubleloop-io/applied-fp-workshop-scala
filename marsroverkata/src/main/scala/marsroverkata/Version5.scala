@@ -7,7 +7,6 @@ object Version5 {
 
   import scala.Console._
   import scala.io._
-  import scala.util._
 
   case class AppError(err: Error) extends RuntimeException(err.toString)
 
@@ -53,11 +52,11 @@ object Version5 {
       .map(execute(_, parseCommands(commands)))
       .map(_.bimap(_.rover, _.rover).fold(renderHit, render))
 
-  def parseTuple[A](separator: String, raw: String, ctor: (Int, Int) => A): Try[A] =
-    Try {
+  def parseTuple(separator: String, raw: String): Either[Throwable, (Int, Int)] =
+    Either.catchNonFatal {
       val parts = raw.split(separator)
       (parts(0).trim.toInt, parts(1).trim.toInt)
-    }.map(ctor.tupled(_))
+    }
 
   def parsePlanet(raw: (String, String)): Either[Error, Planet] =
     raw
@@ -65,7 +64,8 @@ object Version5 {
       .mapN(Planet.apply)
 
   def parseSize(raw: String): Either[Error, Size] =
-    parseTuple("x", raw, Size.apply).toEither
+    parseTuple("x", raw)
+      .map((Size.apply _).tupled)
       .leftMap(_ => InvalidPlanet(raw, "InvalidSize"))
 
   def parseRover(raw: (String, String)): Either[Error, Rover] =
@@ -74,18 +74,20 @@ object Version5 {
       .mapN(Rover.apply)
 
   def parsePosition(raw: String): Either[Error, Position] =
-    parseTuple(",", raw, Position.apply).toEither
+    parseTuple(",", raw)
+      .map((Position.apply _).tupled)
       .leftMap(_ => InvalidRover(raw, "InvalidPosition"))
 
   def parseDirection(raw: String): Either[Error, Direction] =
-    Try {
-      raw.trim.toLowerCase match {
-        case "n" => N
-        case "w" => W
-        case "e" => E
-        case "s" => S
+    Either
+      .catchNonFatal {
+        raw.trim.toLowerCase match {
+          case "n" => N
+          case "w" => W
+          case "e" => E
+          case "s" => S
+        }
       }
-    }.toEither
       .leftMap(_ => InvalidRover(raw, "InvalidDirection"))
 
   def parseCommands(raw: String): List[Command] =
