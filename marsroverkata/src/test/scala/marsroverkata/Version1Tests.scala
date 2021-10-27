@@ -1,8 +1,8 @@
 package marsroverkata
 
-import marsroverkata.Version1._
-
 class Version1Tests extends munit.FunSuite {
+
+  import marsroverkata.Version1._
 
 // +-----+-----+-----+-----+-----+
 // | 0,3 |     |     |     | 4,3 |

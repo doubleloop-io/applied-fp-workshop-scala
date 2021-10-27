@@ -7,7 +7,6 @@ object Version5 {
 
   import scala.Console._
   import scala.io._
-  import scala.util._
 
   case class AppError(err: Error) extends RuntimeException(err.toString)
 
@@ -25,10 +24,16 @@ object Version5 {
     result.fold(logError, logInfo)
 
   def logInfo(message: String): IO[Unit] =
-    puts(s"$GREEN[OK] $message$RESET")
+    puts(green(s"[OK] $message"))
 
   def logError(error: Throwable): IO[Unit] =
-    puts(s"$RED[ERROR] ${error.getMessage}$RESET")
+    puts(red(s"[ERROR] ${error.getMessage}"))
+
+  def green(message: String): String =
+    s"$GREEN$message$RESET"
+
+  def red(message: String): String =
+    s"$RED$message$RESET"
 
   def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
   def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)
@@ -52,15 +57,15 @@ object Version5 {
     ask("Waiting commands...")
 
   def run(planet: (String, String), rover: (String, String), commands: String): Either[Error, String] =
-    init(planet, rover)
+    parseMission(planet, rover)
       .map(execute(_, parseCommands(commands)))
       .map(_.bimap(_.rover, _.rover).fold(renderHit, render))
 
-  def parseTuple[A](separator: String, raw: String, ctor: (Int, Int) => A): Try[A] =
-    Try {
+  def parseTuple(separator: String, raw: String): Either[Throwable, (Int, Int)] =
+    Either.catchNonFatal {
       val parts = raw.split(separator)
       (parts(0).trim.toInt, parts(1).trim.toInt)
-    }.map(ctor.tupled(_))
+    }
 
   def parsePlanet(raw: (String, String)): Either[Error, Planet] =
     raw
@@ -68,7 +73,8 @@ object Version5 {
       .mapN(Planet.apply)
 
   def parseSize(raw: String): Either[Error, Size] =
-    parseTuple("x", raw, Size.apply).toEither
+    parseTuple("x", raw)
+      .map((Size.apply _).tupled)
       .leftMap(_ => InvalidPlanet(raw, "InvalidSize"))
 
   def parseRover(raw: (String, String)): Either[Error, Rover] =
@@ -77,18 +83,20 @@ object Version5 {
       .mapN(Rover.apply)
 
   def parsePosition(raw: String): Either[Error, Position] =
-    parseTuple(",", raw, Position.apply).toEither
+    parseTuple(",", raw)
+      .map((Position.apply _).tupled)
       .leftMap(_ => InvalidRover(raw, "InvalidPosition"))
 
   def parseDirection(raw: String): Either[Error, Direction] =
-    Try {
-      raw.trim.toLowerCase match {
-        case "n" => N
-        case "w" => W
-        case "e" => E
-        case "s" => S
+    Either
+      .catchNonFatal {
+        raw.trim.toLowerCase match {
+          case "n" => N
+          case "w" => W
+          case "e" => E
+          case "s" => S
+        }
       }
-    }.toEither
       .leftMap(_ => InvalidRover(raw, "InvalidDirection"))
 
   def parseCommands(raw: String): List[Command] =
@@ -111,11 +119,8 @@ object Version5 {
       .map(Obstacle.apply)
       .leftMap(ex => InvalidObstacle(raw, ex.getClass.getSimpleName))
 
-  def init(planet: (String, String), rover: (String, String)): Either[Error, Mission] =
-    (
-      parsePlanet(planet),
-      parseRover(rover)
-    ).mapN(Mission.apply)
+  def parseMission(planet: (String, String), rover: (String, String)): Either[Error, Mission] =
+    (parsePlanet(planet), parseRover(rover)).mapN(Mission.apply)
 
   def render(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.direction}"
@@ -193,8 +198,8 @@ object Version5 {
       wrap(position.x, planet.size.x, delta.x),
       wrap(position.y, planet.size.y, delta.y)
     )
-    if (planet.obstacles.map(_.position).contains(candidate)) None
-    else candidate.some
+
+    Option.when(!planet.obstacles.map(_.position).contains(candidate))(candidate)
   }
 
   sealed trait Error

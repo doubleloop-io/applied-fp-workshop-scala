@@ -1,12 +1,12 @@
 package marsroverkata.answers
 
-import scala.util._
-import cats.implicits._
-import cats.effect._
-
-import marsroverkata.answers.Version4._
-
 class Version4Tests extends munit.FunSuite {
+
+  import scala.util._
+  import cats.implicits._
+  import cats.effect._
+
+  import marsroverkata.answers.Version4._
 
   test("load planet data (integration test with real filesystem)") {
     val planet = loadPlanetData("planet.txt")

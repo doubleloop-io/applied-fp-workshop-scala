@@ -1,12 +1,12 @@
 package marsroverkata.answers
 
-import cats.implicits._
-import cats.effect._
-import cats.effect.concurrent._
-
-import marsroverkata.answers.Version7._
-
 class Version7Tests extends munit.FunSuite {
+
+  import cats.implicits._
+  import cats.effect._
+  import cats.effect.concurrent._
+
+  import marsroverkata.answers.Version7._
 
   case class TestState(
     info: Option[String],

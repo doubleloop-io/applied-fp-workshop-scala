@@ -7,7 +7,6 @@ object Version6 {
 
   import scala.Console._
   import scala.io._
-  import scala.util._
 
   def createApplication(planetFile: String, roverFile: String): IO[Unit] =
     Runtime.create(init(planetFile, roverFile), update, infrastructure)
@@ -39,11 +38,12 @@ object Version6 {
         (Ready(mission), AskCommands)
 
       case (Ready(mission), CommandsReceived(commands)) =>
-        execute(mission, commands)
-          .fold(
-            aborted => (Ready(aborted), ReportObstacleHit(aborted.rover)),
-            completed => (Ready(completed), ReportCommandSequenceCompleted(completed.rover))
-          )
+        def obstacleHit(mission: Mission): (AppState, Effect) =
+          (Ready(mission), ReportObstacleHit(mission.rover))
+        def completed(mission: Mission): (AppState, Effect) =
+          (Ready(mission), ReportCommandSequenceCompleted(mission.rover))
+
+        execute(mission, commands).fold(obstacleHit, completed)
 
       case (Loading, LoadMissionFailed(error)) =>
         (Failed, Ko(error))
@@ -83,10 +83,16 @@ object Version6 {
   def stop(ignore: Unit): Option[Event]  = None
 
   def logInfo(message: String): IO[Unit] =
-    puts(s"$GREEN[OK] $message$RESET")
+    puts(green(s"[OK] $message"))
 
   def logError(error: Error): IO[Unit] =
-    puts(s"$RED[ERROR] $error$RESET")
+    puts(red(s"[ERROR] $error"))
+
+  def green(message: String): String =
+    s"$GREEN$message$RESET"
+
+  def red(message: String): String =
+    s"$RED$message$RESET"
 
   def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
   def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)
@@ -109,11 +115,11 @@ object Version6 {
   def askCommands(): IO[String] =
     ask("Waiting commands...")
 
-  def parseTuple[A](separator: String, raw: String, ctor: (Int, Int) => A): Try[A] =
-    Try {
+  def parseTuple(separator: String, raw: String): Either[Throwable, (Int, Int)] =
+    Either.catchNonFatal {
       val parts = raw.split(separator)
       (parts(0).trim.toInt, parts(1).trim.toInt)
-    }.map(ctor.tupled(_))
+    }
 
   def parsePlanet(raw: (String, String)): Either[Error, Planet] =
     raw
@@ -121,7 +127,8 @@ object Version6 {
       .mapN(Planet.apply)
 
   def parseSize(raw: String): Either[Error, Size] =
-    parseTuple("x", raw, Size.apply).toEither
+    parseTuple("x", raw)
+      .map((Size.apply _).tupled)
       .leftMap(_ => InvalidPlanet(raw, "InvalidSize"))
 
   def parseRover(raw: (String, String)): Either[Error, Rover] =
@@ -130,18 +137,20 @@ object Version6 {
       .mapN(Rover.apply)
 
   def parsePosition(raw: String): Either[Error, Position] =
-    parseTuple(",", raw, Position.apply).toEither
+    parseTuple(",", raw)
+      .map((Position.apply _).tupled)
       .leftMap(_ => InvalidRover(raw, "InvalidPosition"))
 
   def parseDirection(raw: String): Either[Error, Direction] =
-    Try {
-      raw.trim.toLowerCase match {
-        case "n" => N
-        case "w" => W
-        case "e" => E
-        case "s" => S
+    Either
+      .catchNonFatal {
+        raw.trim.toLowerCase match {
+          case "n" => N
+          case "w" => W
+          case "e" => E
+          case "s" => S
+        }
       }
-    }.toEither
       .leftMap(_ => InvalidRover(raw, "InvalidDirection"))
 
   def parseCommands(raw: String): List[Command] =
@@ -246,8 +255,8 @@ object Version6 {
       wrap(position.x, planet.size.x, delta.x),
       wrap(position.y, planet.size.y, delta.y)
     )
-    if (planet.obstacles.map(_.position).contains(candidate)) None
-    else candidate.some
+
+    Option.when(!planet.obstacles.map(_.position).contains(candidate))(candidate)
   }
 
   sealed trait Error

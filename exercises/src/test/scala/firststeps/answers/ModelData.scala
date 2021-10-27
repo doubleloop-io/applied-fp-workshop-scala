@@ -17,7 +17,7 @@ class ModelData extends munit.FunSuite {
   case object Six    extends Value
   case object Seven  extends Value
   case object Knight extends Value
-  case object Queen extends Value
+  case object Queen  extends Value
   case object King   extends Value
 
   case class Card(value: Value, suit: Suit)

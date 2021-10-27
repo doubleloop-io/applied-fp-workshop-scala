@@ -1,4 +1,3 @@
 package marsroverkata
 
-object Version1 {
-}
+object Version1 {}

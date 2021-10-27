@@ -4,8 +4,8 @@ class MultipleDispatch extends munit.FunSuite {
 
   sealed trait TrafficLight {
     def next: TrafficLight = this match {
-      case Red() => Green()
-      case Green() => Yellow()
+      case Red()    => Green()
+      case Green()  => Yellow()
       case Yellow() => Red()
     }
   }
@@ -25,8 +25,8 @@ class MultipleDispatch extends munit.FunSuite {
 
     def next(current: TrafficLight): TrafficLight =
       current match {
-        case Red() => Green()
-        case Green() => Yellow()
+        case Red()    => Green()
+        case Green()  => Yellow()
         case Yellow() => Red()
       }
   }

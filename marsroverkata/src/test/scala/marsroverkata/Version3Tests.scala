@@ -1,9 +1,9 @@
 package marsroverkata
 
-import scala.util._
-import marsroverkata.Version3._
-
 class Version3Tests extends munit.FunSuite {
+
+  import scala.util._
+  import marsroverkata.Version3._
 
 // +-----+-----+-----+-----+-----+
 // | 0,3 |     |     |     | 4,3 |

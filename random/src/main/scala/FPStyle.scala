@@ -15,7 +15,7 @@ object FPStyle {
   }
 
   val integers = new Generator[Int] {
-    val rand  = new scala.util.Random()
+    val rand       = new scala.util.Random()
     def run(): Int = rand.nextInt()
   }
 

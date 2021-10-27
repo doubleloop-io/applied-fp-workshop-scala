@@ -2,7 +2,6 @@ package marsroverkata.answers
 
 object Version2 {
 
-  import scala.util._
   import cats.implicits._
 
   def execute(mission: Mission, commands: List[Command]): Either[Mission, Mission] =
@@ -72,8 +71,8 @@ object Version2 {
       wrap(position.x, planet.size.x, delta.x),
       wrap(position.y, planet.size.y, delta.y)
     )
-    if (planet.obstacles.map(_.position).contains(candidate)) None
-    else candidate.some
+
+    Option.when(!planet.obstacles.map(_.position).contains(candidate))(candidate)
   }
 
   case class Delta(x: Int, y: Int)
