@@ -92,7 +92,7 @@ object Version7 {
     C.ask("Waiting commands...")
 
   def run(planet: (String, String), rover: (String, String), commands: String): Either[Error, String] =
-    init(planet, rover)
+    parseMission(planet, rover)
       .map(execute(_, parseCommands(commands)))
       .map(_.bimap(_.rover, _.rover).fold(renderHit, render))
 
@@ -151,11 +151,8 @@ object Version7 {
       .map(Obstacle.apply)
       .leftMap(ex => InvalidObstacle(raw, ex.getClass.getSimpleName))
 
-  def init(planet: (String, String), rover: (String, String)): Either[Error, Mission] =
-    (
-      parsePlanet(planet),
-      parseRover(rover)
-    ).mapN(Mission.apply)
+  def parseMission(planet: (String, String), rover: (String, String)): Either[Error, Mission] =
+    (parsePlanet(planet), parseRover(rover)).mapN(Mission.apply)
 
   def render(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.direction}"
