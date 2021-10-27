@@ -57,8 +57,8 @@ object Version7 {
   }
 
   trait MissionSource[F[_]] {
-    def loadPlanetData(file: String): IO[(String, String)]
-    def loadRoverData(file: String): IO[(String, String)]
+    def loadPlanetData(file: String): F[(String, String)]
+    def loadRoverData(file: String): F[(String, String)]
   }
 
   case class AppError(err: Error) extends RuntimeException(err.toString)
@@ -66,8 +66,8 @@ object Version7 {
   def createApplication(
     planetFile: String,
     roverFile: String
-  )(implicit C: Console[IO], L: Logger[IO], MF: MissionSource[IO]): IO[Unit] =
-    (MF.loadPlanetData(planetFile), MF.loadRoverData(roverFile), askCommands())
+  )(implicit C: Console[IO], L: Logger[IO], MS: MissionSource[IO]): IO[Unit] =
+    (MS.loadPlanetData(planetFile), MS.loadRoverData(roverFile), askCommands())
       .mapN(run)
       .flatMap(errorToException)
       .attempt
