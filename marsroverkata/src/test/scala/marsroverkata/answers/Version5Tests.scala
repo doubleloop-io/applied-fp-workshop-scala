@@ -23,7 +23,7 @@ class Version5Tests extends munit.FunSuite {
   }
 
   def execute[A](commands: String)(app: => IO[A]): String = {
-    import java.io.{ByteArrayOutputStream, StringReader}
+    import java.io.{ ByteArrayOutputStream, StringReader }
 
     val input = new StringReader(commands)
     val out   = new ByteArrayOutputStream
