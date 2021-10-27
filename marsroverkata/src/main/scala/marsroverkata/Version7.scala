@@ -23,7 +23,7 @@ object Version7 {
 
       def logInfo(message: String): IO[Unit] = ???
 
-      def logError(message: Throwable): IO[Unit] = ???
+      def logError(error: Throwable): IO[Unit] = ???
     }
 
     implicit val fileMissionSource: MissionSource[IO] = new MissionSource[IO] {

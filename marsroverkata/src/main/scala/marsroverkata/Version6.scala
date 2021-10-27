@@ -82,8 +82,8 @@ object Version6 {
   def logInfo(message: String): IO[Unit] =
     puts(s"$GREEN[OK] $message$RESET")
 
-  def logError(message: String): IO[Unit] =
-    puts(s"$RED[ERROR] $message$RESET")
+  def logError(error: Error): IO[Unit] =
+    puts(s"$RED[ERROR] $error$RESET")
 
   def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
   def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)
