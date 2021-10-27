@@ -20,10 +20,10 @@ class MultipleDispatch extends munit.FunSuite {
   trait TrafficLight {
     def next: TrafficLight
   }
-  case class Red() extends TrafficLight {
+  case class Red()    extends TrafficLight {
     def next: TrafficLight = Green()
   }
-  case class Green() extends TrafficLight {
+  case class Green()  extends TrafficLight {
     def next: TrafficLight = Yellow()
   }
   case class Yellow() extends TrafficLight {

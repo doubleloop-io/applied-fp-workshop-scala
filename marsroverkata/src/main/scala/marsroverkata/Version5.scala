@@ -23,9 +23,9 @@ object Version5 {
 
   def green(message: String): String =
     s"$GREEN$message$RESET"
-
-  def red(message: String): String =
+  def red(message: String): String   =
     s"$RED$message$RESET"
+
   def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
   def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)
 
@@ -39,8 +39,8 @@ object Version5 {
         })
       }
 
-  def puts(message: String): IO[Unit] = IO(println(message))
-  def reads(): IO[String]             = IO(scala.io.StdIn.readLine())
+  def puts(message: String): IO[Unit]   = IO(println(message))
+  def reads(): IO[String]               = IO(scala.io.StdIn.readLine())
   def ask(question: String): IO[String] =
     puts(question) *> reads()
 

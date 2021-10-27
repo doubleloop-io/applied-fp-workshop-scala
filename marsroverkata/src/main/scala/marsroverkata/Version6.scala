@@ -103,8 +103,8 @@ object Version6 {
         })
       }
 
-  def puts(message: String): IO[Unit] = IO(println(message))
-  def reads(): IO[String]             = IO(scala.io.StdIn.readLine())
+  def puts(message: String): IO[Unit]   = IO(println(message))
+  def reads(): IO[String]               = IO(scala.io.StdIn.readLine())
   def ask(question: String): IO[String] =
     puts(question) *> reads()
 
@@ -303,7 +303,7 @@ object Version6 {
               case Some(ev) =>
                 val (nextState, nextEffect) = updateFn(currentState, ev)
                 loop(nextState, nextEffect)
-              case None => IO.unit
+              case None     => IO.unit
             }
           }
 

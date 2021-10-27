@@ -22,7 +22,7 @@ class Version2Tests extends munit.FunSuite {
         Commands: LFRB
         --
         Rover: 4 3 N
-   */
+     */
   }
 
   test("hit obstacle during commands execution") {
@@ -33,6 +33,6 @@ class Version2Tests extends munit.FunSuite {
         Commands: RFF
         --
         Rover: STOP 1 0 E
-   */
+     */
   }
 }

@@ -48,7 +48,7 @@ class Version7Tests extends munit.FunSuite {
       }
 
       implicit val logger: Logger[IO] = new Logger[IO] {
-        def logInfo(message: String): IO[Unit] =
+        def logInfo(message: String): IO[Unit]   =
           ref.update(ts => ts.copy(info = Some(message)))
         def logError(error: Throwable): IO[Unit] =
           ref.update(ts => ts.copy(error = Some(error.getMessage)))

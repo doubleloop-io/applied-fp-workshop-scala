@@ -21,7 +21,7 @@ class Version1Tests extends munit.FunSuite {
         Command: R
         --
         Rover: 0 0 E
-   */
+     */
   }
 
   test("turn left command") {
@@ -31,7 +31,7 @@ class Version1Tests extends munit.FunSuite {
         Command: L
         --
         Rover: 0 0 W
-   */
+     */
   }
 
   test("move forward command") {
@@ -41,7 +41,7 @@ class Version1Tests extends munit.FunSuite {
         Command: F
         --
         Rover: 0 2 N
-   */
+     */
   }
 
   test("move forward command, opposite orientation") {
@@ -51,7 +51,7 @@ class Version1Tests extends munit.FunSuite {
         Command: F
         --
         Rover: 0 0 S
-   */
+     */
   }
 
   test("move backward command") {
@@ -61,7 +61,7 @@ class Version1Tests extends munit.FunSuite {
         Command: B
         --
         Rover: 0 0 N
-   */
+     */
   }
 
   test("move backward command, opposite orientation") {
@@ -71,7 +71,7 @@ class Version1Tests extends munit.FunSuite {
         Command: B
         --
         Rover: 0 2 S
-   */
+     */
   }
 
   test("wrap on North") {
@@ -81,7 +81,7 @@ class Version1Tests extends munit.FunSuite {
         Command: F
         --
         Rover: 0 0 N
-   */
+     */
   }
 
   test("wrap on South") {
@@ -91,7 +91,7 @@ class Version1Tests extends munit.FunSuite {
         Command: F
         --
         Rover: 0 3 S
-   */
+     */
   }
 
   test("wrap on Est") {
@@ -101,7 +101,7 @@ class Version1Tests extends munit.FunSuite {
         Command: F
         --
         Rover: 0 1 E
-   */
+     */
   }
 
   test("wrap on West") {
@@ -111,6 +111,6 @@ class Version1Tests extends munit.FunSuite {
         Command: F
         --
         Rover: 4 1 W
-   */
+     */
   }
 }

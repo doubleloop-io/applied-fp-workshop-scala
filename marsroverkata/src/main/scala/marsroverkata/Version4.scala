@@ -21,8 +21,8 @@ object Version4 {
         })
       }
 
-  def puts(message: String): IO[Unit] = IO(println(message))
-  def reads(): IO[String]             = IO(scala.io.StdIn.readLine())
+  def puts(message: String): IO[Unit]   = IO(println(message))
+  def reads(): IO[String]               = IO(scala.io.StdIn.readLine())
   def ask(question: String): IO[String] =
     puts(question) *> reads()
 

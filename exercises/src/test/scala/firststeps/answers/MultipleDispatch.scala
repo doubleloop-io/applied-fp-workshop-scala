@@ -9,7 +9,7 @@ class MultipleDispatch extends munit.FunSuite {
       case Yellow() => Red()
     }
   }
-  case class Red()    extends TrafficLight
+  case class Red() extends TrafficLight
   case class Green()  extends TrafficLight
   case class Yellow() extends TrafficLight
 
