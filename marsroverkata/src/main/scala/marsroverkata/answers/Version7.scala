@@ -230,8 +230,8 @@ object Version7 {
       wrap(position.x, planet.size.x, delta.x),
       wrap(position.y, planet.size.y, delta.y)
     )
-    if (planet.obstacles.map(_.position).contains(candidate)) None
-    else candidate.some
+
+    Option.when(!planet.obstacles.map(_.position).contains(candidate))(candidate)
   }
 
   sealed trait Error
