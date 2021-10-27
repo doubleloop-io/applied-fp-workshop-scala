@@ -25,10 +25,16 @@ object Version5 {
     result.fold(logError, logInfo)
 
   def logInfo(message: String): IO[Unit] =
-    puts(s"$GREEN[OK] $message$RESET")
+    puts(green(s"[OK] $message"))
 
   def logError(error: Throwable): IO[Unit] =
-    puts(s"$RED[ERROR] ${error.getMessage}$RESET")
+    puts(red(s"[ERROR] ${error.getMessage}"))
+
+  def green(message: String): String =
+    s"$GREEN$message$RESET"
+
+  def red(message: String): String =
+    s"$RED$message$RESET"
 
   def loadPlanetData(file: String): IO[(String, String)] = loadTupled(file)
   def loadRoverData(file: String): IO[(String, String)]  = loadTupled(file)

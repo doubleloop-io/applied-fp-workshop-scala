@@ -23,10 +23,16 @@ object Version7 {
     implicit def loggerConsoleIO(implicit C: Console[IO]): Logger[IO] = new Logger[IO] {
 
       def logInfo(message: String): IO[Unit] =
-        C.puts(s"INFO: $message$RESET")
+        C.puts(green(s"[OK] $message"))
 
       def logError(error: Throwable): IO[Unit] =
-        C.puts(s"${RED}ERROR: ${error.getMessage}$RESET")
+        C.puts(red(s"[ERROR] ${error.getMessage}"))
+
+      private def green(message: String): String =
+        s"$GREEN$message$RESET"
+
+      private def red(message: String): String =
+        s"$RED$message$RESET"
     }
 
     implicit val fileMissionSource: MissionSource[IO] = new MissionSource[IO] {

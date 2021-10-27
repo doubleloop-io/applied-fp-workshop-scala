@@ -1,14 +1,14 @@
 package marsroverkata
 
-import cats._
-import cats.effect._
-import cats.implicits._
-
-import scala.Console._
-import scala.io._
-import scala.util._
-
 object Version7 {
+
+  import cats._
+  import cats.effect._
+  import cats.implicits._
+
+  import scala.Console._
+  import scala.io._
+  import scala.util._
 
   object Instances {
 
@@ -24,6 +24,12 @@ object Version7 {
       def logInfo(message: String): IO[Unit] = ???
 
       def logError(error: Throwable): IO[Unit] = ???
+
+      private def green(message: String): String =
+        s"$GREEN$message$RESET"
+
+      private def red(message: String): String =
+        s"$RED$message$RESET"
     }
 
     implicit val fileMissionSource: MissionSource[IO] = new MissionSource[IO] {
