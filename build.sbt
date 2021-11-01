@@ -38,9 +38,9 @@ lazy val random = project
 
 lazy val settings = Seq(
   organization := "io.doubleloop",
-  scalaVersion := "2.13.6",
+  scalaVersion := "2.13.7",
   semanticdbVersion := scalafixSemanticdb.revision, // only required for Scala 2.x
-  semanticdbEnabled := true, // enable SemanticDB
+  semanticdbEnabled := true,                        // enable SemanticDB
   version := "0.1.0-SNAPSHOT",
   scalacOptions ++= scalacSettings,
   resolvers ++= resolversSettings,
@@ -75,7 +75,7 @@ lazy val resolversSettings = Seq(
 )
 
 lazy val libsSettings = Seq(
-  "org.typelevel" %% "cats-core"     % "2.6.1",
-  "org.typelevel" %% "cats-effect"   % "2.5.4",
-  "org.scalameta" %% "munit"         % "0.7.29" % Test
+  "org.typelevel" %% "cats-core"   % "2.6.1",
+  "org.typelevel" %% "cats-effect" % "2.5.4",
+  "org.scalameta" %% "munit"       % "0.7.29" % Test
 )
