@@ -33,7 +33,7 @@ object FPStyle {
   def choose(lo: Int, hi: Int): Generator[Int] =
     for (x <- integers) yield lo + math.abs(x) % (hi - lo)
 
-  def oneOf[A](xs: A*): Generator[A]           =
+  def oneOf[A](xs: A*): Generator[A] =
     for (index <- choose(0, xs.length)) yield xs(index)
 
   def lists[A](ga: Generator[A]): Generator[List[A]] = {
