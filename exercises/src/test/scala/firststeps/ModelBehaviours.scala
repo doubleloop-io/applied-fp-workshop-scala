@@ -25,9 +25,7 @@ class ModelBehaviours extends munit.FunSuite {
   val reciprocal: Int => Double =
     in => 1.0 / in
 
-  val reciprocalString: String => String = in => {
-    ???
-  }
+  val reciprocalString: String => String = in => ???
 
   test("reciprocal of string number".ignore) {
     // TODO: use existing function to compute a reciprocal in string

@@ -17,9 +17,10 @@ class TryMonad extends munit.FunSuite {
     item.copy(qty = item.qty + qty)
 
   test("scenario") {
-    val program = load(ItemId(1))
-      .map(checkIn(10, _))
-      .flatMap(save)
+    val program =
+      load(ItemId(1))
+        .map(checkIn(10, _))
+        .flatMap(save)
 
     program.fold("err " + _.getMessage, "value " + _)
   }
