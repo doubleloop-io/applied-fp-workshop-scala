@@ -75,7 +75,7 @@ class Version6Tests extends munit.FunSuite {
 
   test("invalid planet data, system test".ignore) {
     val result = execute("RBBLBRF") {
-      createApplication("invalid_planet.txt", "rover.txt")
+      createApplication("planet_invalid_data.txt", "rover.txt")
     }
 
     assertEquals(result, s"$RED[ERROR] InvalidPlanet(ax4,InvalidSize)$RESET")

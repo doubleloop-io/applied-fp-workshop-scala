@@ -46,7 +46,7 @@ object Version7 {
         .use { source =>
           IO(source.getLines().toArray match {
             case Array(first, second) => (first, second)
-            case _                    => throw new RuntimeException("invalid content")
+            case _                    => throw new RuntimeException("Invalid file content")
           })
         }
   }

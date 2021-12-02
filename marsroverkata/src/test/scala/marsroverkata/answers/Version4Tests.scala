@@ -70,9 +70,9 @@ class Version4Tests extends munit.FunSuite {
   }
 
   test("unhandled RuntimeException") {
-    val planet                      = IO.pure(("5x4", "2,0 0,3 3,2"))
-    val rover: IO[(String, String)] = IO(throw new RuntimeException("boom!"))
-    val commands                    = IO.pure("RFF")
+    val planet   = IO.pure(("5x4", "2,0 0,3 3,2"))
+    val rover    = IO(throw new RuntimeException("boom!"))
+    val commands = IO.pure("RFF")
 
     val app = (planet, rover, commands).mapN(run)
     val ex  = intercept[Exception](app.unsafeRunSync())
@@ -81,9 +81,9 @@ class Version4Tests extends munit.FunSuite {
   }
 
   test("handled RuntimeException") {
-    val planet                      = IO.pure(("5x4", "2,0 0,3 3,2"))
-    val rover: IO[(String, String)] = IO(throw new RuntimeException("boom!"))
-    val commands                    = IO.pure("RFF")
+    val planet   = IO.pure(("5x4", "2,0 0,3 3,2"))
+    val rover    = IO(throw new RuntimeException("boom!"))
+    val commands = IO.pure("RFF")
 
     val app    = (planet, rover, commands).mapN(run)
     val result = app.attempt.unsafeRunSync()
