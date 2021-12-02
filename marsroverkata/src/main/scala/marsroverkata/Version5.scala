@@ -10,10 +10,14 @@ object Version5 {
 
   case class AppError(err: Error) extends RuntimeException(err.toString)
 
+  // TODO:
+  //   - load data and ask commands
+  //   - run domain logic
+  //   - change Error in AppError exception
+  //   - collapse Either into IO
+  //   - capture IO errors
+  //   - log result w/ two possible values
   def createApplication(planetFile: String, roverFile: String): IO[Unit] = ???
-
-  def handleResult(result: Either[Throwable, String]): IO[Unit] =
-    result.fold(logError, logInfo)
 
   def logInfo(message: String): IO[Unit] =
     puts(green(s"[OK] $message"))

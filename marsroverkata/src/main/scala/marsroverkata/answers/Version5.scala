@@ -13,15 +13,10 @@ object Version5 {
   def createApplication(planetFile: String, roverFile: String): IO[Unit] =
     (loadPlanetData(planetFile), loadRoverData(roverFile), askCommands())
       .mapN(run)
-      .flatMap(errorToException)
+      .map(_.leftMap(AppError))
+      .flatMap(IO.fromEither)
       .attempt
-      .flatMap(handleResult)
-
-  def errorToException(e: Either[Error, String]): IO[String] =
-    IO.fromEither(e.leftMap(AppError))
-
-  def handleResult(result: Either[Throwable, String]): IO[Unit] =
-    result.fold(logError, logInfo)
+      .flatMap(_.fold(logError, logInfo))
 
   def logInfo(message: String): IO[Unit] =
     puts(green(s"[OK] $message"))
