@@ -1,5 +1,6 @@
 package marsroverkata.answers
 
+import cats.effect.Ref
 class Version7Tests extends munit.FunSuite {
 
   import cats.implicits._
