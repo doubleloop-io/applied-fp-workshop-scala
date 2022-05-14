@@ -244,7 +244,7 @@ object Version6 {
     }
 
   def wrap(axis: Int, size: Int, delta: Int): Int =
-    (((axis + delta) % size) + size) % size
+    ((axis + delta) % size + size) % size
 
   def next(position: Position, planet: Planet, delta: Delta): Option[Position] = {
     val candidate = Position(

@@ -61,7 +61,7 @@ object Version2 {
     }
 
   def wrap(axis: Int, size: Int, delta: Int): Int =
-    (((axis + delta) % size) + size) % size
+    ((axis + delta) % size + size) % size
 
   def next(position: Position, size: Size, delta: Delta): Position =
     position.copy(
