@@ -20,15 +20,14 @@ lazy val scalarecap = project
 
 lazy val settings = Seq(
   organization      := "io.doubleloop",
-  scalaVersion      := "2.13.7",
+  scalaVersion      := "3.1.3",
   semanticdbVersion := scalafixSemanticdb.revision, // only required for Scala 2.x
   semanticdbEnabled := true,                        // enable SemanticDB
   version           := "0.1.0-SNAPSHOT",
   scalacOptions ++= scalacSettings,
   resolvers ++= resolversSettings,
   libraryDependencies ++= libsSettings,
-  testFrameworks += new TestFramework("munit.Framework"),
-  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1")
+  testFrameworks += new TestFramework("munit.Framework")
 )
 
 lazy val scalacSettings = Seq(
