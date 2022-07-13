@@ -10,29 +10,11 @@ addCommandAlias("p", "project")
 lazy val global = project
   .in(file("."))
   .settings(settings)
-  .aggregate(scalarecap, exercises, marsroverkata, random)
+  .aggregate(scalarecap)
 
 lazy val scalarecap = project
   .settings(
     name := "scalarecap",
-    settings
-  )
-
-lazy val exercises = project
-  .settings(
-    name := "exercises",
-    settings
-  )
-
-lazy val marsroverkata = project
-  .settings(
-    name := "marsroverkata",
-    settings
-  )
-
-lazy val random = project
-  .settings(
-    name := "random",
     settings
   )
 
@@ -50,22 +32,6 @@ lazy val settings = Seq(
 )
 
 lazy val scalacSettings = Seq(
-  "-encoding",
-  "UTF-8",
-  "-deprecation",
-  "-unchecked",
-  "-feature",
-  "-explaintypes",
-  "-opt-warnings",
-  "-language:existentials",
-  "-language:higherKinds",
-  "-opt:l:inline",
-  "-opt-inline-from:<source>",
-  "-Yrangepos",
-  "-Ywarn-numeric-widen",
-  "-Ywarn-extra-implicit",
-  "-Xlint:_,-type-parameter-shadow,-unused",
-  "-Xfatal-warnings"
 )
 
 lazy val resolversSettings = Seq(
@@ -75,7 +41,5 @@ lazy val resolversSettings = Seq(
 )
 
 lazy val libsSettings = Seq(
-  "org.typelevel" %% "cats-core"   % "2.7.0",
-  "org.typelevel" %% "cats-effect" % "2.5.4",
   "org.scalameta" %% "munit"       % "0.7.29" % Test
 )
