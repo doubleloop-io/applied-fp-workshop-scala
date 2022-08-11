@@ -10,7 +10,7 @@ addCommandAlias("p", "project")
 lazy val global = project
   .in(file("."))
   .settings(settings)
-  .aggregate(scalarecap, exercises, marsroverkata, random)
+  .aggregate(scalarecap)
 
 lazy val scalarecap = project
   .settings(
@@ -18,54 +18,19 @@ lazy val scalarecap = project
     settings
   )
 
-lazy val exercises = project
-  .settings(
-    name := "exercises",
-    settings
-  )
-
-lazy val marsroverkata = project
-  .settings(
-    name := "marsroverkata",
-    settings
-  )
-
-lazy val random = project
-  .settings(
-    name := "random",
-    settings
-  )
-
 lazy val settings = Seq(
   organization      := "io.doubleloop",
-  scalaVersion      := "2.13.7",
+  scalaVersion      := "3.1.3",
   semanticdbVersion := scalafixSemanticdb.revision, // only required for Scala 2.x
   semanticdbEnabled := true,                        // enable SemanticDB
   version           := "0.1.0-SNAPSHOT",
   scalacOptions ++= scalacSettings,
   resolvers ++= resolversSettings,
   libraryDependencies ++= libsSettings,
-  testFrameworks += new TestFramework("munit.Framework"),
-  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1")
+  testFrameworks += new TestFramework("munit.Framework")
 )
 
 lazy val scalacSettings = Seq(
-  "-encoding",
-  "UTF-8",
-  "-deprecation",
-  "-unchecked",
-  "-feature",
-  "-explaintypes",
-  "-opt-warnings",
-  "-language:existentials",
-  "-language:higherKinds",
-  "-opt:l:inline",
-  "-opt-inline-from:<source>",
-  "-Yrangepos",
-  "-Ywarn-numeric-widen",
-  "-Ywarn-extra-implicit",
-  "-Xlint:_,-type-parameter-shadow,-unused",
-  "-Xfatal-warnings"
 )
 
 lazy val resolversSettings = Seq(
@@ -75,7 +40,5 @@ lazy val resolversSettings = Seq(
 )
 
 lazy val libsSettings = Seq(
-  "org.typelevel" %% "cats-core"   % "2.7.0",
-  "org.typelevel" %% "cats-effect" % "2.5.4",
   "org.scalameta" %% "munit"       % "0.7.29" % Test
 )
