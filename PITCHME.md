@@ -13,15 +13,9 @@
 ---
 
 > We decompose bigger problems into smaller problems. <br />
-> If the smaller problems are still too big, we decompose them further, and so on. <br />
-
----
-
-> Finally, we write code that solves all the small problems.
-
----
-
-> And then comes the essence of programming: <br />
+> ...<br />
+> Finally, we write code that solves all the small problems.<br />
+> ...<br />
 > we compose those pieces of code to create solutions to larger problems.
 
 ---
@@ -46,30 +40,12 @@ we dedicate a **significant** portion of code and **effort** to compose pieces t
 
 ---
 
-## side-effects
-
----
-
-### not **composable**
+### Side-effects
 
 ```scala
 def foo(n: Int): String = {
   appendAll("log.txt", "some content")
   n.toString
-}
-```
-
----
-
-### not **composable**
-
-```scala
-val list = collection.mutable.ListBuffer[Int]()
-
-def foo(n: Int): String = {
-  list += n
-  if (list.size < 42) n.toString
-  else "Yo!"
 }
 ```
 
@@ -91,25 +67,11 @@ def foo(n: Int): String = {
 
 ## Functional Programming
 
-### is about **eliminating** or **controlling** side-effects
+### is about **eliminating** or **controlling** side-effects<br /> through the use of **pure functions**
 
 ---
 
-## How?
-
-see “function” as the **mathematical** one:
-
-- **Total**: it must yield a value for every possible input
-- **Deterministic**: it must yield the same value for the same input
-- **Pure**: it’s only effect must be the computation of its return value
-
----
-
-## We earn back
-
-### all functions become **referentially transparent**
-
----
+## Referential transparency
 
 ### An expression can be **replaced**
 
@@ -145,7 +107,8 @@ val z = y + y
 
 mathematicians **refactor** their "code"</br> since long before us
 
-```
+```js
+// distributive law
 x(y + z) = (xy) + (xz)
 ```
 
@@ -167,18 +130,6 @@ x(y + z) = (xy) + (xz)
 
 ---
 
-## take this workashop as
-
-## a **place** and **time**
+## use this **place** and **time**
 
 ## to **experiment** and **fail**
-
----
-
-## **do not judge**
-
-## what you will see
-
-## **with the eyes of**
-
-## what you know today
