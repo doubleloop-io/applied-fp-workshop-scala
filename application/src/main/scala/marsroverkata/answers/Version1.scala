@@ -40,10 +40,10 @@ object Version1 {
     }
 
   def moveForward(rover: Rover, planet: Planet): Rover =
-    rover.copy(position = next(rover.position, planet.size, delta(rover.orientation)))
+    rover.copy(position = next(rover, planet, delta(rover.orientation)))
 
   def moveBackward(rover: Rover, planet: Planet): Rover =
-    rover.copy(position = next(rover.position, planet.size, delta(opposite(rover.orientation))))
+    rover.copy(position = next(rover, planet, delta(opposite(rover.orientation))))
 
   def opposite(orientation: Orientation): Orientation =
     orientation match {
@@ -61,11 +61,13 @@ object Version1 {
       case W => Delta(-1, 0)
     }
 
-  def next(position: Position, size: Size, delta: Delta): Position =
+  def next(rover: Rover, planet: Planet, delta: Delta): Position = {
+    val position = rover.position
     position.copy(
-      x = wrap(position.x, size.width, delta.x),
-      y = wrap(position.y, size.height, delta.y)
+      x = wrap(position.x, planet.size.width, delta.x),
+      y = wrap(position.y, planet.size.height, delta.y)
     )
+  }
 
   case class Delta(x: Int, y: Int)
   case class Position(x: Int, y: Int)
@@ -78,9 +80,15 @@ object Version1 {
     case Turn(on: Rotation)
   }
 
-  enum Movement { case Forward, Backward }
+  enum Movement {
+    case Forward, Backward
+  }
 
-  enum Rotation { case OnRight, OnLeft }
+  enum Rotation {
+    case OnRight, OnLeft
+  }
 
-  enum Orientation { case N, E, W, S }
+  enum Orientation {
+    case N, E, W, S
+  }
 }
