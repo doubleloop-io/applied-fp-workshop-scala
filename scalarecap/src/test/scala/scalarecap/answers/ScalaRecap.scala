@@ -65,15 +65,15 @@ class ScalaRecap extends munit.FunSuite {
   }
 
   test("update case class") {
-    val p      = Person("foo", 56)
+    val p = Person("foo", 56)
     val result = p.makeOlder(100)
     assertEquals(result.age, 156)
   }
 
   test("implicit parameter") {
     implicit val years: Int = 30
-    val p                   = Person("foo", 56)
-    val result              = p.makeYounger
+    val p = Person("foo", 56)
+    val result = p.makeYounger
     assertEquals(result.age, 26)
   }
 

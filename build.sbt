@@ -1,4 +1,3 @@
-addCommandAlias("fm", "all compile:scalafmt test:scalafmt")
 addCommandAlias("cc", "all clean compile")
 addCommandAlias("c", "compile")
 addCommandAlias("r", "run")
@@ -10,7 +9,7 @@ addCommandAlias("p", "project")
 lazy val global = project
   .in(file("."))
   .settings(settings)
-  .aggregate(scalarecap)
+  .aggregate(scalarecap, application)
 
 lazy val scalarecap = project
   .settings(
@@ -18,12 +17,16 @@ lazy val scalarecap = project
     settings
   )
 
+lazy val application = project
+  .settings(
+    name := "application",
+    settings
+  )
+
 lazy val settings = Seq(
-  organization      := "io.doubleloop",
-  scalaVersion      := "3.1.3",
-  semanticdbVersion := scalafixSemanticdb.revision, // only required for Scala 2.x
-  semanticdbEnabled := true,                        // enable SemanticDB
-  version           := "0.1.0-SNAPSHOT",
+  organization := "io.doubleloop",
+  scalaVersion := "3.1.3",
+  version := "0.1.0-SNAPSHOT",
   scalacOptions ++= scalacSettings,
   resolvers ++= resolversSettings,
   libraryDependencies ++= libsSettings,
@@ -31,6 +34,7 @@ lazy val settings = Seq(
 )
 
 lazy val scalacSettings = Seq(
+  "-no-indent"
 )
 
 lazy val resolversSettings = Seq(
@@ -40,5 +44,8 @@ lazy val resolversSettings = Seq(
 )
 
 lazy val libsSettings = Seq(
-  "org.scalameta" %% "munit"       % "0.7.29" % Test
+  "org.typelevel" %% "cats-core" % "2.8.0",
+  "org.typelevel" %% "cats-effect" % "3.3.14",
+  "org.scalameta" %% "munit" % "0.7.29" % Test,
+  "org.typelevel" %% "munit-cats-effect-3" % "1.0.7" % Test
 )
