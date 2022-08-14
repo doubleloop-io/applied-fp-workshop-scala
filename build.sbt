@@ -40,5 +40,5 @@ lazy val resolversSettings = Seq(
 )
 
 lazy val libsSettings = Seq(
-  "org.scalameta" %% "munit" % "0.7.29" % Test
+  "org.scalameta" %% "munit"       % "0.7.29" % Test
 )
