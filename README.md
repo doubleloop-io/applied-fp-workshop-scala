@@ -1,10 +1,9 @@
-# Applied Functional Programming Workshop
+# Applied Functional Programming Workshop - Scala Edition
 
-### Scala
+### Scala 3
 
-- [Scala Cheatsheet](https://docs.scala-lang.org/cheatsheets/)
-- [Tour Of Scala](https://docs.scala-lang.org/tour/tour-of-scala.html)
-- [Scala API](https://www.scala-lang.org/api/current/index.html)
+- [Scala Reference](https://docs.scala-lang.org/scala3/reference/index.html)
+- [Scala API](https://www.scala-lang.org/api/3.1.3/)
 - [Scala Online Compiler](https://scastie.scala-lang.org/)
 
 ## Test
@@ -19,5 +18,5 @@
 
 ## Cats Effect
 
-- [Cats-Effect](https://typelevel.org/cats-effect/docs/2.x/getting-started)
-- [Cats-Effect API](https://typelevel.org/cats-effect/api/2.x/)
+- [Cats-Effect](https://typelevel.org/cats-effect/docs/getting-started)
+- [Cats-Effect API](https://typelevel.org/cats-effect/api/3.x/cats/effect/index.html)
