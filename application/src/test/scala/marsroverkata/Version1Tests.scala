@@ -12,13 +12,13 @@ class Version1Tests extends munit.FunSuite {
   // +-----+-----+-----+-----+-----+
   // | 0,0 |     |     |     | 4,0 |
   // +-----+-----+-----+-----+-----+
-  
+
   import marsroverkata.Version1._
 
   // TODO: implements tests and feel free to add more...
-  
+
   test("turn right command") {
-//    val rover = Rover: 0 0 N 
+//    val rover = Rover: 0 0 N
 //    val planet = Planet: 5 4
 //    val command = R
 //    val result = execute(mission, command)
@@ -79,5 +79,5 @@ class Version1Tests extends munit.FunSuite {
 //    val commands = Commands L F R B
 //    val result = executeAll(rover, planet, commands)
 //    assertEquals(result, Rover: 4 3 N)
-  }  
+  }
 }
