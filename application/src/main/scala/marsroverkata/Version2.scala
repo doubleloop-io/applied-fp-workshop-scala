@@ -19,8 +19,8 @@ object Version2 {
 
   def parseSize(input: String): Either[ParseError, Size] = ???
   def parseObstacle(input: String): Either[ParseError, Obstacle] = ???
-  def parseObstacles(raw: String): Either[ParseError, List[Obstacle]] = ???
-  def parsePlanet(raw: (String, String)): Either[ParseError, Planet] = ???
+  def parseObstacles(input: String): Either[ParseError, List[Obstacle]] = ???
+  def parsePlanet(input: (String, String)): Either[ParseError, Planet] = ???
 
   def parseTuple(separator: String, input: String): Either[Throwable, (Int, Int)] =
     Either.catchNonFatal {

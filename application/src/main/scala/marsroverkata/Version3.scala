@@ -61,11 +61,11 @@ object Version3 {
       .map(Obstacle.apply)
       .leftMap(_ => InvalidPlanet(s"invalid obstacle: $input"))
 
-  def parseObstacles(raw: String): Either[ParseError, List[Obstacle]] =
-    raw.split(" ").toList.traverse(parseObstacle)
+  def parseObstacles(input: String): Either[ParseError, List[Obstacle]] =
+    input.split(" ").toList.traverse(parseObstacle)
 
-  def parsePlanet(raw: (String, String)): Either[ParseError, Planet] = {
-    val (inputSize, inputObstacles) = raw
+  def parsePlanet(input: (String, String)): Either[ParseError, Planet] = {
+    val (inputSize, inputObstacles) = input
     for {
       size <- parseSize(inputSize)
       obstacles <- parseObstacles(inputObstacles)
