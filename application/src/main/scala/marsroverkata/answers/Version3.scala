@@ -14,14 +14,11 @@ object Version3 {
       result <- executeAll(planet, rover, commands).leftMap(Execution.apply)
     } yield render(result)
 
-  // --RENDERING
+  // RENDERING
   def render(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.orientation}"
 
-  // --PARSING
-  def parseCommands(input: String): List[Command] =
-    input.map(parseCommand).toList
-
+  // PARSING
   def parseCommand(input: Char): Command =
     input.toString.toLowerCase match {
       case "f" => Move(Forward)
@@ -30,6 +27,9 @@ object Version3 {
       case "l" => Turn(OnLeft)
       case _   => Unknown
     }
+
+  def parseCommands(input: String): List[Command] =
+    input.map(parseCommand).toList
 
   def parseRover(input: (String, String)): Either[ParseError, Rover] = {
     val (inputPosition, inputOrientation) = input
@@ -80,7 +80,7 @@ object Version3 {
       (parts(0).trim.toInt, parts(1).trim.toInt)
     }
 
-  // --DOMAIN
+  // DOMAIN
   def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Either[ExecutionError, Rover] =
     commands.foldLeft(rover.asRight)((prev, cmd) => prev.flatMap(execute(planet, _, cmd)))
 
@@ -153,7 +153,7 @@ object Version3 {
     Either.cond(!hitObstacle, candidate, HitObstacle(rover))
   }
 
-  // --TYPES
+  // TYPES
   case class Delta(x: Int, y: Int)
   case class Position(x: Int, y: Int)
   case class Size(width: Int, height: Int)

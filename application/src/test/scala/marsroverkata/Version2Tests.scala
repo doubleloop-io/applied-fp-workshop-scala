@@ -1,11 +1,11 @@
-package marsroverkata.answers
+package marsroverkata
 
 class Version2Tests extends munit.FunSuite {
 
-  import marsroverkata.answers.Version2._
-  import marsroverkata.answers.Version2.Rotation._, Orientation._, Movement._, Command._, ParseError._
+  import marsroverkata.Version2._
+  import marsroverkata.Version2.Rotation._, Orientation._, Movement._, Command._, ParseError._
 
-  test("go to opposite angle") {
+  test("go to opposite angle".ignore) {
     val planet = ("5x4", "2,0 0,3 3,2")
     val rover = ("0,0", "N")
     val commands = "RBBLBRF"
@@ -15,7 +15,7 @@ class Version2Tests extends munit.FunSuite {
     assertEquals(result, Right("4:3:E"))
   }
 
-  test("invalid planet input data") {
+  test("invalid planet input data".ignore) {
     val planet = ("ax4", "2,0 0,3 3,2")
     val rover = ("1,2", "N")
     val commands = "RBRF"
@@ -25,7 +25,7 @@ class Version2Tests extends munit.FunSuite {
     assertEquals(result, Left(InvalidPlanet("invalid size: ax4")))
   }
 
-  test("invalid rover input data") {
+  test("invalid rover input data".ignore) {
     val planet = ("5x4", "2,0 0,3 3,2")
     val rover = ("1,2", "X")
     val commands = "RBRF"
@@ -35,7 +35,7 @@ class Version2Tests extends munit.FunSuite {
     assertEquals(result, Left(InvalidRover("invalid orientation: X")))
   }
 
-  test("unknown command") {
+  test("unknown command".ignore) {
     val planet = ("5x4", "2,0 0,3 3,2")
     val rover = ("1,2", "N")
     val commands = "RBXRF"

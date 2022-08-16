@@ -2,17 +2,6 @@ package marsroverkata.answers
 
 class Version3Tests extends munit.FunSuite {
 
-  // Planet layout
-  // +-----+-----+-----+-----+-----+
-  // | 0,3 |     |     |     | 4,3 |
-  // +-----+-----+-----+-----+-----+
-  // |     |     |     |     |     |
-  // +-----+-----+-----+-----+-----+
-  // |     |     |     |     |     |
-  // +-----+-----+-----+-----+-----+
-  // | 0,0 |     |     |     | 4,0 |
-  // +-----+-----+-----+-----+-----+
-
   import marsroverkata.answers.Version3._
   import marsroverkata.answers.Version3.Rotation._, Orientation._, Movement._, Command._, ExecutionError._
 
