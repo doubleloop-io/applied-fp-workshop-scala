@@ -6,10 +6,8 @@ object Version2 {
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.implicits._
 
+  // TODO: implements functions and feel free to add more...
   def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[ParseError, String] = ???
-
-  // RENDERING
-  def render(rover: Rover): String = ???
 
   // PARSING
   def parseCommand(input: Char): Command = ???
@@ -29,6 +27,9 @@ object Version2 {
       val parts = input.split(separator).toList
       (parts(0).trim.toInt, parts(1).trim.toInt)
     }
+
+  // RENDERING
+  def render(rover: Rover): String = ???
 
   // DOMAIN
   def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Rover =

@@ -5,6 +5,8 @@ class Version2Tests extends munit.FunSuite {
   import marsroverkata.Version2._
   import marsroverkata.Version2.Rotation._, Orientation._, Movement._, Command._, ParseError._
 
+  // TODO: remove ignore
+
   test("go to opposite angle".ignore) {
     val planet = ("5x4", "2,0 0,3 3,2")
     val rover = ("0,0", "N")
