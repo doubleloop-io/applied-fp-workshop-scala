@@ -5,6 +5,7 @@ object Version1 {
   import Pacman._
 
   // TODO: implements functions and feel free to add more...
+  def executeAll(rover: Rover, planet: Planet, commands: List[Command]): Rover = ???
   def execute(rover: Rover, planet: Planet, command: Command): Rover = ???
 
   def turn(rover: Rover, turn: Rotation): Rover = ???

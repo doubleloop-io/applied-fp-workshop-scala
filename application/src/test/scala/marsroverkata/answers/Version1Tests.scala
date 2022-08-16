@@ -71,4 +71,12 @@ class Version1Tests extends munit.FunSuite {
     val result = execute(rover, planet, command)
     assertEquals(result, Rover(Position(0, 0), N))
   }
+
+  test("go to opposite angle") {
+    val rover = Rover(Position(0, 0), N)
+    val planet = Planet(Size(5, 4))
+    val commands = List(Turn(OnLeft), Move(Forward), Turn(OnRight), Move(Backward))
+    val result = executeAll(rover, planet, commands)
+    assertEquals(result, Rover(Position(4, 3), N))
+  }
 }

@@ -5,6 +5,9 @@ object Version1 {
   import marsroverkata.Pacman._
   import Rotation._, Orientation._, Movement._, Command._
 
+  def executeAll(rover: Rover, planet: Planet, commands: List[Command]): Rover =
+    commands.foldLeft(rover)((prev, cmd) => execute(prev, planet, cmd))
+
   def execute(rover: Rover, planet: Planet, command: Command): Rover =
     command match {
       case Turn(rotation) => turn(rover, rotation)

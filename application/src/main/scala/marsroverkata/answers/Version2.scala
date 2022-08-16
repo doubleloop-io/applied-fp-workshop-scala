@@ -6,7 +6,7 @@ object Version2 {
   import Rotation._, Orientation._, Movement._, Command._, CommandError._
   import cats.implicits._
 
-  def execute(rover: Rover, planet: Planet, commands: List[Command]): Either[CommandError, Rover] =
+  def executeAll(rover: Rover, planet: Planet, commands: List[Command]): Either[CommandError, Rover] =
     commands.foldLeft(rover.asRight)((prev, cmd) => prev.flatMap(execute(_, planet, cmd)))
 
   def execute(rover: Rover, planet: Planet, command: Command): Either[CommandError, Rover] =
