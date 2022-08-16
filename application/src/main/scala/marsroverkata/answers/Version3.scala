@@ -3,15 +3,15 @@ package marsroverkata.answers
 object Version3 {
 
   import marsroverkata.Pacman._
-  import Rotation._, Orientation._, Movement._, Command._, ParseError._
+  import Rotation._, Orientation._, Movement._, Command._, ExecutionError._, ParseError._, RunError._
   import cats.implicits._
 
-  def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[ParseError, String] =
+  def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[RunError, String] =
     for {
-      planet <- parsePlanet(inputPlanet)
-      rover <- parseRover(inputRover)
+      planet <- parsePlanet(inputPlanet).leftMap(Parsing.apply)
+      rover <- parseRover(inputRover).leftMap(Parsing.apply)
       commands = parseCommands(inputCommands)
-      result = executeAll(rover, planet, commands)
+      result <- executeAll(planet, rover, commands).leftMap(Execution.apply)
     } yield render(result)
 
   // --RENDERING
@@ -81,14 +81,14 @@ object Version3 {
     }
 
   // --DOMAIN
-  def executeAll(rover: Rover, planet: Planet, commands: List[Command]): Rover =
-    commands.foldLeft(rover)((prev, cmd) => execute(prev, planet, cmd))
+  def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Either[ExecutionError, Rover] =
+    commands.foldLeft(rover.asRight)((prev, cmd) => prev.flatMap(execute(planet, _, cmd)))
 
-  def execute(rover: Rover, planet: Planet, command: Command): Rover =
+  def execute(planet: Planet, rover: Rover, command: Command): Either[ExecutionError, Rover] =
     command match {
-      case Turn(rotation) => turn(rover, rotation)
-      case Move(movement) => move(rover, planet, movement)
-      case Unknown        => rover
+      case Turn(rotation) => turn(rover, rotation).asRight
+      case Move(movement) => move(planet, rover, movement)
+      case Unknown        => rover.asRight
     }
 
   def turn(rover: Rover, turn: Rotation): Rover =
@@ -113,17 +113,19 @@ object Version3 {
       case E => N
     })
 
-  def move(rover: Rover, planet: Planet, move: Movement): Rover =
+  def move(planet: Planet, rover: Rover, move: Movement): Either[ExecutionError, Rover] =
     move match {
-      case Forward  => moveForward(rover, planet)
-      case Backward => moveBackward(rover, planet)
+      case Forward  => moveForward(planet, rover)
+      case Backward => moveBackward(planet, rover)
     }
 
-  def moveForward(rover: Rover, planet: Planet): Rover =
-    rover.copy(position = next(rover, planet, delta(rover.orientation)))
+  def moveForward(planet: Planet, rover: Rover): Either[ExecutionError, Rover] =
+    next(planet, rover, delta(rover.orientation))
+      .map(x => rover.copy(position = x))
 
-  def moveBackward(rover: Rover, planet: Planet): Rover =
-    rover.copy(position = next(rover, planet, delta(opposite(rover.orientation))))
+  def moveBackward(planet: Planet, rover: Rover): Either[ExecutionError, Rover] =
+    next(planet, rover, delta(opposite(rover.orientation)))
+      .map(x => rover.copy(position = x))
 
   def opposite(orientation: Orientation): Orientation =
     orientation match {
@@ -141,12 +143,14 @@ object Version3 {
       case W => Delta(-1, 0)
     }
 
-  def next(rover: Rover, planet: Planet, delta: Delta): Position = {
+  def next(planet: Planet, rover: Rover, delta: Delta): Either[ExecutionError, Position] = {
     val position = rover.position
-    position.copy(
+    val candidate = position.copy(
       x = wrap(position.x, planet.size.width, delta.x),
       y = wrap(position.y, planet.size.height, delta.y)
     )
+    val hitObstacle = planet.obstacles.map(_.position).contains(candidate)
+    Either.cond(!hitObstacle, candidate, HitObstacle(rover))
   }
 
   // --TYPES
@@ -157,9 +161,18 @@ object Version3 {
   case class Planet(size: Size, obstacles: List[Obstacle])
   case class Rover(position: Position, orientation: Orientation)
 
+  enum RunError {
+    case Parsing(error: ParseError)
+    case Execution(error: ExecutionError)
+  }
+
   enum ParseError {
     case InvalidPlanet(message: String)
     case InvalidRover(message: String)
+  }
+
+  enum ExecutionError {
+    case HitObstacle(rover: Rover)
   }
 
   enum Command {
@@ -179,5 +192,4 @@ object Version3 {
   enum Orientation {
     case N, E, W, S
   }
-
 }

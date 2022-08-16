@@ -5,13 +5,13 @@ object Version1 {
   import marsroverkata.Pacman._
   import Rotation._, Orientation._, Movement._, Command._
 
-  def executeAll(rover: Rover, planet: Planet, commands: List[Command]): Rover =
-    commands.foldLeft(rover)((prev, cmd) => execute(prev, planet, cmd))
+  def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Rover =
+    commands.foldLeft(rover)((prev, cmd) => execute(planet, prev, cmd))
 
-  def execute(rover: Rover, planet: Planet, command: Command): Rover =
+  def execute(planet: Planet, rover: Rover, command: Command): Rover =
     command match {
       case Turn(rotation) => turn(rover, rotation)
-      case Move(movement) => move(rover, planet, movement)
+      case Move(movement) => move(planet, rover, movement)
     }
 
   def turn(rover: Rover, turn: Rotation): Rover =
@@ -36,17 +36,17 @@ object Version1 {
       case E => N
     })
 
-  def move(rover: Rover, planet: Planet, move: Movement): Rover =
+  def move(planet: Planet, rover: Rover, move: Movement): Rover =
     move match {
-      case Forward  => moveForward(rover, planet)
-      case Backward => moveBackward(rover, planet)
+      case Forward  => moveForward(planet, rover)
+      case Backward => moveBackward(planet, rover)
     }
 
-  def moveForward(rover: Rover, planet: Planet): Rover =
-    rover.copy(position = next(rover, planet, delta(rover.orientation)))
+  def moveForward(planet: Planet, rover: Rover): Rover =
+    rover.copy(position = next(planet, rover, delta(rover.orientation)))
 
-  def moveBackward(rover: Rover, planet: Planet): Rover =
-    rover.copy(position = next(rover, planet, delta(opposite(rover.orientation))))
+  def moveBackward(planet: Planet, rover: Rover): Rover =
+    rover.copy(position = next(planet, rover, delta(opposite(rover.orientation))))
 
   def opposite(orientation: Orientation): Orientation =
     orientation match {
@@ -64,7 +64,7 @@ object Version1 {
       case W => Delta(-1, 0)
     }
 
-  def next(rover: Rover, planet: Planet, delta: Delta): Position = {
+  def next(planet: Planet, rover: Rover, delta: Delta): Position = {
     val position = rover.position
     position.copy(
       x = wrap(position.x, planet.size.width, delta.x),

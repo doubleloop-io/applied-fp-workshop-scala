@@ -14,56 +14,21 @@ class Version3Tests extends munit.FunSuite {
   // +-----+-----+-----+-----+-----+
 
   import marsroverkata.answers.Version3._
-  import marsroverkata.answers.Version3.Rotation._, Orientation._, Movement._, Command._, ParseError._
+  import marsroverkata.answers.Version3.Rotation._, Orientation._, Movement._, Command._, ExecutionError._
 
   test("go to opposite angle") {
-    val planet = ("5x4", "2,0 0,3 3,2")
-    val rover = ("0,0", "N")
-    val commands = "RBBLBRF"
-
-    val result = runMission(planet, rover, commands)
-
-    assertEquals(result, Right("4:3:E"))
+    val rover = Rover(Position(0, 0), N)
+    val planet = Planet(Size(5, 4), List(Obstacle(Position(2, 0)), Obstacle(Position(0, 3)), Obstacle(Position(3, 2))))
+    val commands = List(Turn(OnLeft), Move(Forward), Turn(OnRight), Move(Backward))
+    val result = executeAll(planet, rover, commands)
+    assertEquals(result, Right(Rover(Position(4, 3), N)))
   }
 
-// TODO: da spostare in V2 convertito a V3
-//   test("hit obstacle") {
-//     val planet = ("5x4", "2,0 0,3 3,2")
-//     val rover = ("0,0", "N")
-//     val commands = "RFF"
-
-//     val result = runMission(planet, rover, commands)
-
-//     assertEquals(result, Right("O:1:0:E"))
-//   }
-
-  test("invalid planet input data") {
-    val planet = ("ax4", "2,0 0,3 3,2")
-    val rover = ("1,2", "N")
-    val commands = "RBRF"
-
-    val result = runMission(planet, rover, commands)
-
-    assertEquals(result, Left(InvalidPlanet("invalid size: ax4")))
-  }
-
-  test("invalid rover input data") {
-    val planet = ("5x4", "2,0 0,3 3,2")
-    val rover = ("1,2", "X")
-    val commands = "RBRF"
-
-    val result = runMission(planet, rover, commands)
-
-    assertEquals(result, Left(InvalidRover("invalid orientation: X")))
-  }
-
-  test("unknown command") {
-    val planet = ("5x4", "2,0 0,3 3,2")
-    val rover = ("1,2", "N")
-    val commands = "RBXRF"
-
-    val result = runMission(planet, rover, commands)
-
-    assertEquals(result, Right("0:1:S"))
+  test("hit obstacle during commands execution") {
+    val rover = Rover(Position(0, 0), N)
+    val planet = Planet(Size(5, 4), List(Obstacle(Position(2, 0)), Obstacle(Position(0, 3)), Obstacle(Position(3, 2))))
+    val commands = List(Turn(OnRight), Move(Forward), Move(Forward))
+    val result = executeAll(planet, rover, commands)
+    assertEquals(result, Left(HitObstacle(Rover(Position(1, 0), E))))
   }
 }
