@@ -1,7 +1,6 @@
 package marsroverkata.answers
 
-// NOTE: with for-comprehension
-object Version2 {
+object Version3 {
 
   import marsroverkata.Pacman._
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
@@ -13,7 +12,7 @@ object Version2 {
       rover <- parseRover(inputRover)
       commands = parseCommands(inputCommands)
       result = executeAll(planet, rover, commands)
-    } yield render(result)
+    } yield result.fold(renderObstacle, renderNormal)
 
   // PARSING
   def parseCommand(input: Char): Command =
@@ -28,10 +27,13 @@ object Version2 {
   def parseCommands(input: String): List[Command] =
     input.map(parseCommand).toList
 
-  def parsePosition(input: String): Either[ParseError, Position] =
-    parseTuple(",", input)
-      .map(Position.apply)
-      .leftMap(_ => InvalidRover(s"invalid position: $input"))
+  def parseRover(input: (String, String)): Either[ParseError, Rover] = {
+    val (inputPosition, inputOrientation) = input
+    for {
+      position <- parsePosition(inputPosition)
+      orientation <- parseOrientation(inputOrientation)
+    } yield Rover(position, orientation)
+  }
 
   def parseOrientation(input: String): Either[ParseError, Orientation] =
     input.trim.toLowerCase match {
@@ -42,13 +44,10 @@ object Version2 {
       case _   => Left(InvalidRover(s"invalid orientation: $input"))
     }
 
-  def parseRover(input: (String, String)): Either[ParseError, Rover] = {
-    val (inputPosition, inputOrientation) = input
-    for {
-      position <- parsePosition(inputPosition)
-      orientation <- parseOrientation(inputOrientation)
-    } yield Rover(position, orientation)
-  }
+  def parsePosition(input: String): Either[ParseError, Position] =
+    parseTuple(",", input)
+      .map(Position.apply)
+      .leftMap(_ => InvalidRover(s"invalid position: $input"))
 
   def parseSize(input: String): Either[ParseError, Size] =
     parseTuple("x", input)
@@ -78,18 +77,21 @@ object Version2 {
     }
 
   // RENDERING
-  def render(rover: Rover): String =
+  def renderNormal(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.orientation}"
 
-  // DOMAIN
-  def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Rover =
-    commands.foldLeft(rover)((prev, cmd) => execute(planet, prev, cmd))
+  def renderObstacle(hit: ObstacleDetected): String =
+    s"O:${hit.position.x}:${hit.position.y}:${hit.orientation}"
 
-  def execute(planet: Planet, rover: Rover, command: Command): Rover =
+  // DOMAIN
+  def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Either[ObstacleDetected, Rover] =
+    commands.foldLeft(rover.asRight)((prev, cmd) => prev.flatMap(execute(planet, _, cmd)))
+
+  def execute(planet: Planet, rover: Rover, command: Command): Either[ObstacleDetected, Rover] =
     command match {
-      case Turn(rotation) => turn(rover, rotation)
+      case Turn(rotation) => turn(rover, rotation).asRight
       case Move(movement) => move(planet, rover, movement)
-      case Unknown        => rover
+      case Unknown        => rover.asRight
     }
 
   def turn(rover: Rover, turn: Rotation): Rover =
@@ -114,17 +116,19 @@ object Version2 {
       case E => N
     })
 
-  def move(planet: Planet, rover: Rover, move: Movement): Rover =
+  def move(planet: Planet, rover: Rover, move: Movement): Either[ObstacleDetected, Rover] =
     move match {
       case Forward  => moveForward(planet, rover)
       case Backward => moveBackward(planet, rover)
     }
 
-  def moveForward(planet: Planet, rover: Rover): Rover =
-    rover.copy(position = next(planet, rover, delta(rover.orientation)))
+  def moveForward(planet: Planet, rover: Rover): Either[ObstacleDetected, Rover] =
+    next(planet, rover, delta(rover.orientation))
+      .map(x => rover.copy(position = x))
 
-  def moveBackward(planet: Planet, rover: Rover): Rover =
-    rover.copy(position = next(planet, rover, delta(opposite(rover.orientation))))
+  def moveBackward(planet: Planet, rover: Rover): Either[ObstacleDetected, Rover] =
+    next(planet, rover, delta(opposite(rover.orientation)))
+      .map(x => rover.copy(position = x))
 
   def opposite(orientation: Orientation): Orientation =
     orientation match {
@@ -142,12 +146,14 @@ object Version2 {
       case W => Delta(-1, 0)
     }
 
-  def next(planet: Planet, rover: Rover, delta: Delta): Position = {
+  def next(planet: Planet, rover: Rover, delta: Delta): Either[ObstacleDetected, Position] = {
     val position = rover.position
-    position.copy(
+    val candidate = position.copy(
       x = wrap(position.x, planet.size.width, delta.x),
       y = wrap(position.y, planet.size.height, delta.y)
     )
+    val hitObstacle = planet.obstacles.map(_.position).contains(candidate)
+    Either.cond(!hitObstacle, candidate, rover)
   }
 
   // TYPES
@@ -157,6 +163,8 @@ object Version2 {
   case class Obstacle(position: Position)
   case class Planet(size: Size, obstacles: List[Obstacle])
   case class Rover(position: Position, orientation: Orientation)
+
+  opaque type ObstacleDetected = Rover
 
   enum ParseError {
     case InvalidPlanet(message: String)
@@ -180,5 +188,4 @@ object Version2 {
   enum Orientation {
     case N, E, W, S
   }
-
 }

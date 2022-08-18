@@ -1,75 +1,26 @@
-package marsroverkata.answers
+package marsroverkata
 
-// NOTE: with for-comprehension
 object Version2 {
 
   import marsroverkata.Pacman._
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.implicits._
 
-  def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[ParseError, String] =
-    for {
-      planet <- parsePlanet(inputPlanet)
-      rover <- parseRover(inputRover)
-      commands = parseCommands(inputCommands)
-      result = executeAll(planet, rover, commands)
-    } yield render(result)
+  // TODO: implements functions and feel free to add more...
+  def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[ParseError, String] = ???
 
   // PARSING
-  def parseCommand(input: Char): Command =
-    input.toString.toLowerCase match {
-      case "f" => Move(Forward)
-      case "b" => Move(Backward)
-      case "r" => Turn(OnRight)
-      case "l" => Turn(OnLeft)
-      case _   => Unknown
-    }
+  def parseCommand(input: Char): Command = ???
+  def parseCommands(input: String): List[Command] = ???
 
-  def parseCommands(input: String): List[Command] =
-    input.map(parseCommand).toList
+  def parsePosition(input: String): Either[ParseError, Position] = ???
+  def parseOrientation(input: String): Either[ParseError, Orientation] = ???
+  def parseRover(input: (String, String)): Either[ParseError, Rover] = ???
 
-  def parsePosition(input: String): Either[ParseError, Position] =
-    parseTuple(",", input)
-      .map(Position.apply)
-      .leftMap(_ => InvalidRover(s"invalid position: $input"))
-
-  def parseOrientation(input: String): Either[ParseError, Orientation] =
-    input.trim.toLowerCase match {
-      case "n" => Right(N)
-      case "w" => Right(W)
-      case "e" => Right(E)
-      case "s" => Right(S)
-      case _   => Left(InvalidRover(s"invalid orientation: $input"))
-    }
-
-  def parseRover(input: (String, String)): Either[ParseError, Rover] = {
-    val (inputPosition, inputOrientation) = input
-    for {
-      position <- parsePosition(inputPosition)
-      orientation <- parseOrientation(inputOrientation)
-    } yield Rover(position, orientation)
-  }
-
-  def parseSize(input: String): Either[ParseError, Size] =
-    parseTuple("x", input)
-      .map(Size.apply)
-      .leftMap(_ => InvalidPlanet(s"invalid size: $input"))
-
-  def parseObstacle(input: String): Either[ParseError, Obstacle] =
-    parsePosition(input)
-      .map(Obstacle.apply)
-      .leftMap(_ => InvalidPlanet(s"invalid obstacle: $input"))
-
-  def parseObstacles(input: String): Either[ParseError, List[Obstacle]] =
-    input.split(" ").toList.traverse(parseObstacle)
-
-  def parsePlanet(input: (String, String)): Either[ParseError, Planet] = {
-    val (inputSize, inputObstacles) = input
-    for {
-      size <- parseSize(inputSize)
-      obstacles <- parseObstacles(inputObstacles)
-    } yield Planet(size, obstacles)
-  }
+  def parseSize(input: String): Either[ParseError, Size] = ???
+  def parseObstacle(input: String): Either[ParseError, Obstacle] = ???
+  def parseObstacles(input: String): Either[ParseError, List[Obstacle]] = ???
+  def parsePlanet(input: (String, String)): Either[ParseError, Planet] = ???
 
   def parseTuple(separator: String, input: String): Either[Throwable, (Int, Int)] =
     Either.catchNonFatal {
@@ -78,8 +29,7 @@ object Version2 {
     }
 
   // RENDERING
-  def render(rover: Rover): String =
-    s"${rover.position.x}:${rover.position.y}:${rover.orientation}"
+  def render(rover: Rover): String = ???
 
   // DOMAIN
   def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Rover =
