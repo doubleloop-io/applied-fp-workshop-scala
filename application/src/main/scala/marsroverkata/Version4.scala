@@ -1,18 +1,68 @@
-package marsroverkata.answers
+package marsroverkata
 
-object Version3 {
+object Version4 {
 
   import marsroverkata.Pacman._
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
+  import scala.Console.{ GREEN, RED, RESET }
+  import scala.io.Source
   import cats.implicits._
+  import cats.effect._
 
-  def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[ParseError, String] =
-    for {
-      planet <- parsePlanet(inputPlanet)
-      rover <- parseRover(inputRover)
-      commands = parseCommands(inputCommands)
-      result = executeAll(planet, rover, commands)
-    } yield result.fold(renderObstacle, renderNormal)
+  // TODO: implements
+  //  - loadPlanet, loadRover, loadCommands
+  //  - createApplication
+  //    - invokes: load* and then runMission
+  //    - capture any final unhandled exception
+  //    - log Info in case of no exceptions otherwise log error
+
+  // APPLICATION SERVICE
+  def createApplication(planetFile: String, roverFile: String): IO[Unit] = ???
+
+  def runMission(planet: Planet, rover: Rover, commands: List[Command]): String =
+    executeAll(planet, rover, commands).fold(renderObstacle, renderNormal)
+
+  // INFRASTRUCTURE
+  def toException(error: ParseError): Throwable =
+    new RuntimeException(renderError(error))
+
+  def eitherToIO[A](value: Either[ParseError, A]): IO[A] =
+    IO.fromEither(value.leftMap(toException))
+
+  def loadPlanet(file: String): IO[Planet] = ???
+
+  def loadRover(file: String): IO[Rover] = ???
+
+  def loadCommands(): IO[List[Command]] = ???
+
+  // INFRASTRUCTURE - FILE SYSTEM
+  def loadTuple(file: String): IO[(String, String)] =
+    loadLines(file).map(lines =>
+      lines match {
+        case Array(first, second) => (first, second)
+        case _                    => throw new RuntimeException(s"Invalid file content: $file")
+      }
+    )
+
+  def loadLines(file: String): IO[Array[String]] =
+    Resource
+      .fromAutoCloseable(IO(Source.fromURL(getClass.getClassLoader.getResource(file))))
+      .use(source => IO(source.getLines().toArray))
+
+  // INFRASTRUCTURE - CONSOLE
+  def puts(message: String): IO[Unit] = IO.println(message)
+
+  def reads(): IO[String] = IO.readLine
+
+  def ask(question: String): IO[String] =
+    puts(question).flatMap(_ => reads())
+
+  // INFRASTRUCTURE - LOGGING
+  def logInfo(message: String): IO[Unit] =
+    puts(green(s"[OK] $message"))
+
+  def logError(error: Throwable): IO[Unit] =
+    puts(red(s"[ERROR] ${error.getMessage}"))
 
   // PARSING
   def parseCommand(input: Char): Command =
@@ -77,6 +127,18 @@ object Version3 {
     }
 
   // RENDERING
+  def renderError(error: ParseError): String =
+    error match {
+      case InvalidPlanet(message) => s"Planet parsing: $message"
+      case InvalidRover(message)  => s"Rover parsing: $message"
+    }
+
+  def green(message: String): String =
+    s"$GREEN$message$RESET"
+
+  def red(message: String): String =
+    s"$RED$message$RESET"
+
   def renderNormal(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.orientation}"
 

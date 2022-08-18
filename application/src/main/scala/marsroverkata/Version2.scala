@@ -22,7 +22,7 @@ object Version2 {
   def parseObstacles(input: String): Either[ParseError, List[Obstacle]] = ???
   def parsePlanet(input: (String, String)): Either[ParseError, Planet] = ???
 
-  def parseTuple(separator: String, input: String): Either[Throwable, (Int, Int)] =
+  def parseInts(separator: String, input: String): Either[Throwable, (Int, Int)] =
     Either.catchNonFatal {
       val parts = input.split(separator).toList
       (parts(0).trim.toInt, parts(1).trim.toInt)

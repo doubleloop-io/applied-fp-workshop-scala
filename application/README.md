@@ -46,29 +46,23 @@ Extend the API and it's implementation to handle obstacle detection:
 
 Extend the "pure" way of work also to the infrastructural layer
 
-- Lift strings (initial state) into IO monads and execute commands
-- Read planet.txt from file into IO (size and obstacles)
-- Read rover.txt from file into IO (position and direction)
-- Read commands from console into IO (ask to the user)
-- Simulate handled/unhandled errors
-
-## V5 - Application service (encapsulate use-case)
-
-Write a use case runner that encapsulate wiring and execution: domain, infrastructure and error handling
-
-- Define a function that accepts file paths and produce an application:
+- Read planet data from file into IO (size and obstacles)
+- Read rover from file into IO (position and direction)
+- Read commands from console into IO
+- Implement an application service (encapsulate application logic) that:
+  - orchestrate domain, infrastructure, parsing and error handling
   - run the whole app lifted in the IO monad
-  - Print final rover output to the console if everything is ok
-  - Handle, safely, any unhandled exception and print them
+  - print final rover output to the console if everything is ok
+  - handle, safely, any unhandled exception and print them
 
-## V6 - Obtain interactivity and testability (Elm Architecture aka Programs As Values)
+## V5 - Obtain interactivity and testability (Elm Architecture aka Programs As Values)
 
 Use values to obtain a strong separation between domain and infrastructure logic
 
 - implement init, update and test them without infrastructure and mocks
 - implement infrastructure and test it with integration tests
 
-## V7 - Obtain interactivity and testability (Dependency Inversion Principle via Typeclasses)
+## V6 - Obtain interactivity and testability (Dependency Inversion Principle via Typeclasses)
 
 Use custom Higher-Kinded Typeclasses as ports towards the infrastructure
 

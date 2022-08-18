@@ -30,6 +30,7 @@ lazy val settings = Seq(
   scalacOptions ++= scalacSettings,
   resolvers ++= resolversSettings,
   libraryDependencies ++= libsSettings,
+  Test / parallelExecution := false,
   testFrameworks += new TestFramework("munit.Framework")
 )
 

@@ -5,7 +5,7 @@ class Version3Tests extends munit.FunSuite {
   import marsroverkata.Version3._
   import marsroverkata.Version3.ParseError._
 
-  // TODO: remove ignore
+  // TODO: remove ignores
 
   test("go to opposite angle".ignore) {
     val planet = ("5x4", "2,0 0,3 3,2")

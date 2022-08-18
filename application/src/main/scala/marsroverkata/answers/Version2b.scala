@@ -26,7 +26,7 @@ object Version2b {
     input.map(parseCommand).toList
 
   def parsePosition(input: String): Either[ParseError, Position] =
-    parseTuple(",", input)
+    parseInts(",", input)
       .map(Position.apply)
       .leftMap(_ => InvalidRover(s"invalid position: $input"))
 
@@ -45,7 +45,7 @@ object Version2b {
       .mapN(Rover.apply)
 
   def parseSize(input: String): Either[ParseError, Size] =
-    parseTuple("x", input)
+    parseInts("x", input)
       .map(Size.apply)
       .leftMap(_ => InvalidPlanet(s"invalid size: $input"))
 
@@ -62,7 +62,7 @@ object Version2b {
       .bimap(parseSize, parseObstacles)
       .mapN(Planet.apply)
 
-  def parseTuple(separator: String, input: String): Either[Throwable, (Int, Int)] =
+  def parseInts(separator: String, input: String): Either[Throwable, (Int, Int)] =
     Either.catchNonFatal {
       val parts = input.split(separator).toList
       (parts(0).trim.toInt, parts(1).trim.toInt)
