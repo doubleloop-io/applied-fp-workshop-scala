@@ -81,7 +81,7 @@ object Version3 {
     s"${rover.position.x}:${rover.position.y}:${rover.orientation}"
 
   def renderObstacle(hit: ObstacleDetected): String =
-    s"O:${hit.position.x}:${hit.position.y}:${hit.orientation}"
+    s"O:${renderComplete(hit.rover)}"
 
   // DOMAIN
   def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Either[ObstacleDetected, Rover] =
@@ -153,7 +153,7 @@ object Version3 {
       y = wrap(position.y, planet.size.height, delta.y)
     )
     val hitObstacle = planet.obstacles.map(_.position).contains(candidate)
-    Either.cond(!hitObstacle, candidate, rover)
+    Either.cond(!hitObstacle, candidate, ObstacleDetected(rover))
   }
 
   // TYPES
@@ -163,8 +163,7 @@ object Version3 {
   case class Obstacle(position: Position)
   case class Planet(size: Size, obstacles: List[Obstacle])
   case class Rover(position: Position, orientation: Orientation)
-
-  opaque type ObstacleDetected = Rover
+  case class ObstacleDetected(rover: Rover)
 
   enum ParseError {
     case InvalidPlanet(message: String)
