@@ -69,8 +69,9 @@ class Version5Tests extends CatsEffectSuite {
 
   def createDisplayWriter(output: Ref[IO, String]): DisplayWriter =
     new DisplayWriter {
-      def writeInfo(message: String): IO[Unit] = output.set(s"INFO - $message")
-      def writeError(message: String): IO[Unit] = output.set(s"ERROR - $message")
+      def writeSequenceCompleted(rover: Rover): IO[Unit] = output.set(s"INFO - ${renderComplete(rover)}")
+      def writeObstacleDetected(rover: ObstacleDetected): IO[Unit] = output.set(s"INFO - ${renderObstacle(rover)}")
+      def writeError(error: Throwable): IO[Unit] = output.set(s"ERROR - ${error.getMessage}")
     }
 
   def runCaptureOutput[A](commands: String, program: IO[Unit]): IO[String] = IO {

@@ -20,8 +20,9 @@ object Version5 {
     def read(): IO[List[Command]]
   }
   trait DisplayWriter {
-    def writeInfo(message: String): IO[Unit]
-    def writeError(message: String): IO[Unit]
+    def writeSequenceCompleted(rover: Rover): IO[Unit]
+    def writeObstacleDetected(rover: ObstacleDetected): IO[Unit]
+    def writeError(error: Throwable): IO[Unit]
   }
 
   // Dependency Injection (normal function parameters)
@@ -31,14 +32,14 @@ object Version5 {
         planet <- planetReader.read()
         rover <- roverReader.read()
         commands <- commandsReader.read()
-        result = runMission(planet, rover, commands)
-      } yield result
+        _ <- runMission(display, planet, rover, commands)
+      } yield ()
 
-    // TODO: use DisplayWriter inside fold
-    runResult.attempt.flatMap(e => ???)
+    runResult.attempt
+      .flatMap(_.fold(display.writeError, _ => IO.unit))
   }
 
-  // TODO: implements adapters
+  // TODO: implements all adapters
 
   // Main entry point
   def createApplication(planetFile: String, roverFile: String): IO[Unit] = {
@@ -53,16 +54,20 @@ object Version5 {
       def read(): IO[List[Command]] = ???
     }
     val loggerDisplayWriter = new DisplayWriter {
-      def writeInfo(message: String): IO[Unit] = ???
-      def writeError(message: String): IO[Unit] = ???
+      def writeSequenceCompleted(rover: Rover): IO[Unit] = ???
+      def writeObstacleDetected(rover: ObstacleDetected): IO[Unit] = ???
+      def writeError(error: Throwable): IO[Unit] = ???
     }
 
     // Wiring Dependencies
     createApplication(filePlanetReader, fileRoverReader, consoleCommandsReader, loggerDisplayWriter)
   }
 
-  def runMission(planet: Planet, rover: Rover, commands: List[Command]): String =
-    executeAll(planet, rover, commands).fold(renderObstacle, renderComplete)
+  def runMission(display: DisplayWriter, planet: Planet, rover: Rover, commands: List[Command]): IO[Unit] = {
+    val result = executeAll(planet, rover, commands)
+    // TODO: use display to print obstacle/completed cases (result type is Either[ObstacleDetected, Rover])
+    ???
+  }
 
   // INFRASTRUCTURE
   def toException(error: ParseError): Throwable =

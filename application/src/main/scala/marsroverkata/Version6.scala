@@ -1,4 +1,4 @@
-package marsroverkata.answers
+package marsroverkata
 
 object Version6 {
 
@@ -29,24 +29,21 @@ object Version6 {
     case Failed
   }
 
-  def init(planetFile: String, roverFile: String): (AppState, Effect) =
-    (AppState.Loading, Effect.LoadMission(planetFile, roverFile))
+  // TODO: implements init and update
+
+  def init(planetFile: String, roverFile: String): (AppState, Effect) = ???
 
   def update(model: AppState, event: Event): (AppState, Effect) =
     (model, event) match {
 
       case (AppState.Loading, Event.LoadMissionSuccessful(planet, rover)) =>
-        (AppState.Ready(planet, rover), Effect.AskCommands)
+        ???
 
       case (AppState.Ready(planet, rover), Event.CommandsReceived(commands)) =>
-        executeAll(planet, rover, commands)
-          .fold(
-            hit => (AppState.Ready(planet, hit.rover), Effect.ReportObstacleHit(hit)),
-            complete => (AppState.Ready(planet, complete), Effect.ReportCommandSequenceCompleted(complete))
-          )
+        ???
 
       case (AppState.Loading, Event.LoadMissionFailed(error)) =>
-        (AppState.Failed, Effect.Ko(error))
+        ???
 
       case _ =>
         (AppState.Failed, Effect.Ko(new RuntimeException(s"Cannot handle $event event in $model state.")))

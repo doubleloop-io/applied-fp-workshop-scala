@@ -20,8 +20,9 @@ object Version5 {
     def read(): IO[List[Command]]
   }
   trait DisplayWriter {
-    def writeInfo(message: String): IO[Unit]
-    def writeError(message: String): IO[Unit]
+    def writeSequenceCompleted(rover: Rover): IO[Unit]
+    def writeObstacleDetected(rover: ObstacleDetected): IO[Unit]
+    def writeError(error: Throwable): IO[Unit]
   }
 
   // Dependency Injection (normal function parameters)
@@ -31,11 +32,11 @@ object Version5 {
         planet <- planetReader.read()
         rover <- roverReader.read()
         commands <- commandsReader.read()
-        result = runMission(planet, rover, commands)
-      } yield result
+        _ <- runMission(display, planet, rover, commands)
+      } yield ()
 
     runResult.attempt
-      .flatMap(_.fold(e => display.writeError(e.getMessage), display.writeInfo))
+      .flatMap(_.fold(display.writeError, _ => IO.unit))
   }
 
   // Main entry point
@@ -51,16 +52,18 @@ object Version5 {
       def read(): IO[List[Command]] = loadCommands()
     }
     val loggerDisplayWriter = new DisplayWriter {
-      def writeInfo(message: String): IO[Unit] = logInfo(message)
-      def writeError(message: String): IO[Unit] = logError(message)
+      def writeSequenceCompleted(rover: Rover): IO[Unit] = logInfo(renderComplete(rover))
+      def writeObstacleDetected(rover: ObstacleDetected): IO[Unit] = logInfo(renderObstacle(rover))
+      def writeError(error: Throwable): IO[Unit] = logError(error.getMessage)
     }
 
     // Wiring Dependencies
     createApplication(filePlanetReader, fileRoverReader, consoleCommandsReader, loggerDisplayWriter)
   }
 
-  def runMission(planet: Planet, rover: Rover, commands: List[Command]): String =
-    executeAll(planet, rover, commands).fold(renderObstacle, renderComplete)
+  def runMission(display: DisplayWriter, planet: Planet, rover: Rover, commands: List[Command]): IO[Unit] =
+    executeAll(planet, rover, commands)
+      .fold(display.writeObstacleDetected, display.writeSequenceCompleted)
 
   // INFRASTRUCTURE
   def toException(error: ParseError): Throwable =
