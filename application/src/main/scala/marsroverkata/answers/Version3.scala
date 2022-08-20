@@ -12,7 +12,7 @@ object Version3 {
       rover <- parseRover(inputRover)
       commands = parseCommands(inputCommands)
       result = executeAll(planet, rover, commands)
-    } yield result.fold(renderObstacle, renderNormal)
+    } yield result.fold(renderObstacle, renderComplete)
 
   // PARSING
   def parseCommand(input: Char): Command =
@@ -77,7 +77,7 @@ object Version3 {
     }
 
   // RENDERING
-  def renderNormal(rover: Rover): String =
+  def renderComplete(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.orientation}"
 
   def renderObstacle(hit: ObstacleDetected): String =

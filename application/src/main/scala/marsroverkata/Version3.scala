@@ -79,7 +79,7 @@ object Version3 {
     }
 
   // RENDERING
-  def renderNormal(rover: Rover): String =
+  def renderComplete(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.orientation}"
 
   def renderObstacle(hit: ObstacleDetected): String =

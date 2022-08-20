@@ -62,7 +62,7 @@ object Version5 {
   }
 
   def runMission(planet: Planet, rover: Rover, commands: List[Command]): String =
-    executeAll(planet, rover, commands).fold(renderObstacle, renderNormal)
+    executeAll(planet, rover, commands).fold(renderObstacle, renderComplete)
 
   // INFRASTRUCTURE
   def toException(error: ParseError): Throwable =
@@ -189,7 +189,7 @@ object Version5 {
   def red(message: String): String =
     s"$RED$message$RESET"
 
-  def renderNormal(rover: Rover): String =
+  def renderComplete(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.orientation}"
 
   def renderObstacle(hit: ObstacleDetected): String =

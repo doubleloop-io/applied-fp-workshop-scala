@@ -1,6 +1,6 @@
 package marsroverkata.answers
 
-object Version4 {
+object Version6 {
 
   import marsroverkata.Pacman._
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
@@ -9,21 +9,85 @@ object Version4 {
   import cats.implicits._
   import cats.effect._
 
-  def createApplication(planetFile: String, roverFile: String): IO[Unit] = {
-    val runResult =
-      for {
-        planet <- loadPlanet(planetFile)
-        rover <- loadRover(roverFile)
-        commands <- loadCommands()
-        result = runMission(planet, rover, commands)
-      } yield result
-
-    runResult.attempt
-      .flatMap(_.fold(e => logError(e.getMessage), logInfo))
+  enum Event {
+    case LoadMissionSuccessful(planet: Planet, rover: Rover)
+    case LoadMissionFailed(error: Throwable)
+    case CommandsReceived(commands: List[Command])
   }
 
-  def runMission(planet: Planet, rover: Rover, commands: List[Command]): String =
-    executeAll(planet, rover, commands).fold(renderObstacle, renderComplete)
+  enum Effect {
+    case LoadMission(planetFile: String, roverFile: String)
+    case AskCommands
+    case ReportObstacleHit(rover: ObstacleDetected)
+    case ReportCommandSequenceCompleted(rover: Rover)
+    case Ko(error: String)
+  }
+
+  enum AppState {
+    case Loading
+    case Ready(planet: Planet, rover: Rover)
+    case Failed
+  }
+
+  def init(planetFile: String, roverFile: String): (AppState, Effect) =
+    (AppState.Loading, Effect.LoadMission(planetFile, roverFile))
+
+  def update(model: AppState, event: Event): (AppState, Effect) =
+    (model, event) match {
+
+      case (AppState.Loading, Event.LoadMissionSuccessful(planet, rover)) =>
+        (AppState.Ready(planet, rover), Effect.AskCommands)
+
+      case (AppState.Ready(planet, rover), Event.CommandsReceived(commands)) =>
+        executeAll(planet, rover, commands)
+          .fold(
+            hit => (AppState.Ready(planet, hit), Effect.ReportObstacleHit(hit)),
+            complete => (AppState.Ready(planet, complete), Effect.ReportCommandSequenceCompleted(complete))
+          )
+
+      case (AppState.Loading, Event.LoadMissionFailed(error)) =>
+        (AppState.Failed, Effect.Ko(error.getMessage))
+
+      case _ =>
+        (AppState.Failed, Effect.Ko(s"Cannot handle $event event in $model state."))
+    }
+
+  def infrastructure(effect: Effect): IO[Option[Event]] =
+    effect match {
+      case Effect.LoadMission(planetFile, roverFile) =>
+        def toFailed(t: Throwable): Event = Event.LoadMissionFailed(t)
+        def toSuccessful(planet: Planet, rover: Rover): Event = Event.LoadMissionSuccessful(planet, rover)
+
+        val loadResult =
+          for {
+            planet <- loadPlanet(planetFile)
+            rover <- loadRover(roverFile)
+          } yield (planet, rover)
+
+        loadResult.attempt
+          .map(_.fold(toFailed, toSuccessful))
+          .map(continue)
+
+      case Effect.AskCommands =>
+        loadCommands()
+          .map(Event.CommandsReceived.apply)
+          .map(continue)
+
+      case Effect.ReportObstacleHit(rover) =>
+        logInfo(renderObstacle(rover))
+          .map(stop)
+
+      case Effect.ReportCommandSequenceCompleted(rover) =>
+        logInfo(renderComplete(rover))
+          .map(stop)
+
+      case Effect.Ko(error) =>
+        logError(error)
+          .map(stop)
+    }
+
+  def continue(ev: Event): Option[Event] = Some(ev)
+  def stop(ignore: Unit): Option[Event] = None
 
   // INFRASTRUCTURE
   def toException(error: ParseError): Throwable =
@@ -73,7 +137,7 @@ object Version4 {
     puts(green(s"[OK] $message"))
 
   def logError(message: String): IO[Unit] =
-    puts(red(s"[ERROR] $message"))
+    puts(red(s"[ERROR] ${message}"))
 
   // PARSING
   def parseCommand(input: Char): Command =
