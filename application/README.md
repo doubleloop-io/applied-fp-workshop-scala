@@ -55,18 +55,18 @@ Extend the "pure" way of work also to the infrastructural layer
   - print final rover output to the console if everything is ok
   - handle, safely, any unhandled exception and print them
 
-## V5 - Obtain interactivity and testability (Elm Architecture aka Programs As Values)
+## V5 - Obtain testability (Port/Adapter architectural style)
 
-Use values to obtain a strong separation between domain and infrastructure logic
+Apply Dependency Inversion Principle and Dependency Injection to our application
+
+- Define ports for planet, rover and commands source
+- Implement port adapters
+- Define injectable application
+- Use test doubles in test suite
+
+## V6 - Obtain testability (Elm-ish architectural style)
+
+Use values to obtain a strong and simple separation between domain and infrastructure logic
 
 - implement init, update and test them without infrastructure and mocks
 - implement infrastructure and test it with integration tests
-
-## V6 - Obtain interactivity and testability (Dependency Inversion Principle via Typeclasses)
-
-Use custom Higher-Kinded Typeclasses as ports towards the infrastructure
-
-- Define Console[F[_]], Logger[F[_]] and MissionSource[F[_]] traits with basic and derived combinators
-- Implements traits instances
-- Use implicit parameters in application service function
-- Test with mock instances

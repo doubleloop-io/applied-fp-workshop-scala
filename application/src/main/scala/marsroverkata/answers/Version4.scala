@@ -9,7 +9,6 @@ object Version4 {
   import cats.implicits._
   import cats.effect._
 
-  // APPLICATION SERVICE
   def createApplication(planetFile: String, roverFile: String): IO[Unit] = {
     val runResult =
       for {
@@ -19,7 +18,7 @@ object Version4 {
         result = runMission(planet, rover, commands)
       } yield result
 
-    runResult.attempt.flatMap(_.fold(logError, logInfo))
+    runResult.attempt.flatMap(_.fold(err => logError(err.getMessage), logInfo))
   }
 
   def runMission(planet: Planet, rover: Rover, commands: List[Command]): String =
@@ -72,8 +71,8 @@ object Version4 {
   def logInfo(message: String): IO[Unit] =
     puts(green(s"[OK] $message"))
 
-  def logError(error: Throwable): IO[Unit] =
-    puts(red(s"[ERROR] ${error.getMessage}"))
+  def logError(message: String): IO[Unit] =
+    puts(red(s"[ERROR] $message"))
 
   // PARSING
   def parseCommand(input: Char): Command =
