@@ -1,10 +1,3 @@
-addCommandAlias("cc", "all clean compile")
-addCommandAlias("c", "compile")
-addCommandAlias("r", "run")
-addCommandAlias("t", "test")
-addCommandAlias("to", "testOnly")
-addCommandAlias("ps", "projects")
-addCommandAlias("p", "project")
 
 lazy val global = project
   .in(file("."))
