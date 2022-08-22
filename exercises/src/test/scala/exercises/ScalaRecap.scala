@@ -1,4 +1,4 @@
-package scalarecap
+package exercises
 
 /*
  * Our most used Scala features are:
