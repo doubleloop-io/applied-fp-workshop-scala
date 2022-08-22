@@ -11,13 +11,13 @@ $ sbt
 Common useful operations:
 
 - `projects`: List all projects and mark the current one
-- `project <NAME>`: Switch the current project
+- `project <NAME>`: Switch the current project to <NAME>
 - `clean`: Deletes all generated files from compilation
 - `compile`: Compiles the main sources (in src/main/scala) of the current project
-- `console`: Open the Scala REPL with the current project loaded
+- `console`: Open the REPL with the current project loaded
 - `test`: Compiles (main and test sources) and runs all tests
 - `testOnly`: Compiles (main and test sources) and runs matching tests
-- `reload`: Reloads the build definition
+- `scalafmtAll`: Format code for all configurations and projects
 
 Run multiple commands:
 
@@ -34,7 +34,7 @@ Prepend `~` to any command to run it in watch mode. It can be used with one comm
 or with many commands:
 
 ```sh
->~;clean;compile;test
+>~;scalafmtAll;clean;test
 ```
 
 ## Documentation
