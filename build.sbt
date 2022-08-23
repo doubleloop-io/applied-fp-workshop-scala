@@ -2,7 +2,13 @@
 lazy val global = project
   .in(file("."))
   .settings(settings)
-  .aggregate(exercises, application)
+  .aggregate(demos, exercises, application)
+
+lazy val demos = project
+  .settings(
+    name := "demos",
+    settings
+  )
 
 lazy val exercises = project
   .settings(
