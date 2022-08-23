@@ -1,3 +1,3 @@
 package marsroverkata
 
-object Main extends App {}
+object Main extends App
