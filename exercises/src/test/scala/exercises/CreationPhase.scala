@@ -2,24 +2,29 @@ package exercises
 
 class CreationPhase extends munit.FunSuite {
 
-  /*
-   * TODO: remove null with a custom return type for valid or invalid states
-   */
-
   case class Item(qty: Int)
 
+  // TODO: uncomment and complete the type definition for valid or invalid states and
+  // enum OptionalItem {
+  // }
+
+  // TODO: use OptionalItem as return type
   def createItem(qty: String): Item =
     if (qty.matches("^[0-9]+$")) Item(qty.toInt)
-    else null
+    else ??? // typically return null or throw exception
 
-  test("creation") {
+  // TODO: remove ignores
+
+  test("creation".ignore) {
+    // TODO: use OptionalItem as expected type
     assertEquals(createItem("100"), Item(100))
   }
 
-  test("invalid creation") {
-    assertEquals(createItem("asd"), null)
-    assertEquals(createItem("1 0 0"), null)
-    assertEquals(createItem(""), null)
+  test("invalid creation".ignore) {
+    // TODO: use OptionalItem as expected type
+    assertEquals(createItem("asd"), ???)
+    assertEquals(createItem("1 0 0"), ???)
+    assertEquals(createItem(""), ???)
   }
 
 }

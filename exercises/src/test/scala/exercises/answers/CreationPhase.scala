@@ -2,29 +2,31 @@ package exercises.answers
 
 class CreationPhase extends munit.FunSuite {
 
-  sealed trait MaybeItem
-  case class ValidItem(value: Item) extends MaybeItem
-  case class InvalidItem() extends MaybeItem
-
   case class Item(qty: Int)
 
-  // NOTE: pattern also known as: Smart Constructor
-  def createItem(qty: String): MaybeItem =
-    if (qty.matches("^[0-9]+$")) ValidItem(Item(qty.toInt))
-    else InvalidItem()
+  // Pattern also known as: Smart Constructor
+
+  enum OptionalItem {
+    case Valid(value: Item)
+    case Invalid
+  }
+
+  def createItem(qty: String): OptionalItem =
+    if (qty.matches("^[0-9]+$")) OptionalItem.Valid(Item(qty.toInt))
+    else OptionalItem.Invalid
 
   def createItemOpt(qty: String): Option[Item] =
     if (qty.matches("^[0-9]+$")) Some(Item(qty.toInt))
     else None
 
   test("creation") {
-    assertEquals(createItem("100"), ValidItem(Item(100)))
+    assertEquals(createItem("100"), OptionalItem.Valid(Item(100)))
   }
 
   test("invalid creation") {
-    assertEquals(createItem("asd"), InvalidItem())
-    assertEquals(createItem("1 0 0"), InvalidItem())
-    assertEquals(createItem(""), InvalidItem())
+    assertEquals(createItem("asd"), OptionalItem.Invalid)
+    assertEquals(createItem("1 0 0"), OptionalItem.Invalid)
+    assertEquals(createItem(""), OptionalItem.Invalid)
   }
 
 }

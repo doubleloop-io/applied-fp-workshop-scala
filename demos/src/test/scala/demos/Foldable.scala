@@ -10,7 +10,7 @@ class FoldableDemo extends munit.FunSuite {
     assertEquals(result, 155)
   }
 
-  test("reduce to single total item") {
+  test("many checkIns") {
     def checkIn(item: Item, qty: Int): Item =
       item.copy(qty = item.qty + qty)
 
