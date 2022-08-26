@@ -1,3 +1,5 @@
+package exercises
+
 class RemovalPhase extends munit.FunSuite {
 
   case class Item(qty: Int)
