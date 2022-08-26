@@ -13,7 +13,7 @@ class Version5Tests extends CatsEffectSuite {
 
   test("go to opposite angle".ignore) {
     val result = for {
-      output <- Ref[IO].of("")
+      output <- IO.ref("")
 
       // Initialize Adapters
       stubPlanetReader = createPlanetReader(Planet(Size(5, 4), List(Obstacle(Position(2, 0)), Obstacle(Position(0, 3)))))
@@ -34,7 +34,7 @@ class Version5Tests extends CatsEffectSuite {
 
   test("error on loading planet data".ignore) {
     val result = for {
-      output <- Ref[IO].of("")
+      output <- IO.ref("")
 
       // Initialize Adapters
       stubPlanetReader = createPlanetReader(Left(InvalidPlanet("some error")))
