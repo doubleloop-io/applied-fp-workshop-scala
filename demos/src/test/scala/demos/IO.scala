@@ -1,5 +1,6 @@
 package demos
 
+@munit.IgnoreSuite
 class IODemo extends munit.FunSuite {
 
   import cats.effect.IO

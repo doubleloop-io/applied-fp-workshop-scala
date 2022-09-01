@@ -1,5 +1,6 @@
 package exercises.answers
 
+@munit.IgnoreSuite
 class CombinationPhaseList extends munit.FunSuite {
 
   import cats.syntax.traverse._

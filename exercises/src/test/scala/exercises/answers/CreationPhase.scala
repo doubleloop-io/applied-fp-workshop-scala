@@ -1,10 +1,9 @@
 package exercises.answers
 
+@munit.IgnoreSuite
 class CreationPhase extends munit.FunSuite {
 
   case class Item(qty: Int)
-
-  // Pattern also known as: Smart Constructor
 
   enum OptionalItem {
     case Valid(value: Item)

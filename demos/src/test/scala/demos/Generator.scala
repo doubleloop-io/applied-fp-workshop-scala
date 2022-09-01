@@ -1,5 +1,6 @@
 package demos
 
+@munit.IgnoreSuite
 class GeneratorDemo extends munit.FunSuite {
 
   trait Generator[+A] { self =>

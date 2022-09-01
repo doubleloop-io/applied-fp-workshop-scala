@@ -1,5 +1,6 @@
 package demos
 
+@munit.IgnoreSuite
 class MonadicFuncDemo extends munit.FunSuite {
 
   // Standard library function could be extended with a monadic effect.

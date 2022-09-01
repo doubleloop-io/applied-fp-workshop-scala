@@ -1,5 +1,6 @@
 package application.answers
 
+@munit.IgnoreSuite
 class Version1Tests extends munit.FunSuite {
 
   // Planet layout

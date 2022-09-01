@@ -2,6 +2,7 @@ package application.answers
 
 import munit.CatsEffectSuite
 
+@munit.IgnoreSuite
 class Version5Tests extends CatsEffectSuite {
 
   import application.answers.Version5._

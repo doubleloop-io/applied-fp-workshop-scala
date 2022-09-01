@@ -1,5 +1,6 @@
 package exercises.answers
 
+@munit.IgnoreSuite
 class Chaining extends munit.FunSuite {
 
   case class ItemId(value: Int)

@@ -1,5 +1,6 @@
 package demos
 
+@munit.IgnoreSuite
 class ApplicativeDemo extends munit.FunSuite {
 
   import cats.Applicative

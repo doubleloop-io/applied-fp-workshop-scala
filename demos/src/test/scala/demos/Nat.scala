@@ -1,5 +1,6 @@
 package demos
 
+@munit.IgnoreSuite
 class NaturalTransformationDemo extends munit.FunSuite {
 
   test("transformation from Try to Either") {

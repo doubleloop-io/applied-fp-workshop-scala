@@ -1,5 +1,6 @@
 package exercises.answers
 
+@munit.IgnoreSuite
 class CustomOption extends munit.FunSuite {
 
   enum Option[A] {

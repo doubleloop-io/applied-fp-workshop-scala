@@ -1,5 +1,6 @@
 package demos
 
+@munit.IgnoreSuite
 class FoldableDemo extends munit.FunSuite {
 
   case class Item(qty: Int)

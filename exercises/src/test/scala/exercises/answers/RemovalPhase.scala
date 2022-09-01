@@ -1,5 +1,6 @@
 package exercises.answers
 
+@munit.IgnoreSuite
 class RemovalPhase extends munit.FunSuite {
 
   case class Item(qty: Int)

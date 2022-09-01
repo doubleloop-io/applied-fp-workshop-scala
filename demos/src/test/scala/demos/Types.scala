@@ -1,5 +1,6 @@
 package demos
 
+@munit.IgnoreSuite
 class TypesDemo extends munit.FunSuite {
 
   /*

@@ -1,5 +1,6 @@
 package demos
 
+@munit.IgnoreSuite
 class EitherDemo extends munit.FunSuite {
 
   import cats.syntax.either._

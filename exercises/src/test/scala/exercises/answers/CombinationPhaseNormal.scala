@@ -1,5 +1,6 @@
 package exercises.answers
 
+@munit.IgnoreSuite
 class CombinationPhaseNormal extends munit.FunSuite {
 
   case class Item(qty: Int)

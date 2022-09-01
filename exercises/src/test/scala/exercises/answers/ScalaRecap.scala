@@ -1,5 +1,6 @@
 package exercises.answers
 
+@munit.IgnoreSuite
 class ScalaRecap extends munit.FunSuite {
 
   case class Person(name: String, age: Int) {

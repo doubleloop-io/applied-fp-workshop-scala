@@ -1,5 +1,6 @@
 package exercises.answers
 
+@munit.IgnoreSuite
 class CustomLazy extends munit.FunSuite {
 
   case class Lazy[A](func: () => A) {

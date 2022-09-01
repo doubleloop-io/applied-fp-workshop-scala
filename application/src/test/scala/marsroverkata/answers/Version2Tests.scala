@@ -1,5 +1,6 @@
 package application.answers
 
+@munit.IgnoreSuite
 class Version2Tests extends munit.FunSuite {
 
   import application.answers.Version2._
