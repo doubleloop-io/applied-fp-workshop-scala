@@ -2,6 +2,9 @@ package application
 
 import munit.CatsEffectSuite
 
+// TODO: remove IgnoreSuite annotation
+
+@munit.IgnoreSuite
 class Version4Tests extends CatsEffectSuite {
 
   import application.Version4._
@@ -9,44 +12,42 @@ class Version4Tests extends CatsEffectSuite {
   import cats.effect.IO
   import scala.Console.{ GREEN, RED, RESET }
 
-  // TODO: remove ignores
-
-  test("load planet (integration test)".ignore) {
+  test("load planet (integration test)") {
     val result = loadPlanet("planet.txt")
     val expected = Planet(Size(5, 4), List(Obstacle(Position(2, 0)), Obstacle(Position(0, 3))))
     assertIO(result, expected)
   }
 
-  test("load rover (integration test)".ignore) {
+  test("load rover (integration test)") {
     val result = loadRover("rover.txt")
     val expected = Rover(Position(0, 0), N)
     assertIO(result, expected)
   }
 
-  test("load commands (integration test)".ignore) {
+  test("load commands (integration test)") {
     val result = runConsole("RRF", loadCommands())
     assertIO(result, List(Turn(OnRight), Turn(OnRight), Move(Forward)))
   }
 
-  test("go to opposite angle (integration test)".ignore) {
+  test("go to opposite angle (integration test)") {
     val app = createApplication("planet.txt", "rover.txt")
     val result = runCaptureOutput("RBBLBRF", app)
     assertIO(result, s"$GREEN[OK] 4:3:E$RESET")
   }
 
-  test("hit obstacle during commands execution (integration test)".ignore) {
+  test("hit obstacle during commands execution (integration test)") {
     val app = createApplication("planet.txt", "rover.txt")
     val result = runCaptureOutput("RFF", app)
     assertIO(result, s"$GREEN[OK] O:1:0:E$RESET")
   }
 
-  test("invalid planet data".ignore) {
+  test("invalid planet data") {
     val app = createApplication("planet_invalid_data.txt", "rover.txt")
     val result = runCaptureOutput("RBBLBRF", app)
     assertIO(result, s"$RED[ERROR] Planet parsing: invalid size: ax4$RESET")
   }
 
-  test("invalid planet file".ignore) {
+  test("invalid planet file") {
     val app = createApplication("planet_invalid_content.txt", "rover.txt")
     val result = runCaptureOutput("RBBLBRF", app)
     assertIO(result, s"$RED[ERROR] Invalid file content: planet_invalid_content.txt$RESET")

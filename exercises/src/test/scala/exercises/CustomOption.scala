@@ -1,8 +1,9 @@
 package exercises
 
-class CustomOption extends munit.FunSuite {
+// TODO: remove IgnoreSuite annotation
 
-  // TODO: remove ignores
+@munit.IgnoreSuite
+class CustomOption extends munit.FunSuite {
 
   enum Option[A] {
     case Yes[A](value: A) extends Option[A]
@@ -29,14 +30,14 @@ class CustomOption extends munit.FunSuite {
   def reverseString(x: Int): Option[String] =
     Option.pure(x.toString.reverse)
 
-  test("creation phase".ignore) {
+  test("creation phase") {
     val result = Option
       .pure(10)
 
     assertEquals(result, Option.Yes(10))
   }
 
-  test("combination phase - normal".ignore) {
+  test("combination phase - normal") {
     val result = Option
       .Yes(10)
       .map(increment)
@@ -44,7 +45,7 @@ class CustomOption extends munit.FunSuite {
     assertEquals(result, Option.Yes(11))
   }
 
-  test("combination phase - effectful".ignore) {
+  test("combination phase - effectful") {
     val result = Option
       .Yes(10)
       .flatMap(reverseString)
@@ -52,7 +53,7 @@ class CustomOption extends munit.FunSuite {
     assertEquals(result, Option.Yes("01"))
   }
 
-  test("removal phase - value".ignore) {
+  test("removal phase - value") {
     val result = Option
       .Yes(10)
       .fold("nope", _.toString)
@@ -60,7 +61,7 @@ class CustomOption extends munit.FunSuite {
     assertEquals(result, "10")
   }
 
-  test("removal phase - alternative value".ignore) {
+  test("removal phase - alternative value") {
     val result = Option
       .Nope()
       .fold("nope", _.toString)

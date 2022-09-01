@@ -2,6 +2,9 @@ package application
 
 import munit.CatsEffectSuite
 
+// TODO: remove IgnoreSuite annotation
+
+@munit.IgnoreSuite
 class Version5Tests extends CatsEffectSuite {
 
   import application.Version5._
@@ -9,9 +12,7 @@ class Version5Tests extends CatsEffectSuite {
   import cats.effect.{ IO, Ref }
   import scala.Console.{ GREEN, RED, RESET }
 
-  // TODO: remove ignores
-
-  test("go to opposite angle".ignore) {
+  test("go to opposite angle") {
     val result = for {
       output <- IO.ref("")
 
@@ -32,7 +33,7 @@ class Version5Tests extends CatsEffectSuite {
     assertIO(result, s"INFO - 4:3:E")
   }
 
-  test("error on loading planet data".ignore) {
+  test("error on loading planet data") {
     val result = for {
       output <- IO.ref("")
 
@@ -51,7 +52,7 @@ class Version5Tests extends CatsEffectSuite {
     assertIO(result, s"ERROR - Planet parsing: some error")
   }
 
-  test("hit obstacle during commands execution (integration test)".ignore) {
+  test("hit obstacle during commands execution (integration test)") {
     val app = createApplication("planet.txt", "rover.txt")
     val result = runCaptureOutput("RFF", app)
     assertIO(result, s"$GREEN[OK] O:1:0:E$RESET")

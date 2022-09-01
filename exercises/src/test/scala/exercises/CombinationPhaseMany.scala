@@ -1,5 +1,8 @@
 package exercises
 
+// TODO: remove IgnoreSuite annotation
+
+@munit.IgnoreSuite
 class CombinationPhaseMany extends munit.FunSuite {
 
   case class Item(name: String, qty: Int)
@@ -11,8 +14,6 @@ class CombinationPhaseMany extends munit.FunSuite {
   def checkQty(qty: String): Option[Int] =
     if (qty.matches("^[0-9]+$")) Some(qty.toInt)
     else None
-
-  // TODO: remove ignores
 
   // TODO: implements createItem with for-comprehension
 
@@ -30,28 +31,28 @@ class CombinationPhaseMany extends munit.FunSuite {
     if (qty <= item.qty) Some(item.copy(qty = item.qty - qty))
     else None
 
-  test("creation".ignore) {
+  test("creation") {
     val item = createItem("foo", "100")
     assertEquals(item, Some(Item("foo", 100)))
   }
 
-  test("creation, checkIn and checkOut".ignore) {
+  test("creation, checkIn and checkOut") {
     // TODO: use for-comprehension to, create, checkIn 10 and then checkOut 20 items
     val result: Option[Item] = ???
     assertEquals(result, Some(Item("foo", 90)))
   }
 
-  test("invalid creation (name)".ignore) {
+  test("invalid creation (name)") {
     val item = createItem("", "100")
     assertEquals(item, None)
   }
 
-  test("invalid creation (qty)".ignore) {
+  test("invalid creation (qty)") {
     val item = createItem("foo", "asd")
     assertEquals(item, None)
   }
 
-  test("invalid creation (both)".ignore) {
+  test("invalid creation (both)") {
     val item = createItem("", "asd")
     assertEquals(item, None)
   }

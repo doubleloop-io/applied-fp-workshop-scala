@@ -2,6 +2,9 @@ package application
 
 import munit.CatsEffectSuite
 
+// TODO: remove IgnoreSuite annotation
+
+@munit.IgnoreSuite
 class Version6Tests extends CatsEffectSuite {
 
   import application.Version6._
@@ -9,15 +12,13 @@ class Version6Tests extends CatsEffectSuite {
   import cats.effect.IO
   import scala.Console.{ GREEN, RED, RESET }
 
-  // TODO: remove ignores
-
-  test("load mission data on init".ignore) {
+  test("load mission data on init") {
     val result = init("planet", "rover")
     val expected = (AppState.Loading, Effect.LoadMission("planet", "rover"))
     assertEquals(expected, result)
   }
 
-  test("on load mission successful".ignore) {
+  test("on load mission successful") {
     val planet = Planet(Size(5, 5), List())
     val rover = Rover(Position(0, 0), N)
     val result = update(AppState.Loading, Event.LoadMissionSuccessful(planet, rover))
@@ -25,14 +26,14 @@ class Version6Tests extends CatsEffectSuite {
     assertEquals(expected, result)
   }
 
-  test("on load mission failed".ignore) {
+  test("on load mission failed") {
     val error = new RuntimeException("anything")
     val result = update(AppState.Loading, Event.LoadMissionFailed(error))
     val expected = (AppState.Failed, Effect.ReportKo(error))
     assertEquals(expected, result)
   }
 
-  test("all commands executed".ignore) {
+  test("all commands executed") {
     val planet = Planet(Size(5, 5), List())
     val rover = Rover(Position(0, 0), N)
     val result = update(AppState.Ready(planet, rover), Event.CommandsReceived(List(Move(Forward), Move(Forward), Move(Forward))))
@@ -41,7 +42,7 @@ class Version6Tests extends CatsEffectSuite {
     assertEquals(expected, result)
   }
 
-  test("hit obstacle".ignore) {
+  test("hit obstacle") {
     val planet = Planet(Size(5, 5), List(Obstacle(Position(0, 2))))
     val rover = Rover(Position(0, 0), N)
     val result = update(AppState.Ready(planet, rover), Event.CommandsReceived(List(Move(Forward), Move(Forward), Move(Forward))))
@@ -50,13 +51,13 @@ class Version6Tests extends CatsEffectSuite {
     assertEquals(expected, result)
   }
 
-  test("load planet (integration test)".ignore) {
+  test("load planet (integration test)") {
     val result = loadPlanet("planet.txt")
     val expected = Planet(Size(5, 4), List(Obstacle(Position(2, 0)), Obstacle(Position(0, 3))))
     assertIO(result, expected)
   }
 
-  test("go to opposite angle (integration test)".ignore) {
+  test("go to opposite angle (integration test)") {
     val app = createApplication("planet.txt", "rover.txt")
     val result = runCaptureOutput("RBBLBRF", app)
     assertIO(result, s"$GREEN[OK] 4:3:E$RESET")

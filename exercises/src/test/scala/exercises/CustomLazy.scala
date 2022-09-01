@@ -1,8 +1,9 @@
 package exercises
 
-class CustomLazy extends munit.FunSuite {
+// TODO: remove IgnoreSuite annotation
 
-  // TODO: remove ignores
+@munit.IgnoreSuite
+class CustomLazy extends munit.FunSuite {
 
   case class Lazy[A](func: () => A) {
 
@@ -36,7 +37,7 @@ class CustomLazy extends munit.FunSuite {
     Lazy.pure(() => x.toString.reverse)
   }
 
-  test("creation phase".ignore) {
+  test("creation phase") {
     val result = captureOutput {
       Lazy
         .pure(expensiveComputation)
@@ -45,7 +46,7 @@ class CustomLazy extends munit.FunSuite {
     assertEquals(result, List())
   }
 
-  test("combination phase - normal".ignore) {
+  test("combination phase - normal") {
     val result = captureOutput {
       Lazy
         .pure(expensiveComputation)
@@ -55,7 +56,7 @@ class CustomLazy extends munit.FunSuite {
     assertEquals(result, List())
   }
 
-  test("combination phase - effectful".ignore) {
+  test("combination phase - effectful") {
     val result = captureOutput {
       Lazy
         .pure(expensiveComputation)
@@ -65,7 +66,7 @@ class CustomLazy extends munit.FunSuite {
     assertEquals(result, List())
   }
 
-  test("removal phase value".ignore) {
+  test("removal phase value") {
     val result = captureOutput {
       Lazy
         .pure(expensiveComputation)
