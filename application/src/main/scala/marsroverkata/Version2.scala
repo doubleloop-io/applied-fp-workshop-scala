@@ -1,5 +1,6 @@
 package marsroverkata
 
+// V2 - Focus on boundaries
 object Version2 {
 
   import marsroverkata.Pacman._

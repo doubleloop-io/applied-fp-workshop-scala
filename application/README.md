@@ -28,9 +28,9 @@ Develop an API (types and functions) that executes commands:
 
 Our domain is declared with rich types but inputs/outputs are should be primitive types
 
-- Write a parser for input commands (skip unknown chars)
 - Write a parser for input planet data (size, obstacles)
 - Write a parser for input rover data (position, orientation)
+- Write a parser for input commands (skip unknown chars)
 - Render the final result as string: "positionX:positionY:orientation"
 
 ## V3 - More domain logic (effect in domain logic)

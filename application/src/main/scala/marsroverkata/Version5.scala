@@ -34,7 +34,7 @@ object Version5 {
         _ <- runMission(display, planet, rover, commands)
       } yield ()
 
-    runResult.recoverWith(e => logError(e.getMessage))
+    runResult.recoverWith(display.writeError(_))
   }
 
   // TODO: implements all adapters
