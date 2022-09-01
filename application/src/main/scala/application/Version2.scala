@@ -4,7 +4,8 @@ package application
 object Version2 {
 
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
-  import cats.implicits._
+  import cats.syntax.either._
+  import cats.syntax.traverse._
 
   // TODO 11:
   //  - combine planet, rover and commands parsers

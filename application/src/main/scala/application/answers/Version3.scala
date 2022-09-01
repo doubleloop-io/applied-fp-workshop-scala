@@ -3,7 +3,8 @@ package application.answers
 object Version3 {
 
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
-  import cats.implicits._
+  import cats.syntax.either._
+  import cats.syntax.traverse._
 
   def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[ParseError, String] =
     for {

@@ -4,7 +4,8 @@ package application
 object Version3 {
 
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
-  import cats.implicits._
+  import cats.syntax.either._
+  import cats.syntax.traverse._
 
   // TODO 7: remove Either by calling the correct rendering (renderComplete or renderObstacle)
   // previous implementation

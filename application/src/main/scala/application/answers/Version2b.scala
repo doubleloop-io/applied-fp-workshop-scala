@@ -4,10 +4,13 @@ package application.answers
 object Version2b {
 
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
-  import cats.implicits._
+  import cats.syntax.either._
+  import cats.syntax.apply._
+  import cats.syntax.bifunctor._
+  import cats.syntax.traverse._
 
   def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[ParseError, String] =
-    (parsePlanet(inputPlanet), parseRover(inputRover), parseCommands(inputCommands).asRight)
+    (parsePlanet(inputPlanet), parseRover(inputRover), parseCommands(inputCommands).asRight[ParseError])
       .mapN(executeAll)
       .map(render)
 

@@ -4,7 +4,9 @@ object Version6 {
 
   import application.Infra._
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
-  import cats.implicits._
+  import cats.syntax.either._
+  import cats.syntax.traverse._
+  import cats.syntax.applicativeError._
   import cats.effect.IO
 
   enum Event {
