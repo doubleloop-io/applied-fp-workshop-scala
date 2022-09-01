@@ -2,25 +2,14 @@ package application
 
 class Version1Tests extends munit.FunSuite {
 
-  // Planet layout
-  // +-----+-----+-----+-----+-----+
-  // | 0,3 |     |     |     | 4,3 |
-  // +-----+-----+-----+-----+-----+
-  // |     |     |     |     |     |
-  // +-----+-----+-----+-----+-----+
-  // |     |     |     |     |     |
-  // +-----+-----+-----+-----+-----+
-  // | 0,0 |     |     |     | 4,0 |
-  // +-----+-----+-----+-----+-----+
-
   import application.Version1._
 
-  // TODO: implements tests and feel free to add more...
+  // TODO: implements tests
 
   test("turn right command") {
 //    val planet = Planet: 5 4
 //    val rover = Rover: 0 0 N
-//    val command = R
+//    val command = Command: R
 //    val result = execute(planet, rover, command)
 //    assertEquals(result, Rover: 0 0 E)
   }
