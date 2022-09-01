@@ -1,6 +1,6 @@
 package exercises
 
-// TODO: remove IgnoreSuite annotation
+// TODO: Remove IgnoreSuite annotation
 
 @munit.IgnoreSuite
 class CustomOption extends munit.FunSuite {
@@ -9,18 +9,18 @@ class CustomOption extends munit.FunSuite {
     case Yes[A](value: A) extends Option[A]
     case Nope[A]() extends Option[A]
 
-    // TODO: implement map function
+    // TODO: Implement the map function
     def map[B](f: A => B): Option[B] = ???
 
-    // TODO: implement flatMap function
+    // TODO: Implement the flatMap function
     def flatMap[B](f: A => Option[B]): Option[B] = ???
 
-    // TODO: implement fold function
+    // TODO: Implement the fold function
     def fold[B](default: => B, to: A => B): B = ???
   }
 
   object Option {
-    // TODO: implement pure function
+    // TODO: Implement the pure function
     def pure[A](a: A): Option[A] = ???
   }
 

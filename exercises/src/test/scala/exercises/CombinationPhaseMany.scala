@@ -1,6 +1,6 @@
 package exercises
 
-// TODO: remove IgnoreSuite annotation
+// TODO: Remove IgnoreSuite annotation
 
 @munit.IgnoreSuite
 class CombinationPhaseMany extends munit.FunSuite {
@@ -15,12 +15,13 @@ class CombinationPhaseMany extends munit.FunSuite {
     if (qty.matches("^[0-9]+$")) Some(qty.toInt)
     else None
 
-  // TODO: implements createItem with for-comprehension
+  // TODO: Implements createItem with for-comprehension
 
   // NOTE: for-comprehension syntax
   // for {
   //  ... <- ...
   //  ... = ...
+  //  ... <- ...
   // } yield ...
   def createItem(name: String, qty: String): Option[Item] = ???
 

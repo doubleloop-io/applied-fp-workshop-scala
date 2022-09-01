@@ -1,6 +1,6 @@
 package exercises
 
-// TODO: remove IgnoreSuite annotation
+// TODO: Remove IgnoreSuite annotation
 
 @munit.IgnoreSuite
 class RemovalPhase extends munit.FunSuite {
@@ -16,14 +16,14 @@ class RemovalPhase extends munit.FunSuite {
 
   test("valid creation") {
     val item = createItem("100")
-    // TODO: use fold to convert result in string
+    // TODO: Use fold to always produce a string result
     val result: String = ???
     assertEquals(result, "100")
   }
 
   test("invalid creation") {
     val item = createItem("asd")
-    // TODO: use fold to convert result in string
+    // TODO: Use fold to always produce a string result
     val result: String = ???
     assertEquals(result, "alternative value")
   }

@@ -1,24 +1,24 @@
 package exercises
 
-// TODO: remove IgnoreSuite annotation
+// TODO: Remove IgnoreSuite annotation
 
 @munit.IgnoreSuite
 class CustomLazy extends munit.FunSuite {
 
   case class Lazy[A](func: () => A) {
 
-    // TODO: implement map function
+    // TODO: Implement the map function
     def map[B](f: A => B): Lazy[B] = ???
 
-    // TODO: implement flatMap function
+    // TODO: Implement the flatMap function
     def flatMap[B](f: A => Lazy[B]): Lazy[B] = ???
 
-    // TODO: implement fold function
+    // TODO: Implement the fold function
     def fold(): A = ???
   }
 
   object Lazy {
-    // TODO: implement pure function
+    // TODO: Implement the pure function
     def pure[A](a: () => A): Lazy[A] = ???
   }
 

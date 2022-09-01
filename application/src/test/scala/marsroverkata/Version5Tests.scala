@@ -2,7 +2,7 @@ package application
 
 import munit.CatsEffectSuite
 
-// TODO: remove IgnoreSuite annotation
+// TODO: Remove IgnoreSuite annotation
 
 @munit.IgnoreSuite
 class Version5Tests extends CatsEffectSuite {
@@ -16,7 +16,7 @@ class Version5Tests extends CatsEffectSuite {
     val result = for {
       output <- IO.ref("")
 
-      // Initialize Adapters
+      // Initialize fake adapters
       stubPlanetReader = createPlanetReader(Planet(Size(5, 4), List(Obstacle(Position(2, 0)), Obstacle(Position(0, 3)))))
       stubRoverReader = createRoverReader(Rover(Position(0, 0), N))
       stubCommandsReader = createCommandsReader(
@@ -24,7 +24,7 @@ class Version5Tests extends CatsEffectSuite {
       )
       spyDisplayWriter = createDisplayWriter(output)
 
-      // Wiring Dependencies
+      // Wiring dependencies
       app <- createApplication(stubPlanetReader, stubRoverReader, stubCommandsReader, spyDisplayWriter)
 
       value <- output.get
@@ -37,13 +37,13 @@ class Version5Tests extends CatsEffectSuite {
     val result = for {
       output <- IO.ref("")
 
-      // Initialize Adapters
+      // Initialize fake adapters
       stubPlanetReader = createPlanetReader(Left(InvalidPlanet("some error")))
       stubRoverReader = createRoverReader(Rover(Position(0, 0), N))
       stubCommandsReader = createCommandsReader(List(Turn(OnRight), Move(Forward), Move(Forward)))
       spyDisplayWriter = createDisplayWriter(output)
 
-      // Wiring Dependencies
+      // Wiring dependencies
       app <- createApplication(stubPlanetReader, stubRoverReader, stubCommandsReader, spyDisplayWriter)
 
       value <- output.get

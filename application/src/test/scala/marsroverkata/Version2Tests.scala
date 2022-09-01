@@ -1,6 +1,6 @@
 package application
 
-// TODO: remove IgnoreSuite annotation
+// TODO: Remove IgnoreSuite annotation
 
 @munit.IgnoreSuite
 class Version2Tests extends munit.FunSuite {
