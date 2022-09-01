@@ -8,46 +8,55 @@ object Version6 {
   import cats.implicits._
   import cats.effect.IO
 
+  // NOTE: Domain and Infrastructure "talks" to each other with values passed through the runtime
+
+  // NOTE: Events represent something that happened in the infrastructure (Infrastructure => Domain)
   enum Event {
     case LoadMissionSuccessful(planet: Planet, rover: Rover)
     case LoadMissionFailed(error: Throwable)
     case CommandsReceived(commands: List[Command])
   }
 
+  // NOTE: Effects represent something the Infrastructure has to do (Domain => Infrastructure)
   enum Effect {
     case LoadMission(planetFile: String, roverFile: String)
     case AskCommands
     case ReportObstacleHit(rover: ObstacleDetected)
     case ReportCommandSequenceCompleted(rover: Rover)
-    case Ko(error: Throwable)
+    case ReportKo(error: Throwable)
   }
 
+  // NOTE: All possible discrete states of the Domain
   enum AppState {
     case Loading
     case Ready(planet: Planet, rover: Rover)
     case Failed
   }
 
-  // TODO: implements init and update
-
+  // TODO 1: Initially we are in the Loading state and we want to load mission
   def init(planetFile: String, roverFile: String): (AppState, Effect) = ???
 
   def update(model: AppState, event: Event): (AppState, Effect) =
     (model, event) match {
 
+      // TODO 2: change state and ask for commands
       case (AppState.Loading, Event.LoadMissionSuccessful(planet, rover)) =>
         ???
 
-      case (AppState.Ready(planet, rover), Event.CommandsReceived(commands)) =>
-        ???
-
+      // TODO 3: change state and report mission KO
       case (AppState.Loading, Event.LoadMissionFailed(error)) =>
         ???
 
+      // TODO 4: execute all commands and report mission result
+      case (AppState.Ready(planet, rover), Event.CommandsReceived(commands)) =>
+        ???
+
+      // NOTE: otherwise something unknown happened so report mission KO
       case _ =>
-        (AppState.Failed, Effect.Ko(new RuntimeException(s"Cannot handle $event event in $model state.")))
+        (AppState.Failed, Effect.ReportKo(new RuntimeException(s"Cannot handle $event event in $model state.")))
     }
 
+  // NOTE: use the functions already seen to implement the effect logic
   def infrastructure(effect: Effect): IO[Option[Event]] =
     effect match {
       case Effect.LoadMission(planetFile, roverFile) =>
@@ -63,35 +72,43 @@ object Version6 {
         loadResult
           .map(toSuccessful)
           .recover(toFailed(_))
+          // NOTE: signal to the Runtime to continue the loop
           .map(continue)
 
       case Effect.AskCommands =>
         loadCommands()
           .map(Event.CommandsReceived.apply)
+          // NOTE: signal to the Runtime to continue the loop
           .map(continue)
 
       case Effect.ReportObstacleHit(rover) =>
         writeObstacleDetected(rover)
+          // NOTE: signal to the Runtime to stop the loop
           .map(stop)
 
       case Effect.ReportCommandSequenceCompleted(rover) =>
         writeSequenceCompleted(rover)
+          // NOTE: signal to the Runtime to stop the loop
           .map(stop)
 
-      case Effect.Ko(error) =>
+      case Effect.ReportKo(error) =>
         writeError(error)
+          // NOTE: signal to the Runtime to stop the loop
           .map(stop)
     }
 
+  // NOTE: we signal the desire to continue or stop with Option
   def continue(ev: Event): Option[Event] = Some(ev)
   def stop(ignore: Unit): Option[Event] = None
 
+  // NOTE: wire together init, update and infrastructure
   def createApplication(planetFile: String, roverFile: String): IO[Unit] =
-    Runtime.create(init(planetFile, roverFile), update, infrastructure)
+    Runtime.start(init(planetFile, roverFile), update, infrastructure)
 
   object Runtime {
 
-    def create[MODEL, EVENT, EFFECT](
+    // NOTE: runtime loop implemented as recursive function
+    def start[MODEL, EVENT, EFFECT](
       init: => (MODEL, EFFECT),
       update: (MODEL, EVENT) => (MODEL, EFFECT),
       infrastructure: EFFECT => IO[Option[EVENT]]
@@ -99,8 +116,8 @@ object Version6 {
 
       def loop(currentState: MODEL, currentEffect: EFFECT): IO[Unit] =
         infrastructure(currentEffect)
-          .flatMap { optEvent =>
-            optEvent match {
+          .flatMap { wishToContinue =>
+            wishToContinue match {
               case Some(ev) =>
                 val (nextState, nextEffect) = update(currentState, ev)
                 loop(nextState, nextEffect)

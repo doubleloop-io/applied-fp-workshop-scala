@@ -18,7 +18,7 @@ object Version6 {
     case AskCommands
     case ReportObstacleHit(rover: ObstacleDetected)
     case ReportCommandSequenceCompleted(rover: Rover)
-    case Ko(error: Throwable)
+    case ReportKo(error: Throwable)
   }
 
   enum AppState {
@@ -36,6 +36,9 @@ object Version6 {
       case (AppState.Loading, Event.LoadMissionSuccessful(planet, rover)) =>
         (AppState.Ready(planet, rover), Effect.AskCommands)
 
+      case (AppState.Loading, Event.LoadMissionFailed(error)) =>
+        (AppState.Failed, Effect.ReportKo(error))
+
       case (AppState.Ready(planet, rover), Event.CommandsReceived(commands)) =>
         executeAll(planet, rover, commands)
           .fold(
@@ -43,11 +46,8 @@ object Version6 {
             complete => (AppState.Ready(planet, complete), Effect.ReportCommandSequenceCompleted(complete))
           )
 
-      case (AppState.Loading, Event.LoadMissionFailed(error)) =>
-        (AppState.Failed, Effect.Ko(error))
-
       case _ =>
-        (AppState.Failed, Effect.Ko(new RuntimeException(s"Cannot handle $event event in $model state.")))
+        (AppState.Failed, Effect.ReportKo(new RuntimeException(s"Cannot handle $event event in $model state.")))
     }
 
   def infrastructure(effect: Effect): IO[Option[Event]] =
@@ -80,7 +80,7 @@ object Version6 {
         writeSequenceCompleted(rover)
           .map(stop)
 
-      case Effect.Ko(error) =>
+      case Effect.ReportKo(error) =>
         writeError(error)
           .map(stop)
     }
@@ -89,11 +89,11 @@ object Version6 {
   def stop(ignore: Unit): Option[Event] = None
 
   def createApplication(planetFile: String, roverFile: String): IO[Unit] =
-    Runtime.create(init(planetFile, roverFile), update, infrastructure)
+    Runtime.start(init(planetFile, roverFile), update, infrastructure)
 
   object Runtime {
 
-    def create[MODEL, EVENT, EFFECT](
+    def start[MODEL, EVENT, EFFECT](
       init: => (MODEL, EFFECT),
       update: (MODEL, EVENT) => (MODEL, EFFECT),
       infrastructure: EFFECT => IO[Option[EVENT]]
@@ -101,8 +101,8 @@ object Version6 {
 
       def loop(currentState: MODEL, currentEffect: EFFECT): IO[Unit] =
         infrastructure(currentEffect)
-          .flatMap { optEvent =>
-            optEvent match {
+          .flatMap { wishToContinue =>
+            wishToContinue match {
               case Some(ev) =>
                 val (nextState, nextEffect) = update(currentState, ev)
                 loop(nextState, nextEffect)

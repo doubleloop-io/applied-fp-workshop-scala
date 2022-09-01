@@ -8,12 +8,10 @@ object Version4 {
   import cats.implicits._
   import cats.effect.IO
 
-  // TODO: implements (use Infra utilities)
-  //  - loadPlanet, loadRover, loadCommands
-  //  - createApplication
-  //    - invokes: load* and then runMission
-  //    - log any unhandled error
-
+  // TODO 7:
+  //  - combine loadPlanet, loadRover, loadCommands
+  //  - call runMission
+  //  - w/ writeError log any unhandled error in IO
   def createApplication(planetFile: String, roverFile: String): IO[Unit] = ???
 
   def runMission(planet: Planet, rover: Rover, commands: List[Command]): IO[Unit] =
@@ -21,19 +19,27 @@ object Version4 {
       .fold(writeObstacleDetected, writeSequenceCompleted)
 
   // INFRASTRUCTURE
+
+  // NOTE: utility function to convert Either in IO
   def eitherToIO[A](value: Either[ParseError, A]): IO[A] =
     IO.fromEither(value.leftMap(e => new RuntimeException(renderError(e))))
 
+  // TODO 1: load file as pair of strings, parse and then convert Either to IO
   def loadPlanet(file: String): IO[Planet] = ???
 
+  // TODO 2: load file as pair of strings, parse and then convert Either to IO
   def loadRover(file: String): IO[Rover] = ???
 
+  // TODO 3: ask for commands string, parse and then convert Either to IO
   def loadCommands(): IO[List[Command]] = ???
 
+  // TODO 4: log rendered result w/ Info level
   def writeSequenceCompleted(rover: Rover): IO[Unit] = ???
 
+  // TODO 5: log rendered result w/ Info level
   def writeObstacleDetected(rover: ObstacleDetected): IO[Unit] = ???
 
+  // TODO 6: log rendered result w/ Error level
   def writeError(error: Throwable): IO[Unit] = ???
 
   // PARSING
@@ -99,17 +105,18 @@ object Version4 {
     }
 
   // RENDERING
-  def renderError(error: ParseError): String =
-    error match {
-      case InvalidPlanet(message) => s"Planet parsing: $message"
-      case InvalidRover(message)  => s"Rover parsing: $message"
-    }
-
   def renderComplete(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.orientation}"
 
   def renderObstacle(hit: ObstacleDetected): String =
     s"O:${renderComplete(hit.rover)}"
+
+  // NOTE: produce a string from an error
+  def renderError(error: ParseError): String =
+    error match {
+      case InvalidPlanet(message) => s"Planet parsing: $message"
+      case InvalidRover(message)  => s"Rover parsing: $message"
+    }
 
   // DOMAIN
   def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Either[ObstacleDetected, Rover] =
@@ -158,6 +165,16 @@ object Version4 {
     next(planet, rover, delta(opposite(rover.orientation)))
       .map(x => rover.copy(position = x))
 
+  def next(planet: Planet, rover: Rover, delta: Delta): Either[ObstacleDetected, Position] = {
+    val position = rover.position
+    val candidate = position.copy(
+      x = wrap(position.x, planet.size.width, delta.x),
+      y = wrap(position.y, planet.size.height, delta.y)
+    )
+    val hitObstacle = planet.obstacles.map(_.position).contains(candidate)
+    Either.cond(!hitObstacle, candidate, ObstacleDetected(rover))
+  }
+
   def opposite(orientation: Orientation): Orientation =
     orientation match {
       case N => S
@@ -173,16 +190,6 @@ object Version4 {
       case E => Delta(1, 0)
       case W => Delta(-1, 0)
     }
-
-  def next(planet: Planet, rover: Rover, delta: Delta): Either[ObstacleDetected, Position] = {
-    val position = rover.position
-    val candidate = position.copy(
-      x = wrap(position.x, planet.size.width, delta.x),
-      y = wrap(position.y, planet.size.height, delta.y)
-    )
-    val hitObstacle = planet.obstacles.map(_.position).contains(candidate)
-    Either.cond(!hitObstacle, candidate, ObstacleDetected(rover))
-  }
 
   def wrap(value: Int, limit: Int, delta: Int): Int =
     (((value + delta) % limit) + limit) % limit

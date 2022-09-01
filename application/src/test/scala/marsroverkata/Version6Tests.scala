@@ -28,7 +28,7 @@ class Version6Tests extends CatsEffectSuite {
   test("on load mission failed".ignore) {
     val error = new RuntimeException("anything")
     val result = update(AppState.Loading, Event.LoadMissionFailed(error))
-    val expected = (AppState.Failed, Effect.Ko(error))
+    val expected = (AppState.Failed, Effect.ReportKo(error))
     assertEquals(expected, result)
   }
 

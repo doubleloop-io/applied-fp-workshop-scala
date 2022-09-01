@@ -6,22 +6,42 @@ object Version2 {
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.implicits._
 
-  // TODO: implements functions and feel free to add more...
+  // TODO 11:
+  //  - combine planet, rover and commands parsers
+  //  - call executeAll
+  //  - render the mission result
   def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[ParseError, String] = ???
 
   // PARSING
+
+  // TODO 1: implements (input = 'F')
   def parseCommand(input: Char): Command = ???
+
+  // TODO 2: combine parseCommand (input = "BFFLLR")
   def parseCommands(input: String): List[Command] = ???
 
+  // TODO 3: combine parseInts (input = "3,2"), error should be InvalidRover
   def parsePosition(input: String): Either[ParseError, Position] = ???
+
+  // TODO 4: implements (input = "N"), error should be InvalidRover
   def parseOrientation(input: String): Either[ParseError, Orientation] = ???
+
+  // TODO 5: combine parsePosition and parseOrientation, error should be InvalidRover
   def parseRover(input: (String, String)): Either[ParseError, Rover] = ???
 
+  // TODO 6: combine parseInts (input = "5x5"), error should be InvalidPlanet
   def parseSize(input: String): Either[ParseError, Size] = ???
+
+  // TODO 7: combine parsePosition (input = "3,2"), error should be InvalidPlanet
   def parseObstacle(input: String): Either[ParseError, Obstacle] = ???
+
+  // TODO 8: combine parseObstacle (input = "3,2 7,0 2,9"), error should be InvalidPlanet
   def parseObstacles(input: String): Either[ParseError, List[Obstacle]] = ???
+
+  // TODO 9: combine parseSize and parseObstacles, error should be InvalidPlanet
   def parsePlanet(input: (String, String)): Either[ParseError, Planet] = ???
 
+  // NOTE: utility function to split a string in a pair of ints
   def parseInts(separator: String, input: String): Either[Throwable, (Int, Int)] =
     Either.catchNonFatal {
       val parts = input.split(separator).toList
@@ -29,6 +49,8 @@ object Version2 {
     }
 
   // RENDERING
+
+  // TODO 10: implements render, combine the mission result string
   def render(rover: Rover): String = ???
 
   // DOMAIN
@@ -76,6 +98,14 @@ object Version2 {
   def moveBackward(planet: Planet, rover: Rover): Rover =
     rover.copy(position = next(planet, rover, delta(opposite(rover.orientation))))
 
+  def next(planet: Planet, rover: Rover, delta: Delta): Position = {
+    val position = rover.position
+    position.copy(
+      x = wrap(position.x, planet.size.width, delta.x),
+      y = wrap(position.y, planet.size.height, delta.y)
+    )
+  }
+
   def opposite(orientation: Orientation): Orientation =
     orientation match {
       case N => S
@@ -91,14 +121,6 @@ object Version2 {
       case E => Delta(1, 0)
       case W => Delta(-1, 0)
     }
-
-  def next(planet: Planet, rover: Rover, delta: Delta): Position = {
-    val position = rover.position
-    position.copy(
-      x = wrap(position.x, planet.size.width, delta.x),
-      y = wrap(position.y, planet.size.height, delta.y)
-    )
-  }
 
   def wrap(value: Int, limit: Int, delta: Int): Int =
     (((value + delta) % limit) + limit) % limit

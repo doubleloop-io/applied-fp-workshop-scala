@@ -6,15 +6,15 @@ object Version3 {
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.implicits._
 
+  // TODO 7: remove Either by calling the correct rendering (renderComplete or renderObstacle)
+  // previous implementation
+  //   yield render(result)
   def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[ParseError, String] =
     for {
       planet <- parsePlanet(inputPlanet)
       rover <- parseRover(inputRover)
       commands = parseCommands(inputCommands)
       result = executeAll(planet, rover, commands)
-      // TODO: yield the correct rendered string
-      // previous implementation
-      //   yield render(result)
     } yield ???
 
   // PARSING
@@ -87,12 +87,15 @@ object Version3 {
     s"O:${renderComplete(hit.rover)}"
 
   // DOMAIN
-  // TODO: combine prev and current execution result w/ a monadic combinator
+  // TODO 6: combine prev and current execution result in order to propagate Either
   // previous implementation:
   //   commands.foldLeft(rover)((prev, cmd) => execute(planet, prev, cmd))
-  def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Either[ObstacleDetected, Rover] =
-    commands.foldLeft(rover.asRight)((prev, cmd) => ???)
+  def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Either[ObstacleDetected, Rover] = {
+    val init = rover.asRight[ObstacleDetected]
+    commands.foldLeft(init)((prev, cmd) => ???)
+  }
 
+  // TODO 5: fix in order to propagate Either
   def execute(planet: Planet, rover: Rover, command: Command): Rover =
     command match {
       case Turn(rotation) => turn(rover, rotation)
@@ -122,17 +125,35 @@ object Version3 {
       case E => N
     })
 
+  // TODO 5: fix in order to propagate Either
   def move(planet: Planet, rover: Rover, move: Movement): Rover =
     move match {
       case Forward  => moveForward(planet, rover)
       case Backward => moveBackward(planet, rover)
     }
 
+  // TODO 4: fix in order to propagate Either
   def moveForward(planet: Planet, rover: Rover): Rover =
     rover.copy(position = next(planet, rover, delta(rover.orientation)))
 
+  // TODO 3: fix in order to propagate Either
   def moveBackward(planet: Planet, rover: Rover): Rover =
     rover.copy(position = next(planet, rover, delta(opposite(rover.orientation))))
+
+  // TODO 2: change return type (follow result type)
+  def next(planet: Planet, rover: Rover, delta: Delta): Position = {
+    val position = rover.position
+    val candidate = position.copy(
+      x = wrap(position.x, planet.size.width, delta.x),
+      y = wrap(position.y, planet.size.height, delta.y)
+    )
+
+    val hitObstacle = planet.obstacles.map(_.position).contains(candidate)
+    val result = Either.cond(!hitObstacle, candidate, ObstacleDetected(rover))
+
+    // TODO 1: on the next line, replace candidate with result
+    candidate
+  }
 
   def opposite(orientation: Orientation): Orientation =
     orientation match {
@@ -149,23 +170,6 @@ object Version3 {
       case E => Delta(1, 0)
       case W => Delta(-1, 0)
     }
-
-  def next(planet: Planet, rover: Rover, delta: Delta): Position = {
-    val position = rover.position
-    val candidate = position.copy(
-      x = wrap(position.x, planet.size.width, delta.x),
-      y = wrap(position.y, planet.size.height, delta.y)
-    )
-    val hitObstacle = planet.obstacles.map(_.position).contains(candidate)
-    val result: Either[ObstacleDetected, Position] = Either.cond(!hitObstacle, candidate, ObstacleDetected(rover))
-    // TODO:
-    //  - remove next line
-    //  - change return type even for calling functions
-    //  - change calling functions to fix compilation errors
-    //  - re-implement executeAll function
-    //  - re-implement yield step into runMission function
-    candidate
-  }
 
   def wrap(value: Int, limit: Int, delta: Int): Int =
     (((value + delta) % limit) + limit) % limit

@@ -3,7 +3,7 @@ package application
 // V1 - Focus on the center (pure domain logic)
 object Version1 {
 
-  // TODO: Those type alias are only placeholders,
+  // TODO 1: Those type alias are only placeholders,
   //  use correct type definitions and feel free to add more...
   type Rover = String
   type Planet = String
@@ -11,28 +11,28 @@ object Version1 {
   type Rotation = String
   type Movement = String
 
-  // TODO: Execute all commands and accumulate final rover state
+  // TODO 2: Execute all commands and accumulate final rover state
   def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Rover = ???
 
-  // TODO: Dispatch one command to a specific function
+  // TODO 3: Dispatch one command to a specific function
   def execute(planet: Planet, rover: Rover, command: Command): Rover = ???
 
-  // TODO: Dispatch to a specific turn function
+  // TODO 4: Dispatch to a specific turn function
   def turn(rover: Rover, turn: Rotation): Rover = ???
 
-  // TODO: Dispatch to a specific move function
+  // TODO 5: Dispatch to a specific move function
   def move(planet: Planet, rover: Rover, move: Movement): Rover = ???
 
-  // TODO: Change rover orientation
+  // TODO 6: Change rover orientation
   def turnRight(rover: Rover): Rover = ???
 
-  // TODO: Change rover orientation
+  // TODO 7: Change rover orientation
   def turnLeft(rover: Rover): Rover = ???
 
-  // TODO: Change rover position
+  // TODO 8: Change rover position
   def moveForward(planet: Planet, rover: Rover): Rover = ???
 
-  // TODO: Change rover position
+  // TODO 9: Change rover position
   def moveBackward(planet: Planet, rover: Rover): Rover = ???
 
   // NOTE: utility function to get the pacman effect

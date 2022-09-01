@@ -8,7 +8,7 @@ object Version5 {
   import cats.implicits._
   import cats.effect.IO
 
-  // Define Ports
+  // NOTE: defined port contracts
   trait PlanetReader {
     def read(): IO[Planet]
   }
@@ -19,12 +19,40 @@ object Version5 {
     def read(): IO[List[Command]]
   }
   trait DisplayWriter {
-    def writeSequenceCompleted(rover: Rover): IO[Unit]
-    def writeObstacleDetected(rover: ObstacleDetected): IO[Unit]
-    def writeError(error: Throwable): IO[Unit]
+    def sequenceCompleted(rover: Rover): IO[Unit]
+    def obstacleDetected(rover: ObstacleDetected): IO[Unit]
+    def error(error: Throwable): IO[Unit]
   }
 
-  // Dependency Injection (normal function parameters)
+  // NOTE: Wired entry point
+  def createApplication(planetFile: String, roverFile: String): IO[Unit] = {
+    // TODO 1: calls relative load function
+    val filePlanetReader = new PlanetReader {
+      def read(): IO[Planet] = ???
+    }
+
+    // TODO 2: calls relative load function
+    val fileRoverReader = new RoverReader {
+      def read(): IO[Rover] = ???
+    }
+
+    // TODO 3: calls relative ask function
+    val consoleCommandsReader = new CommandsReader {
+      def read(): IO[List[Command]] = ???
+    }
+
+    // TODO 4: calls relative write* functions
+    val loggerDisplayWriter = new DisplayWriter {
+      def sequenceCompleted(rover: Rover): IO[Unit] = ???
+      def obstacleDetected(rover: ObstacleDetected): IO[Unit] = ???
+      def error(error: Throwable): IO[Unit] = ???
+    }
+
+    // TODO 5: call injectable createApplication
+    ???
+  }
+
+  // NOTE: injectable entry point (use normal function parameters for Dependency Injection)
   def createApplication(planetReader: PlanetReader, roverReader: RoverReader, commandsReader: CommandsReader, display: DisplayWriter): IO[Unit] = {
     val runResult =
       for {
@@ -34,38 +62,13 @@ object Version5 {
         _ <- runMission(display, planet, rover, commands)
       } yield ()
 
-    runResult.recoverWith(display.writeError(_))
+    runResult.recoverWith(display.error(_))
   }
 
-  // TODO: implements all adapters
-
-  // Main entry point
-  def createApplication(planetFile: String, roverFile: String): IO[Unit] = {
-    // Initialize Adapters
-    val filePlanetReader = new PlanetReader {
-      def read(): IO[Planet] = ???
-    }
-    val fileRoverReader = new RoverReader {
-      def read(): IO[Rover] = ???
-    }
-    val consoleCommandsReader = new CommandsReader {
-      def read(): IO[List[Command]] = ???
-    }
-    val loggerDisplayWriter = new DisplayWriter {
-      def writeSequenceCompleted(rover: Rover): IO[Unit] = ???
-      def writeObstacleDetected(rover: ObstacleDetected): IO[Unit] = ???
-      def writeError(error: Throwable): IO[Unit] = ???
-    }
-
-    // Wiring Dependencies
-    createApplication(filePlanetReader, fileRoverReader, consoleCommandsReader, loggerDisplayWriter)
-  }
-
-  def runMission(display: DisplayWriter, planet: Planet, rover: Rover, commands: List[Command]): IO[Unit] = {
-    val result = executeAll(planet, rover, commands)
-    // TODO: use display to print obstacle/completed cases (result type is Either[ObstacleDetected, Rover])
-    ???
-  }
+  // NOTE: is used display to print obstacle/completed cases
+  def runMission(display: DisplayWriter, planet: Planet, rover: Rover, commands: List[Command]): IO[Unit] =
+    executeAll(planet, rover, commands)
+      .fold(display.obstacleDetected, display.sequenceCompleted)
 
   // INFRASTRUCTURE
   def eitherToIO[A](value: Either[ParseError, A]): IO[A] =
@@ -84,6 +87,15 @@ object Version5 {
   def loadCommands(): IO[List[Command]] =
     ask("Waiting commands...")
       .map(parseCommands)
+
+  def writeSequenceCompleted(rover: Rover): IO[Unit] =
+    logInfo(renderComplete(rover))
+
+  def writeObstacleDetected(rover: ObstacleDetected): IO[Unit] =
+    logInfo(renderObstacle(rover))
+
+  def writeError(error: Throwable): IO[Unit] =
+    logError(error.getMessage)
 
   // PARSING
   def parseCommand(input: Char): Command =
@@ -207,6 +219,16 @@ object Version5 {
     next(planet, rover, delta(opposite(rover.orientation)))
       .map(x => rover.copy(position = x))
 
+  def next(planet: Planet, rover: Rover, delta: Delta): Either[ObstacleDetected, Position] = {
+    val position = rover.position
+    val candidate = position.copy(
+      x = wrap(position.x, planet.size.width, delta.x),
+      y = wrap(position.y, planet.size.height, delta.y)
+    )
+    val hitObstacle = planet.obstacles.map(_.position).contains(candidate)
+    Either.cond(!hitObstacle, candidate, ObstacleDetected(rover))
+  }
+
   def opposite(orientation: Orientation): Orientation =
     orientation match {
       case N => S
@@ -222,16 +244,6 @@ object Version5 {
       case E => Delta(1, 0)
       case W => Delta(-1, 0)
     }
-
-  def next(planet: Planet, rover: Rover, delta: Delta): Either[ObstacleDetected, Position] = {
-    val position = rover.position
-    val candidate = position.copy(
-      x = wrap(position.x, planet.size.width, delta.x),
-      y = wrap(position.y, planet.size.height, delta.y)
-    )
-    val hitObstacle = planet.obstacles.map(_.position).contains(candidate)
-    Either.cond(!hitObstacle, candidate, ObstacleDetected(rover))
-  }
 
   def wrap(value: Int, limit: Int, delta: Int): Int =
     (((value + delta) % limit) + limit) % limit
