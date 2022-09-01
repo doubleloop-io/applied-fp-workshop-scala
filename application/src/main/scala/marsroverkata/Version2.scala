@@ -3,7 +3,6 @@ package marsroverkata
 // V2 - Focus on boundaries
 object Version2 {
 
-  import marsroverkata.Pacman._
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.implicits._
 
@@ -100,6 +99,9 @@ object Version2 {
       y = wrap(position.y, planet.size.height, delta.y)
     )
   }
+
+  def wrap(value: Int, limit: Int, delta: Int): Int =
+    (((value + delta) % limit) + limit) % limit
 
   // TYPES
   case class Delta(x: Int, y: Int)

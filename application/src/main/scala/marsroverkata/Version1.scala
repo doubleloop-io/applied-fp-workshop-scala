@@ -3,10 +3,15 @@ package marsroverkata
 // V1 - Focus on the center (pure domain logic)
 object Version1 {
 
-  // NOTE: This module exposes a `wrap` function, an utility to get the pacman effect
-  import Pacman._
-
   // TODO: Implements types and functions. Feel free to add more...
+
+  // TODO: Those type alias are only placeholders,
+  //  use correct type definitions and feel free to add more...
+  type Rover = String
+  type Planet = String
+  type Command = String
+  type Rotation = String
+  type Movement = String
 
   // TODO: Execute all commands and accumulate final rover state
   def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Rover = ???
@@ -32,11 +37,7 @@ object Version1 {
   // TODO: Change rover position
   def moveBackward(planet: Planet, rover: Rover): Rover = ???
 
-  // TODO: Those type alias are only placeholders,
-  //  use correct type definitions and feel free to add more...
-  type Rover = String
-  type Planet = String
-  type Command = String
-  type Rotation = String
-  type Movement = String
+  // NOTE: utility function to get the pacman effect
+  def wrap(value: Int, limit: Int, delta: Int): Int =
+    (((value + delta) % limit) + limit) % limit
 }

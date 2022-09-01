@@ -2,7 +2,6 @@ package marsroverkata.answers
 
 object Version1 {
 
-  import marsroverkata.Pacman._
   import Rotation._, Orientation._, Movement._, Command._
 
   def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Rover =
@@ -71,6 +70,9 @@ object Version1 {
       y = wrap(position.y, planet.size.height, delta.y)
     )
   }
+
+  def wrap(value: Int, limit: Int, delta: Int): Int =
+    (((value + delta) % limit) + limit) % limit
 
   case class Delta(x: Int, y: Int)
   case class Position(x: Int, y: Int)

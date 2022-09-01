@@ -2,7 +2,6 @@ package marsroverkata
 
 object Version3 {
 
-  import marsroverkata.Pacman._
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.implicits._
 
@@ -163,6 +162,9 @@ object Version3 {
     //  - re-implement yield step into runMission function
     candidate
   }
+
+  def wrap(value: Int, limit: Int, delta: Int): Int =
+    (((value + delta) % limit) + limit) % limit
 
   // TYPES
   case class Delta(x: Int, y: Int)

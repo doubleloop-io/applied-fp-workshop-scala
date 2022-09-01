@@ -2,7 +2,6 @@ package marsroverkata
 
 object Version5 {
 
-  import marsroverkata.Pacman._
   import marsroverkata.Infra._
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.implicits._
@@ -232,6 +231,9 @@ object Version5 {
     val hitObstacle = planet.obstacles.map(_.position).contains(candidate)
     Either.cond(!hitObstacle, candidate, ObstacleDetected(rover))
   }
+
+  def wrap(value: Int, limit: Int, delta: Int): Int =
+    (((value + delta) % limit) + limit) % limit
 
   // TYPES
   case class Delta(x: Int, y: Int)
