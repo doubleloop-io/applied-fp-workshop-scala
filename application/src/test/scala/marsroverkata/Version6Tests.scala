@@ -1,11 +1,11 @@
-package marsroverkata
+package application
 
 import munit.CatsEffectSuite
 
 class Version6Tests extends CatsEffectSuite {
 
-  import marsroverkata.Version6._
-  import marsroverkata.Version6.Rotation._, Orientation._, Movement._, Command._, ParseError._
+  import application.Version6._
+  import application.Version6.Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.effect.IO
   import scala.Console.{ GREEN, RED, RESET }
 

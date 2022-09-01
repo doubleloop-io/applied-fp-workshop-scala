@@ -1,15 +1,18 @@
-package marsroverkata.answers
+package application.answers
 
-// NOTE: with mapN (Applicative)
-object Version2b {
+// NOTE: with for-comprehension
+object Version2 {
 
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.implicits._
 
   def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[ParseError, String] =
-    (parsePlanet(inputPlanet), parseRover(inputRover), parseCommands(inputCommands).asRight)
-      .mapN(executeAll)
-      .map(render)
+    for {
+      planet <- parsePlanet(inputPlanet)
+      rover <- parseRover(inputRover)
+      commands = parseCommands(inputCommands)
+      result = executeAll(planet, rover, commands)
+    } yield render(result)
 
   // PARSING
   def parseCommand(input: Char): Command =
@@ -38,10 +41,13 @@ object Version2b {
       case _   => Left(InvalidRover(s"invalid orientation: $input"))
     }
 
-  def parseRover(input: (String, String)): Either[ParseError, Rover] =
-    input
-      .bimap(parsePosition, parseOrientation)
-      .mapN(Rover.apply)
+  def parseRover(input: (String, String)): Either[ParseError, Rover] = {
+    val (inputPosition, inputOrientation) = input
+    for {
+      position <- parsePosition(inputPosition)
+      orientation <- parseOrientation(inputOrientation)
+    } yield Rover(position, orientation)
+  }
 
   def parseSize(input: String): Either[ParseError, Size] =
     parseInts("x", input)
@@ -56,10 +62,13 @@ object Version2b {
   def parseObstacles(input: String): Either[ParseError, List[Obstacle]] =
     input.split(" ").toList.traverse(parseObstacle)
 
-  def parsePlanet(input: (String, String)): Either[ParseError, Planet] =
-    input
-      .bimap(parseSize, parseObstacles)
-      .mapN(Planet.apply)
+  def parsePlanet(input: (String, String)): Either[ParseError, Planet] = {
+    val (inputSize, inputObstacles) = input
+    for {
+      size <- parseSize(inputSize)
+      obstacles <- parseObstacles(inputObstacles)
+    } yield Planet(size, obstacles)
+  }
 
   def parseInts(separator: String, input: String): Either[Throwable, (Int, Int)] =
     Either.catchNonFatal {

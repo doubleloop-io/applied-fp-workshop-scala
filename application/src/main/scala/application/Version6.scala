@@ -1,9 +1,9 @@
-package marsroverkata
+package application
 
 // V6 - Testability via values (Elm-ish architectural style)
 object Version6 {
 
-  import marsroverkata.Infra._
+  import application.Infra._
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.implicits._
   import cats.effect.IO

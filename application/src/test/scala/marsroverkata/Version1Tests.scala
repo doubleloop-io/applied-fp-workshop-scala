@@ -1,4 +1,4 @@
-package marsroverkata
+package application
 
 class Version1Tests extends munit.FunSuite {
 
@@ -13,7 +13,7 @@ class Version1Tests extends munit.FunSuite {
   // | 0,0 |     |     |     | 4,0 |
   // +-----+-----+-----+-----+-----+
 
-  import marsroverkata.Version1._
+  import application.Version1._
 
   // TODO: implements tests and feel free to add more...
 

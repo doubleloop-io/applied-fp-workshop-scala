@@ -1,3 +1,3 @@
-package marsroverkata
+package application
 
 object Main extends App

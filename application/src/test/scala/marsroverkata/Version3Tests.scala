@@ -1,9 +1,9 @@
-package marsroverkata
+package application
 
 class Version3Tests extends munit.FunSuite {
 
-  import marsroverkata.Version3._
-  import marsroverkata.Version3.ParseError._
+  import application.Version3._
+  import application.Version3.ParseError._
 
   // TODO: remove ignores
 

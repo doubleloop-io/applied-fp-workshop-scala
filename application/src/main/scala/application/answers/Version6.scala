@@ -1,8 +1,8 @@
-package marsroverkata.answers
+package application.answers
 
 object Version6 {
 
-  import marsroverkata.Infra._
+  import application.Infra._
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.implicits._
   import cats.effect.IO

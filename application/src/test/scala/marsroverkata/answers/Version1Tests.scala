@@ -1,4 +1,4 @@
-package marsroverkata.answers
+package application.answers
 
 class Version1Tests extends munit.FunSuite {
 
@@ -13,8 +13,8 @@ class Version1Tests extends munit.FunSuite {
   // | 0,0 |     |     |     | 4,0 |
   // +-----+-----+-----+-----+-----+
 
-  import marsroverkata.answers.Version1._
-  import marsroverkata.answers.Version1.Rotation._, Orientation._, Movement._, Command._
+  import application.answers.Version1._
+  import application.answers.Version1.Rotation._, Orientation._, Movement._, Command._
 
   test("turn right command") {
     val planet = Planet(Size(5, 4))

@@ -1,4 +1,4 @@
-package marsroverkata.answers
+package application.answers
 
 object Version3 {
 

@@ -1,21 +1,84 @@
-package marsroverkata
+package application.answers
 
-// V3 - More domain logic (handle obstacle w/ effects)
-object Version3 {
+object Version5 {
 
+  import application.Infra._
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.implicits._
+  import cats.effect.IO
 
-  def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[ParseError, String] =
-    for {
-      planet <- parsePlanet(inputPlanet)
-      rover <- parseRover(inputRover)
-      commands = parseCommands(inputCommands)
-      result = executeAll(planet, rover, commands)
-      // TODO: yield the correct rendered string
-      // previous implementation
-      //   yield render(result)
-    } yield ???
+  // Define Ports
+  trait PlanetReader {
+    def read(): IO[Planet]
+  }
+  trait RoverReader {
+    def read(): IO[Rover]
+  }
+  trait CommandsReader {
+    def read(): IO[List[Command]]
+  }
+  trait DisplayWriter {
+    def writeSequenceCompleted(rover: Rover): IO[Unit]
+    def writeObstacleDetected(rover: ObstacleDetected): IO[Unit]
+    def writeError(error: Throwable): IO[Unit]
+  }
+
+  // Dependency Injection (normal function parameters)
+  def createApplication(planetReader: PlanetReader, roverReader: RoverReader, commandsReader: CommandsReader, display: DisplayWriter): IO[Unit] = {
+    val runResult =
+      for {
+        planet <- planetReader.read()
+        rover <- roverReader.read()
+        commands <- commandsReader.read()
+        _ <- runMission(display, planet, rover, commands)
+      } yield ()
+
+    runResult.recoverWith(display.writeError(_))
+  }
+
+  // Main entry point
+  def createApplication(planetFile: String, roverFile: String): IO[Unit] = {
+    // Initialize Adapters
+    val filePlanetReader = new PlanetReader {
+      def read(): IO[Planet] = loadPlanet(planetFile)
+    }
+    val fileRoverReader = new RoverReader {
+      def read(): IO[Rover] = loadRover(roverFile)
+    }
+    val consoleCommandsReader = new CommandsReader {
+      def read(): IO[List[Command]] = loadCommands()
+    }
+    val loggerDisplayWriter = new DisplayWriter {
+      def writeSequenceCompleted(rover: Rover): IO[Unit] = logInfo(renderComplete(rover))
+      def writeObstacleDetected(rover: ObstacleDetected): IO[Unit] = logInfo(renderObstacle(rover))
+      def writeError(error: Throwable): IO[Unit] = logError(error.getMessage)
+    }
+
+    // Wiring Dependencies
+    createApplication(filePlanetReader, fileRoverReader, consoleCommandsReader, loggerDisplayWriter)
+  }
+
+  def runMission(display: DisplayWriter, planet: Planet, rover: Rover, commands: List[Command]): IO[Unit] =
+    executeAll(planet, rover, commands)
+      .fold(display.writeObstacleDetected, display.writeSequenceCompleted)
+
+  // INFRASTRUCTURE
+  def eitherToIO[A](value: Either[ParseError, A]): IO[A] =
+    IO.fromEither(value.leftMap(e => new RuntimeException(renderError(e))))
+
+  def loadPlanet(file: String): IO[Planet] =
+    loadTuple(file)
+      .map(parsePlanet)
+      .flatMap(eitherToIO)
+
+  def loadRover(file: String): IO[Rover] =
+    loadTuple(file)
+      .map(parseRover)
+      .flatMap(eitherToIO)
+
+  def loadCommands(): IO[List[Command]] =
+    ask("Waiting commands...")
+      .map(parseCommands)
 
   // PARSING
   def parseCommand(input: Char): Command =
@@ -80,6 +143,12 @@ object Version3 {
     }
 
   // RENDERING
+  def renderError(error: ParseError): String =
+    error match {
+      case InvalidPlanet(message) => s"Planet parsing: $message"
+      case InvalidRover(message)  => s"Rover parsing: $message"
+    }
+
   def renderComplete(rover: Rover): String =
     s"${rover.position.x}:${rover.position.y}:${rover.orientation}"
 
@@ -87,17 +156,14 @@ object Version3 {
     s"O:${renderComplete(hit.rover)}"
 
   // DOMAIN
-  // TODO: combine prev and current execution result w/ a monadic combinator
-  // previous implementation:
-  //   commands.foldLeft(rover)((prev, cmd) => execute(planet, prev, cmd))
   def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Either[ObstacleDetected, Rover] =
-    commands.foldLeft(rover.asRight)((prev, cmd) => ???)
+    commands.foldLeft(rover.asRight)((prev, cmd) => prev.flatMap(execute(planet, _, cmd)))
 
-  def execute(planet: Planet, rover: Rover, command: Command): Rover =
+  def execute(planet: Planet, rover: Rover, command: Command): Either[ObstacleDetected, Rover] =
     command match {
-      case Turn(rotation) => turn(rover, rotation)
+      case Turn(rotation) => turn(rover, rotation).asRight
       case Move(movement) => move(planet, rover, movement)
-      case Unknown        => rover
+      case Unknown        => rover.asRight
     }
 
   def turn(rover: Rover, turn: Rotation): Rover =
@@ -122,17 +188,19 @@ object Version3 {
       case E => N
     })
 
-  def move(planet: Planet, rover: Rover, move: Movement): Rover =
+  def move(planet: Planet, rover: Rover, move: Movement): Either[ObstacleDetected, Rover] =
     move match {
       case Forward  => moveForward(planet, rover)
       case Backward => moveBackward(planet, rover)
     }
 
-  def moveForward(planet: Planet, rover: Rover): Rover =
-    rover.copy(position = next(planet, rover, delta(rover.orientation)))
+  def moveForward(planet: Planet, rover: Rover): Either[ObstacleDetected, Rover] =
+    next(planet, rover, delta(rover.orientation))
+      .map(x => rover.copy(position = x))
 
-  def moveBackward(planet: Planet, rover: Rover): Rover =
-    rover.copy(position = next(planet, rover, delta(opposite(rover.orientation))))
+  def moveBackward(planet: Planet, rover: Rover): Either[ObstacleDetected, Rover] =
+    next(planet, rover, delta(opposite(rover.orientation)))
+      .map(x => rover.copy(position = x))
 
   def opposite(orientation: Orientation): Orientation =
     orientation match {
@@ -150,21 +218,14 @@ object Version3 {
       case W => Delta(-1, 0)
     }
 
-  def next(planet: Planet, rover: Rover, delta: Delta): Position = {
+  def next(planet: Planet, rover: Rover, delta: Delta): Either[ObstacleDetected, Position] = {
     val position = rover.position
     val candidate = position.copy(
       x = wrap(position.x, planet.size.width, delta.x),
       y = wrap(position.y, planet.size.height, delta.y)
     )
     val hitObstacle = planet.obstacles.map(_.position).contains(candidate)
-    val result: Either[ObstacleDetected, Position] = Either.cond(!hitObstacle, candidate, ObstacleDetected(rover))
-    // TODO:
-    //  - remove next line
-    //  - change return type even for calling functions
-    //  - change calling functions to fix compilation errors
-    //  - re-implement executeAll function
-    //  - re-implement yield step into runMission function
-    candidate
+    Either.cond(!hitObstacle, candidate, ObstacleDetected(rover))
   }
 
   def wrap(value: Int, limit: Int, delta: Int): Int =

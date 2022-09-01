@@ -1,37 +1,9 @@
-package marsroverkata
+package application.answers
 
-// V2 - Focus on boundaries (from primitive to domain types and viceversa)
-object Version2 {
+object Version1 {
 
-  import Rotation._, Orientation._, Movement._, Command._, ParseError._
-  import cats.implicits._
+  import Rotation._, Orientation._, Movement._, Command._
 
-  // TODO: implements functions and feel free to add more...
-  def runMission(inputPlanet: (String, String), inputRover: (String, String), inputCommands: String): Either[ParseError, String] = ???
-
-  // PARSING
-  def parseCommand(input: Char): Command = ???
-  def parseCommands(input: String): List[Command] = ???
-
-  def parsePosition(input: String): Either[ParseError, Position] = ???
-  def parseOrientation(input: String): Either[ParseError, Orientation] = ???
-  def parseRover(input: (String, String)): Either[ParseError, Rover] = ???
-
-  def parseSize(input: String): Either[ParseError, Size] = ???
-  def parseObstacle(input: String): Either[ParseError, Obstacle] = ???
-  def parseObstacles(input: String): Either[ParseError, List[Obstacle]] = ???
-  def parsePlanet(input: (String, String)): Either[ParseError, Planet] = ???
-
-  def parseInts(separator: String, input: String): Either[Throwable, (Int, Int)] =
-    Either.catchNonFatal {
-      val parts = input.split(separator).toList
-      (parts(0).trim.toInt, parts(1).trim.toInt)
-    }
-
-  // RENDERING
-  def render(rover: Rover): String = ???
-
-  // DOMAIN
   def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Rover =
     commands.foldLeft(rover)((prev, cmd) => execute(planet, prev, cmd))
 
@@ -39,7 +11,6 @@ object Version2 {
     command match {
       case Turn(rotation) => turn(rover, rotation)
       case Move(movement) => move(planet, rover, movement)
-      case Unknown        => rover
     }
 
   def turn(rover: Rover, turn: Rotation): Rover =
@@ -103,23 +74,15 @@ object Version2 {
   def wrap(value: Int, limit: Int, delta: Int): Int =
     (((value + delta) % limit) + limit) % limit
 
-  // TYPES
   case class Delta(x: Int, y: Int)
   case class Position(x: Int, y: Int)
   case class Size(width: Int, height: Int)
-  case class Obstacle(position: Position)
-  case class Planet(size: Size, obstacles: List[Obstacle])
+  case class Planet(size: Size)
   case class Rover(position: Position, orientation: Orientation)
-
-  enum ParseError {
-    case InvalidPlanet(message: String)
-    case InvalidRover(message: String)
-  }
 
   enum Command {
     case Move(to: Movement)
     case Turn(on: Rotation)
-    case Unknown
   }
 
   enum Movement {
@@ -133,5 +96,4 @@ object Version2 {
   enum Orientation {
     case N, E, W, S
   }
-
 }

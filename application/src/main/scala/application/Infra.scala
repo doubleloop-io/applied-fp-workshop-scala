@@ -1,4 +1,4 @@
-package marsroverkata
+package application
 
 object Infra {
 

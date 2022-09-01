@@ -1,9 +1,9 @@
-package marsroverkata.answers
+package application.answers
 
 class Version3Tests extends munit.FunSuite {
 
-  import marsroverkata.answers.Version3._
-  import marsroverkata.answers.Version3.ParseError._
+  import application.answers.Version3._
+  import application.answers.Version3.ParseError._
 
   test("go to opposite angle") {
     val planet = ("5x4", "2,0 0,3 3,2")

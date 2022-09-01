@@ -1,9 +1,7 @@
-package marsroverkata
+package application
 
 // V1 - Focus on the center (pure domain logic)
 object Version1 {
-
-  // TODO: Implements types and functions. Feel free to add more...
 
   // TODO: Those type alias are only placeholders,
   //  use correct type definitions and feel free to add more...

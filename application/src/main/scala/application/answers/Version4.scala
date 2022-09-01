@@ -1,66 +1,27 @@
-package marsroverkata.answers
+package application.answers
 
-object Version5 {
+object Version4 {
 
-  import marsroverkata.Infra._
+  import application.Infra._
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
   import cats.implicits._
   import cats.effect.IO
 
-  // Define Ports
-  trait PlanetReader {
-    def read(): IO[Planet]
-  }
-  trait RoverReader {
-    def read(): IO[Rover]
-  }
-  trait CommandsReader {
-    def read(): IO[List[Command]]
-  }
-  trait DisplayWriter {
-    def writeSequenceCompleted(rover: Rover): IO[Unit]
-    def writeObstacleDetected(rover: ObstacleDetected): IO[Unit]
-    def writeError(error: Throwable): IO[Unit]
-  }
-
-  // Dependency Injection (normal function parameters)
-  def createApplication(planetReader: PlanetReader, roverReader: RoverReader, commandsReader: CommandsReader, display: DisplayWriter): IO[Unit] = {
+  def createApplication(planetFile: String, roverFile: String): IO[Unit] = {
     val runResult =
       for {
-        planet <- planetReader.read()
-        rover <- roverReader.read()
-        commands <- commandsReader.read()
-        _ <- runMission(display, planet, rover, commands)
+        planet <- loadPlanet(planetFile)
+        rover <- loadRover(roverFile)
+        commands <- loadCommands()
+        _ <- runMission(planet, rover, commands)
       } yield ()
 
-    runResult.recoverWith(display.writeError(_))
+    runResult.recoverWith(writeError(_))
   }
 
-  // Main entry point
-  def createApplication(planetFile: String, roverFile: String): IO[Unit] = {
-    // Initialize Adapters
-    val filePlanetReader = new PlanetReader {
-      def read(): IO[Planet] = loadPlanet(planetFile)
-    }
-    val fileRoverReader = new RoverReader {
-      def read(): IO[Rover] = loadRover(roverFile)
-    }
-    val consoleCommandsReader = new CommandsReader {
-      def read(): IO[List[Command]] = loadCommands()
-    }
-    val loggerDisplayWriter = new DisplayWriter {
-      def writeSequenceCompleted(rover: Rover): IO[Unit] = logInfo(renderComplete(rover))
-      def writeObstacleDetected(rover: ObstacleDetected): IO[Unit] = logInfo(renderObstacle(rover))
-      def writeError(error: Throwable): IO[Unit] = logError(error.getMessage)
-    }
-
-    // Wiring Dependencies
-    createApplication(filePlanetReader, fileRoverReader, consoleCommandsReader, loggerDisplayWriter)
-  }
-
-  def runMission(display: DisplayWriter, planet: Planet, rover: Rover, commands: List[Command]): IO[Unit] =
+  def runMission(planet: Planet, rover: Rover, commands: List[Command]): IO[Unit] =
     executeAll(planet, rover, commands)
-      .fold(display.writeObstacleDetected, display.writeSequenceCompleted)
+      .fold(writeObstacleDetected, writeSequenceCompleted)
 
   // INFRASTRUCTURE
   def eitherToIO[A](value: Either[ParseError, A]): IO[A] =
@@ -79,6 +40,15 @@ object Version5 {
   def loadCommands(): IO[List[Command]] =
     ask("Waiting commands...")
       .map(parseCommands)
+
+  def writeSequenceCompleted(rover: Rover): IO[Unit] =
+    logInfo(renderComplete(rover))
+
+  def writeObstacleDetected(rover: ObstacleDetected): IO[Unit] =
+    logInfo(renderObstacle(rover))
+
+  def writeError(error: Throwable): IO[Unit] =
+    logError(error.getMessage)
 
   // PARSING
   def parseCommand(input: Char): Command =
