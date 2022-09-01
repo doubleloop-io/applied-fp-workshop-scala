@@ -1,5 +1,6 @@
 package marsroverkata
 
+// V3 - More domain logic (handle obstacle w/ effects)
 object Version3 {
 
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
@@ -11,9 +12,10 @@ object Version3 {
       rover <- parseRover(inputRover)
       commands = parseCommands(inputCommands)
       result = executeAll(planet, rover, commands)
+      // TODO: yield the correct rendered string
+      // previous implementation
+      //   yield render(result)
     } yield ???
-    // previous implementation
-    // } yield render(result)
 
   // PARSING
   def parseCommand(input: Char): Command =
@@ -85,9 +87,11 @@ object Version3 {
     s"O:${renderComplete(hit.rover)}"
 
   // DOMAIN
-  def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Either[ObstacleDetected, Rover] = ???
-  // previous implementation
-  // commands.foldLeft(rover)((prev, cmd) => execute(planet, prev, cmd))
+  // TODO: combine prev and current execution result w/ a monadic combinator
+  // previous implementation:
+  //   commands.foldLeft(rover)((prev, cmd) => execute(planet, prev, cmd))
+  def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Either[ObstacleDetected, Rover] =
+    commands.foldLeft(rover.asRight)((prev, cmd) => ???)
 
   def execute(planet: Planet, rover: Rover, command: Command): Rover =
     command match {

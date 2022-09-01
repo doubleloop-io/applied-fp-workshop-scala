@@ -1,5 +1,6 @@
 package marsroverkata
 
+// V4 - Focus on infrastructure (compose I/O operations)
 object Version4 {
 
   import marsroverkata.Infra._

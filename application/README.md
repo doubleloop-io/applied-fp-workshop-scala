@@ -24,7 +24,7 @@ Develop an API (types and functions) that executes commands:
 - The planet grid has a wrapping effect from one edge to another (pacman).
 - For now, ignore obstacle detection logic
 
-## V2 - Focus on boundaries (from primitive types to domain types and viceversa)
+## V2 - Focus on boundaries (from primitive to domain types and viceversa)
 
 Our domain is declared with rich types but inputs/outputs are should be primitive types
 
@@ -33,7 +33,7 @@ Our domain is declared with rich types but inputs/outputs are should be primitiv
 - Write a parser for input commands (skip unknown chars)
 - Render the final result as string: "positionX:positionY:orientation"
 
-## V3 - More domain logic (effect in domain logic)
+## V3 - More domain logic (handle obstacles w/ effects)
 
 Extend the API and it's implementation to handle obstacle detection:
 
@@ -55,7 +55,7 @@ Extend the "pure" way of work also to the infrastructural layer
   - print final rover output to the console if everything is ok
   - handle, safely, any unhandled exception and print them
 
-## V5 - Obtain testability (Port/Adapter architectural style)
+## V5 - Testability via injection (Port/Adapter architectural style)
 
 Apply Dependency Inversion Principle and Dependency Injection to our application
 
@@ -64,7 +64,7 @@ Apply Dependency Inversion Principle and Dependency Injection to our application
 - Define injectable application
 - Use test doubles in test suite
 
-## V6 - Obtain testability (Elm-ish architectural style)
+## V6 - Testability via values (Elm-ish architectural style)
 
 Use values to obtain a strong and simple separation between domain and infrastructure logic
 

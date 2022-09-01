@@ -1,5 +1,6 @@
 package marsroverkata
 
+// V5 - Testability via injection (Port/Adapter architectural style)
 object Version5 {
 
   import marsroverkata.Infra._

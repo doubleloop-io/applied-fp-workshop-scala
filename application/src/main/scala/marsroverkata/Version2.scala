@@ -1,6 +1,6 @@
 package marsroverkata
 
-// V2 - Focus on boundaries
+// V2 - Focus on boundaries (from primitive to domain types and viceversa)
 object Version2 {
 
   import Rotation._, Orientation._, Movement._, Command._, ParseError._

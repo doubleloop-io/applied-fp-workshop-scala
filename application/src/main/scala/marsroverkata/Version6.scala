@@ -1,5 +1,6 @@
 package marsroverkata
 
+// V6 - Testability via values (Elm-ish architectural style)
 object Version6 {
 
   import marsroverkata.Infra._
