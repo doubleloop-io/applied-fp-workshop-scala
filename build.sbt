@@ -1,4 +1,3 @@
-
 lazy val global = project
   .in(file("."))
   .settings(settings)
