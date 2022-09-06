@@ -18,7 +18,7 @@ object Version6 {
   enum Effect {
     case LoadMission(planetFile: String, roverFile: String)
     case AskCommands
-    case ReportObstacleHit(rover: ObstacleDetected)
+    case ReportObstacleDetected(rover: ObstacleDetected)
     case ReportCommandSequenceCompleted(rover: Rover)
     case ReportKo(error: Throwable)
   }
@@ -44,8 +44,8 @@ object Version6 {
       case (AppState.Ready(planet, rover), Event.CommandsReceived(commands)) =>
         executeAll(planet, rover, commands)
           .fold(
-            hit => (AppState.Ready(planet, hit.rover), Effect.ReportObstacleHit(hit)),
-            complete => (AppState.Ready(planet, complete), Effect.ReportCommandSequenceCompleted(complete))
+            detected => (AppState.Ready(planet, detected.rover), Effect.ReportObstacleDetected(detected)),
+            completed => (AppState.Ready(planet, completed), Effect.ReportCommandSequenceCompleted(completed))
           )
 
       case _ =>
@@ -74,7 +74,7 @@ object Version6 {
           .map(Event.CommandsReceived.apply)
           .map(continue)
 
-      case Effect.ReportObstacleHit(rover) =>
+      case Effect.ReportObstacleDetected(rover) =>
         writeObstacleDetected(rover)
           .map(stop)
 

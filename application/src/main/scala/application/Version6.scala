@@ -23,7 +23,7 @@ object Version6 {
   enum Effect {
     case LoadMission(planetFile: String, roverFile: String)
     case AskCommands
-    case ReportObstacleHit(rover: ObstacleDetected)
+    case ReportObstacleDetected(rover: ObstacleDetected)
     case ReportCommandSequenceCompleted(rover: Rover)
     case ReportKo(error: Throwable)
   }
@@ -83,7 +83,7 @@ object Version6 {
           // NOTE: signal to the Runtime to continue the loop
           .map(continue)
 
-      case Effect.ReportObstacleHit(rover) =>
+      case Effect.ReportObstacleDetected(rover) =>
         writeObstacleDetected(rover)
           // NOTE: signal to the Runtime to stop the loop
           .map(stop)

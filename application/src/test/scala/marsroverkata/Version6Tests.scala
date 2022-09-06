@@ -47,7 +47,7 @@ class Version6Tests extends CatsEffectSuite {
     val rover = Rover(Position(0, 0), N)
     val result = update(AppState.Ready(planet, rover), Event.CommandsReceived(List(Move(Forward), Move(Forward), Move(Forward))))
     val lastRover = Rover(Position(0, 1), N)
-    val expected = (AppState.Ready(planet, lastRover), Effect.ReportObstacleHit(ObstacleDetected(lastRover)))
+    val expected = (AppState.Ready(planet, lastRover), Effect.ReportObstacleDetected(ObstacleDetected(lastRover)))
     assertEquals(expected, result)
   }
 

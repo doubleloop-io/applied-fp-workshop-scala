@@ -88,7 +88,7 @@ Apply Dependency Inversion Principle and Dependency Injection to our application
 - Define injectable application
 - Use test doubles in test suite
 
-## V6 - Testability via values (Elm-ish architectural style)
+## V6 (bonus iteration) - Testability via values (Elm-ish architectural style)
 
 Use values to obtain a strong and simple separation between domain and infrastructure logic
 
