@@ -114,10 +114,6 @@ x(y + z) = (xy) + (xz)
 
 ---
 
-## before we jump to the code
-
----
-
 ## What should we **expect**
 
 ## from a fp workshop?
@@ -128,7 +124,7 @@ x(y + z) = (xy) + (xz)
 
 ## **learning** to program **again**
 
----
+</br>
 
 ## use this **place** and **time**
 
