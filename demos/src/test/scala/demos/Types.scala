@@ -13,7 +13,9 @@ class TypesDemo extends munit.FunSuite {
    * MODEL DATA (ADT)
    */
 
-  // Proper type
+  // Single Types
+
+  // Proper types
   // es: Int, String
 
   // Type alias - rename a type without change it
@@ -22,18 +24,20 @@ class TypesDemo extends munit.FunSuite {
   // Type wrapper - rename a type and change it
   case class Age(value: Int)
 
-  // Product type - put many types together. e.g. struct in C, POJO in JAVA, POCO in C#.
+  // Composed Types
+
+  // Product types - put many types together. e.g. struct in C, POJO in JAVA, POCO in C#.
   // Useful to model independent data in AND e.g. a Person is composed by a name *and* an age.
   case class Person(name: String, age: Int)
 
-  // Sum type - model exclusive types e.g. union in C, enum in JAVA/C#.
+  // Sum types - model exclusive types e.g. union in C, enum in JAVA/C#.
   // Useful to model dependant data in OR e.g. the Light is on *or* off.
   enum LightState {
     case On(intensity: Double)
     case Off
   }
 
-  // Polymorphic Type
+  // Polymorphic Types
   // Type with generics are called type constructor
   // While the generics are called type parameters
   case class Triple[A, B, C](a: A, b: B, c: C)
@@ -58,7 +62,7 @@ class TypesDemo extends munit.FunSuite {
     andThen(parseString, asString)(in)
 
   /*
-   * MULTIPLE DISPATCH (DIFFERENT BEHAVIOR FOR DIFFERENT DATA)
+   * MULTIPLE DISPATCH (DIFFERENT BEHAVIOR FOR DIFFERENT CASES)
    */
 
   // Multiple dispatch is a feature in which a function can be dispatched

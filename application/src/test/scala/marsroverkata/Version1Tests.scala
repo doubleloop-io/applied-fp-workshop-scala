@@ -66,7 +66,7 @@ class Version1Tests extends munit.FunSuite {
 //    val planet = Planet 5 4
 //    val rover = Rover: 0 0 N
 //    val commands = Commands: L F R B
-//    val result = executeAll(rover, planet, commands)
+//    val result = executeAll(planet, rover, commands)
 //    assertEquals(result, Rover: 4 3 N)
   }
 }
