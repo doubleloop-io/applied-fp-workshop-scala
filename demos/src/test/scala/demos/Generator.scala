@@ -3,35 +3,27 @@ package demos
 @munit.IgnoreSuite
 class GeneratorDemo extends munit.FunSuite {
 
-  trait Generator[+A] { self =>
+  case class Generator[+A](run: () => A) {
+    def map[B](f: A => B): Generator[B] =
+      Generator(() => f(run()))
 
-    def map[B](f: A => B): Generator[B] = new Generator[B] {
-      def run(): B = f(self.run())
-    }
-
-    def flatMap[B](f: A => Generator[B]): Generator[B] = new Generator[B] {
-      def run(): B = f(self.run()).run()
-    }
-
-    def run(): A
-
+    def flatMap[B](f: A => Generator[B]): Generator[B] =
+      Generator(() => f(run()).run())
   }
 
-  def const[A](a: A) = new Generator[A] {
-    def run(): A = a
-  }
+  def const[A](a: A) = Generator(() => a)
 
-  val integers = new Generator[Int] {
+  val integers = Generator { () =>
     val rand = new scala.util.Random()
-    def run(): Int = rand.nextInt()
+    rand.nextInt()
   }
 
-  val booleans = integers.map(_ > 0)
+  val booleans: Generator[Boolean] = integers.map(_ > 0)
 
-  val intPairs = integers.flatMap(x => integers.map(y => (x, y)))
+  val intPairs: Generator[(Int, Int)] = integers.flatMap(x => integers.map(y => (x, y)))
 
   def pairs[A, B](ga: Generator[A], gb: Generator[B]): Generator[(A, B)] =
-    ga.flatMap(x => gb.map(y => (x, y)))
+    ga.flatMap(a => gb.map(b => (a, b)))
 
   def choose(lo: Int, hi: Int): Generator[Int] =
     for (x <- integers) yield lo + math.abs(x) % (hi - lo)
@@ -80,7 +72,7 @@ class GeneratorDemo extends munit.FunSuite {
 
   case class Item(description: String, qty: Int, size: String)
 
-  val items = for {
+  val items: Generator[Item] = for {
     desc <- const("T-shirt")
     qty <- choose(0, 1000)
     size <- oneOf("S", "M", "L", "XL")
@@ -90,15 +82,21 @@ class GeneratorDemo extends munit.FunSuite {
     predicate: A => Boolean
   ): Unit = {
     for (_ <- 1 until count) {
-      val value = ga.run()
-      val result = predicate(value)
+      val value: A = ga.run()
+      val result: Boolean = predicate(value)
       assert(result, "test failed for " + value)
     }
     println("passed " + count + " tests")
   }
 
-  def example() =
-    check(pairs(lists(integers), lists(integers))) { case (xs, ys) =>
+  test("example") {
+    val pairsOfList: Generator[(List[Int], List[Int])] = pairs(lists(integers), lists(integers))
+
+    check(pairsOfList) { pairs =>
+      val (xs: List[Int], ys: List[Int]) = pairs
+
+      // false should be >=
       (xs ++ ys).length > xs.length
     }
+  }
 }
