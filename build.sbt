@@ -38,6 +38,10 @@ lazy val settings = Seq(
   testFrameworks += new TestFramework("munit.Framework")
 )
 
+// More info:
+// 2.x https://docs.scala-lang.org/overviews/compiler-options/index.html
+// 3.x https://docs.scala-lang.org/scala3/guides/migration/options-new.html
+// 2.x to 3.x https://docs.scala-lang.org/scala3/guides/migration/options-intro.html
 lazy val scalacSettings = Seq(
   "-no-indent"
 )
