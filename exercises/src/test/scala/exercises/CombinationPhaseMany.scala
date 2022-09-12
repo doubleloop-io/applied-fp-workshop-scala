@@ -23,6 +23,7 @@ class CombinationPhaseMany extends munit.FunSuite {
   //  ... = ...
   //  ... <- ...
   // } yield ...
+
   def createItem(name: String, qty: String): Option[Item] = ???
 
   def checkIn(qty: Int, item: Item): Item =
@@ -38,7 +39,11 @@ class CombinationPhaseMany extends munit.FunSuite {
   }
 
   test("creation, checkIn and checkOut") {
-    // TODO: use for-comprehension to, create, checkIn 10 and then checkOut 20 items
+    // TODO: use for-comprehension to:
+    //  - create a 100 "foo" item
+    //  - checkIn 10
+    //  - checkOut 20
+    //  - yield final item
     val result: Option[Item] = ???
     assertEquals(result, Some(Item("foo", 90)))
   }
