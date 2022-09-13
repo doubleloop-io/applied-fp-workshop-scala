@@ -1,6 +1,16 @@
 package application
 
-// V6 - Testability via values (Elm-ish architectural style)
+/*
+    ## V3 - More domain logic (handle obstacles w/ effects)
+
+    Extend the API and it's implementation to handle obstacle detection:
+
+    - Implement obstacle detection before each move to a new square.
+    - If the rover encounters an obstacle, rest in the same position and aborts the sequence.
+    - Render the final result as string:
+      - sequence completed: "positionX:positionY:orientation"
+      - obstacle detected: "O:positionX:positionY:orientation"
+ */
 object Version6 {
 
   import application.Infra._

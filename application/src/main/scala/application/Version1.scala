@@ -1,6 +1,15 @@
 package application
 
-// V1 - Focus on the center (pure domain logic)
+/*
+    ## V1 - Focus on the center (pure domain logic)
+
+    Develop an API (types and functions) that executes commands:
+
+    - Implement all commands logic.
+    - Commands are sent in batch and executed sequentially.
+    - The planet grid has a wrapping effect from one edge to another (pacman).
+    - For now, ignore obstacle detection logic
+ */
 object Version1 {
 
   // TODO 1: Those type alias are only placeholders,

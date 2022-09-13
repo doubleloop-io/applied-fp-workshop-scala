@@ -1,6 +1,19 @@
 package application
 
-// V4 - Focus on infrastructure (compose I/O operations)
+/*
+    ## V4 - Focus on infrastructure (compose I/O operations)
+
+    Extend the pure way of work also to the infrastructural layer
+
+    - Read planet data from file into IO (size and obstacles)
+    - Read rover from file into IO (position and orientation)
+    - Ask and read commands from console into IO
+    - Implement an entrypoint that:
+      - orchestrate domain, infrastructure, parsing and error handling
+      - run the whole app lifted in the IO monad
+      - print final rover output to the console if everything is ok
+      - recover from any unhandled error and print it
+ */
 object Version4 {
 
   import application.Infra._

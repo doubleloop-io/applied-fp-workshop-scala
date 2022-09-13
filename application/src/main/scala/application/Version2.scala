@@ -1,6 +1,15 @@
 package application
 
-// V2 - Focus on boundaries (from primitive to domain types and viceversa)
+/*
+    ## V2 - Focus on boundaries (from primitive to domain types and viceversa)
+
+    Our domain is declared with rich types but inputs/outputs are should be primitive types
+
+    - Write a parser for input planet data (size, obstacles)
+    - Write a parser for input rover data (position, orientation)
+    - Write a parser for input commands (skip unknown chars)
+    - Render the final result as string: "positionX:positionY:orientation"
+ */
 object Version2 {
 
   import Rotation._, Orientation._, Movement._, Command._, ParseError._
