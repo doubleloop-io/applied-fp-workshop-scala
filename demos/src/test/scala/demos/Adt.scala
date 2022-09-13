@@ -1,7 +1,7 @@
 package demos
 
 @munit.IgnoreSuite
-class TypesDemo extends munit.FunSuite {
+class AdtDemo extends munit.FunSuite {
 
   /*
    * In FP types are used to model/describe data and behavior intent.
