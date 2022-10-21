@@ -63,8 +63,8 @@ object Parsing {
   }
 
   def parseInts(
-      separator: String,
-      input: String
+    separator: String,
+    input: String
   ): Either[Throwable, (Int, Int)] =
     Either.catchNonFatal {
       val parts = input.split(separator).toList
