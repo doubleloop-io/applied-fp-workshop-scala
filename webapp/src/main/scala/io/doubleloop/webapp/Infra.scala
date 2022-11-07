@@ -5,9 +5,9 @@ import Parsing._, Rendering._
 import cats.syntax.either._
 import cats.syntax.traverse._
 import cats.syntax.applicativeError._
-import scala.Console.{GREEN, RED, RESET}
+import scala.Console.{ GREEN, RED, RESET }
 import scala.io.Source
-import cats.effect.{IO, Resource}
+import cats.effect.{ IO, Resource }
 
 object Infra {
 
@@ -41,7 +41,7 @@ object Infra {
     loadLines(file).map(lines =>
       lines match {
         case Array(first, second) => (first, second)
-        case _ => throw new RuntimeException(s"Invalid file content: $file")
+        case _                    => throw new RuntimeException(s"Invalid file content: $file")
       }
     )
 

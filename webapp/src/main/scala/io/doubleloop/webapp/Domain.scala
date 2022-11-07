@@ -6,18 +6,16 @@ import cats.syntax.either._
 object Domain {
 
   def executeAll(
-      planet: Planet,
-      rover: Rover,
-      commands: List[Command]
+    planet: Planet,
+    rover: Rover,
+    commands: List[Command]
   ): Either[ObstacleDetected, Rover] =
-    commands.foldLeft(rover.asRight)((prev, cmd) =>
-      prev.flatMap(execute(planet, _, cmd))
-    )
+    commands.foldLeft(rover.asRight)((prev, cmd) => prev.flatMap(execute(planet, _, cmd)))
 
   def execute(
-      planet: Planet,
-      rover: Rover,
-      command: Command
+    planet: Planet,
+    rover: Rover,
+    command: Command
   ): Either[ObstacleDetected, Rover] =
     command match {
       case Turn(rotation) => turn(rover, rotation).asRight
@@ -48,9 +46,9 @@ object Domain {
     })
 
   def move(
-      planet: Planet,
-      rover: Rover,
-      move: Movement
+    planet: Planet,
+    rover: Rover,
+    move: Movement
   ): Either[ObstacleDetected, Rover] =
     move match {
       case Forward  => moveForward(planet, rover)
@@ -58,15 +56,15 @@ object Domain {
     }
 
   def moveForward(
-      planet: Planet,
-      rover: Rover
+    planet: Planet,
+    rover: Rover
   ): Either[ObstacleDetected, Rover] =
     next(planet, rover, delta(rover.orientation))
       .map(x => rover.copy(position = x))
 
   def moveBackward(
-      planet: Planet,
-      rover: Rover
+    planet: Planet,
+    rover: Rover
   ): Either[ObstacleDetected, Rover] =
     next(planet, rover, delta(opposite(rover.orientation)))
       .map(x => rover.copy(position = x))
@@ -88,9 +86,9 @@ object Domain {
     }
 
   def next(
-      planet: Planet,
-      rover: Rover,
-      delta: Delta
+    planet: Planet,
+    rover: Rover,
+    delta: Delta
   ): Either[ObstacleDetected, Position] = {
     val position = rover.position
     val candidate = position.copy(

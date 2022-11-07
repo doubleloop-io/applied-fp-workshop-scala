@@ -6,9 +6,9 @@ import cats.effect.IO
 object CommandHandler {
 
   def handleCommands(
-      planetReader: PlanetReader,
-      roverReader: RoverReader,
-      inputCommands: String
+    planetReader: PlanetReader,
+    roverReader: RoverReader,
+    inputCommands: String
   ): IO[Either[ObstacleDetected, Rover]] =
     for {
       planet <- planetReader.read()
