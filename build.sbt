@@ -46,11 +46,10 @@ lazy val scalacSettings = Seq(
   "-no-indent"
 )
 
-lazy val resolversSettings = Seq(
-  Resolver.sonatypeRepo("public"),
-  Resolver.sonatypeRepo("snapshots"),
-  Resolver.sonatypeRepo("releases")
-)
+lazy val resolversSettings =
+  Resolver.sonatypeOssRepos("public") ++
+    Resolver.sonatypeOssRepos("snapshots") ++
+    Resolver.sonatypeOssRepos("releases")
 
 val CatsCoreVersion = "2.9.0"
 val CatsEffectVersion = "3.3.14"
