@@ -1,16 +1,15 @@
 package application
 
 /*
-    ## V3 - More domain logic (handle obstacles w/ effects)
+    ## V5 - Testability via injection (Port/Adapter architectural style)
 
-    Extend the API and it's implementation to handle obstacle detection:
-
-    - Implement obstacle detection before each move to a new square.
-    - If the rover encounters an obstacle, rest in the same position and aborts the sequence.
-    - Render the final result as string:
-      - sequence completed: "positionX:positionY:orientation"
-      - obstacle detected: "O:positionX:positionY:orientation"
+    Apply Dependency Inversion Principle and Dependency Injection to our application
+    - Look to the Ports for read planet, rover and commands
+    - Implement port adapters
+    - Define injectable application
+    - Use test doubles in test suite
  */
+
 object Version5 {
 
   import application.Infra._
