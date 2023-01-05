@@ -1,15 +1,12 @@
 package application
 
 /*
-    ## V3 - More domain logic (handle obstacles w/ effects)
+    ## V6 (bonus iteration) - Testability via values (Elm-ish architectural style)
 
-    Extend the API and it's implementation to handle obstacle detection:
+    Use values to obtain a strong and simple separation between domain and infrastructure logic
 
-    - Implement obstacle detection before each move to a new square.
-    - If the rover encounters an obstacle, rest in the same position and aborts the sequence.
-    - Render the final result as string:
-      - sequence completed: "positionX:positionY:orientation"
-      - obstacle detected: "O:positionX:positionY:orientation"
+    - implement init, update and test them without infrastructure and mocks
+    - implement infrastructure and test it with integration tests
  */
 object Version6 {
 
