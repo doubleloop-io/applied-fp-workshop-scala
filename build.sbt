@@ -53,7 +53,7 @@ lazy val resolversSettings =
 
 val CatsCoreVersion = "2.9.0"
 val CatsEffectVersion = "3.4.3"
-val CirisVersion = "3.0.0"
+val CirisVersion = "3.1.0"
 val Http4sVersion = "0.23.16"
 val MunitVersion = "0.7.29"
 val LogbackVersion = "1.4.5"
