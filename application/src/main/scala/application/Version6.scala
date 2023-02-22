@@ -10,7 +10,8 @@ package application
  */
 object Version6 {
 
-  import application.Infra._
+  import application.Console._
+  import application.File._
   import Orientation._, Command._, ParseError._
   import cats.syntax.either._
   import cats.syntax.traverse._

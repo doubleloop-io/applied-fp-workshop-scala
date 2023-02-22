@@ -1,6 +1,6 @@
 package io.doubleloop.webapp
 
-import Parsing._, Domain._, Infra._
+import Parsing._, Domain._
 import cats.effect.IO
 
 object CommandHandler {

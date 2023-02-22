@@ -16,7 +16,7 @@ package application
  */
 object Version4 {
 
-  import application.Infra._
+  import application.Console._
   import Orientation._, Command._, ParseError._
   import cats.syntax.either._
   import cats.syntax.traverse._

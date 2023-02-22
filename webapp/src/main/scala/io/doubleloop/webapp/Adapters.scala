@@ -1,6 +1,6 @@
 package io.doubleloop.webapp
 
-import Infra._
+import File._
 import cats.effect.IO
 
 object Adapters {
