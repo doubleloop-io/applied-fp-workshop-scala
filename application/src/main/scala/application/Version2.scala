@@ -30,7 +30,7 @@ object Version2 {
   // TODO 2: combine parseCommand (input = "BFFLLR")
   def parseCommands(input: String): List[Command] = ???
 
-  // TODO 3: combine parseInts (input = "3,2"), error should be InvalidRover
+  // TODO 3: combine parseIntTuple (input = "3,2"), error should be InvalidRover
   def parsePosition(input: String): Either[ParseError, Position] = ???
 
   // TODO 4: implements (input = "N"), error should be InvalidRover
@@ -39,7 +39,7 @@ object Version2 {
   // TODO 5: combine parsePosition and parseOrientation, error should be InvalidRover
   def parseRover(input: (String, String)): Either[ParseError, Rover] = ???
 
-  // TODO 6: combine parseInts (input = "5x5"), error should be InvalidPlanet
+  // TODO 6: combine parseIntTuple (input = "5x5"), error should be InvalidPlanet
   def parseSize(input: String): Either[ParseError, Size] = ???
 
   // TODO 7: combine parsePosition (input = "3,2"), error should be InvalidPlanet
@@ -52,7 +52,7 @@ object Version2 {
   def parsePlanet(input: (String, String)): Either[ParseError, Planet] = ???
 
   // NOTE: utility function to split a string in a pair of ints
-  def parseInts(separator: String, input: String): Either[Throwable, (Int, Int)] =
+  def parseIntTuple(separator: String, input: String): Either[Throwable, (Int, Int)] =
     Either.catchNonFatal {
       val parts = input.split(separator).toList
       (parts(0).trim.toInt, parts(1).trim.toInt)

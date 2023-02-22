@@ -37,12 +37,12 @@ object Parsing {
     }
 
   def parsePosition(input: String): Either[ParseError, Position] =
-    parseInts(",", input)
+    parseIntTuple(",", input)
       .map(Position.apply)
       .leftMap(_ => InvalidRover(s"invalid position: $input"))
 
   def parseSize(input: String): Either[ParseError, Size] =
-    parseInts("x", input)
+    parseIntTuple("x", input)
       .map(Size.apply)
       .leftMap(_ => InvalidPlanet(s"invalid size: $input"))
 
@@ -62,7 +62,7 @@ object Parsing {
     } yield Planet(size, obstacles)
   }
 
-  def parseInts(
+  def parseIntTuple(
     separator: String,
     input: String
   ): Either[Throwable, (Int, Int)] =
