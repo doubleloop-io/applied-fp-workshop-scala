@@ -15,12 +15,12 @@ class Version1Tests extends munit.FunSuite {
   // +-----+-----+-----+-----+-----+
 
   import application.answers.Version1._
-  import application.answers.Version1.Rotation._, Orientation._, Movement._, Command._
+  import application.answers.Version1.Orientation._, Command._
 
   test("turn right command") {
     val planet = Planet(Size(5, 4))
     val rover = Rover(Position(0, 0), N)
-    val command = Turn(OnRight)
+    val command = TurnRight
     val result = execute(planet, rover, command)
     assertEquals(result, Rover(Position(0, 0), E))
   }
@@ -28,7 +28,7 @@ class Version1Tests extends munit.FunSuite {
   test("turn left command") {
     val planet = Planet(Size(5, 4))
     val rover = Rover(Position(0, 0), N)
-    val command = Turn(OnLeft)
+    val command = TurnLeft
     val result = execute(planet, rover, command)
     assertEquals(result, Rover(Position(0, 0), W))
   }
@@ -36,7 +36,7 @@ class Version1Tests extends munit.FunSuite {
   test("move forward command") {
     val planet = Planet(Size(5, 4))
     val rover = Rover(Position(0, 1), N)
-    val command = Move(Forward)
+    val command = MoveForward
     val result = execute(planet, rover, command)
     assertEquals(result, Rover(Position(0, 2), N))
   }
@@ -44,7 +44,7 @@ class Version1Tests extends munit.FunSuite {
   test("move forward command, opposite orientation") {
     val planet = Planet(Size(5, 4))
     val rover = Rover(Position(0, 1), S)
-    val command = Move(Forward)
+    val command = MoveForward
     val result = execute(planet, rover, command)
     assertEquals(result, Rover(Position(0, 0), S))
   }
@@ -52,7 +52,7 @@ class Version1Tests extends munit.FunSuite {
   test("move backward command") {
     val planet = Planet(Size(5, 4))
     val rover = Rover(Position(0, 1), N)
-    val command = Move(Backward)
+    val command = MoveBackward
     val result = execute(planet, rover, command)
     assertEquals(result, Rover(Position(0, 0), N))
   }
@@ -60,7 +60,7 @@ class Version1Tests extends munit.FunSuite {
   test("move backward command, opposite orientation") {
     val planet = Planet(Size(5, 4))
     val rover = Rover(Position(0, 1), S)
-    val command = Move(Backward)
+    val command = MoveBackward
     val result = execute(planet, rover, command)
     assertEquals(result, Rover(Position(0, 2), S))
   }
@@ -68,7 +68,7 @@ class Version1Tests extends munit.FunSuite {
   test("wrap on North") {
     val planet = Planet(Size(5, 4))
     val rover = Rover(Position(0, 3), N)
-    val command = Move(Forward)
+    val command = MoveForward
     val result = execute(planet, rover, command)
     assertEquals(result, Rover(Position(0, 0), N))
   }
@@ -76,7 +76,7 @@ class Version1Tests extends munit.FunSuite {
   test("go to opposite angle") {
     val planet = Planet(Size(5, 4))
     val rover = Rover(Position(0, 0), N)
-    val commands = List(Turn(OnLeft), Move(Forward), Turn(OnRight), Move(Backward))
+    val commands = List(TurnLeft, MoveForward, TurnRight, MoveBackward)
     val result = executeAll(planet, rover, commands)
     assertEquals(result, Rover(Position(4, 3), N))
   }

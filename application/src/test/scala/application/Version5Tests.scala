@@ -8,7 +8,7 @@ import munit.CatsEffectSuite
 class Version5Tests extends CatsEffectSuite {
 
   import application.Version5._
-  import application.Version5.Rotation._, Orientation._, Movement._, Command._, ParseError._
+  import application.Version5.Orientation._, Command._, ParseError._
   import cats.effect.{ IO, Ref }
   import scala.Console.{ GREEN, RED, RESET }
 
@@ -20,7 +20,7 @@ class Version5Tests extends CatsEffectSuite {
       stubPlanetReader = createPlanetReader(Planet(Size(5, 4), List(Obstacle(Position(2, 0)), Obstacle(Position(0, 3)))))
       stubRoverReader = createRoverReader(Rover(Position(0, 0), N))
       stubCommandsReader = createCommandsReader(
-        List(Turn(OnRight), Move(Backward), Move(Backward), Turn(OnLeft), Move(Backward), Turn(OnRight), Move(Forward))
+        List(TurnRight, MoveBackward, MoveBackward, TurnLeft, MoveBackward, TurnRight, MoveForward)
       )
       spyDisplayWriter = createDisplayWriter(output)
 
@@ -40,7 +40,7 @@ class Version5Tests extends CatsEffectSuite {
       // Initialize fake adapters
       stubPlanetReader = createPlanetReader(Left(InvalidPlanet("some error")))
       stubRoverReader = createRoverReader(Rover(Position(0, 0), N))
-      stubCommandsReader = createCommandsReader(List(Turn(OnRight), Move(Forward), Move(Forward)))
+      stubCommandsReader = createCommandsReader(List(TurnRight, MoveForward, MoveForward))
       spyDisplayWriter = createDisplayWriter(output)
 
       // Wiring dependencies

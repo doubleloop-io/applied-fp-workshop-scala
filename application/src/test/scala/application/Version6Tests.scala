@@ -8,7 +8,7 @@ import munit.CatsEffectSuite
 class Version6Tests extends CatsEffectSuite {
 
   import application.Version6._
-  import application.Version6.Rotation._, Orientation._, Movement._, Command._, ParseError._
+  import application.Version6.Orientation._, Command._, ParseError._
   import cats.effect.IO
   import scala.Console.{ GREEN, RED, RESET }
 
@@ -36,7 +36,7 @@ class Version6Tests extends CatsEffectSuite {
   test("all commands executed") {
     val planet = Planet(Size(5, 5), List())
     val rover = Rover(Position(0, 0), N)
-    val result = update(AppState.Ready(planet, rover), Event.CommandsReceived(List(Move(Forward), Move(Forward), Move(Forward))))
+    val result = update(AppState.Ready(planet, rover), Event.CommandsReceived(List(MoveForward, MoveForward, MoveForward)))
     val lastRover = Rover(Position(0, 3), N)
     val expected = (AppState.Ready(planet, lastRover), Effect.ReportCommandSequenceCompleted(lastRover))
     assertEquals(expected, result)
@@ -45,7 +45,7 @@ class Version6Tests extends CatsEffectSuite {
   test("hit obstacle") {
     val planet = Planet(Size(5, 5), List(Obstacle(Position(0, 2))))
     val rover = Rover(Position(0, 0), N)
-    val result = update(AppState.Ready(planet, rover), Event.CommandsReceived(List(Move(Forward), Move(Forward), Move(Forward))))
+    val result = update(AppState.Ready(planet, rover), Event.CommandsReceived(List(MoveForward, MoveForward, MoveForward)))
     val lastRover = Rover(Position(0, 1), N)
     val expected = (AppState.Ready(planet, lastRover), Effect.ReportObstacleDetected(ObstacleDetected(lastRover)))
     assertEquals(expected, result)

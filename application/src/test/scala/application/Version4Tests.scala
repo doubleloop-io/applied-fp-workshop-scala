@@ -8,7 +8,7 @@ import munit.CatsEffectSuite
 class Version4Tests extends CatsEffectSuite {
 
   import application.Version4._
-  import application.Version4.Rotation._, Orientation._, Movement._, Command._, ParseError._
+  import application.Version4.Orientation._, Command._, ParseError._
   import cats.effect.IO
   import scala.Console.{ GREEN, RED, RESET }
 
@@ -26,7 +26,7 @@ class Version4Tests extends CatsEffectSuite {
 
   test("load commands (integration test)") {
     val result = runConsole("RRF", loadCommands())
-    assertIO(result, List(Turn(OnRight), Turn(OnRight), Move(Forward)))
+    assertIO(result, List(TurnRight, TurnRight, MoveForward))
   }
 
   test("go to opposite angle (integration test)") {

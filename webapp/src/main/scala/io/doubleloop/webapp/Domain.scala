@@ -1,6 +1,6 @@
 package io.doubleloop.webapp
 
-import Rotation._, Orientation._, Movement._, Command._, ParseError._
+import Orientation._, Command._, ParseError._
 import cats.syntax.either._
 
 object Domain {
@@ -12,21 +12,13 @@ object Domain {
   ): Either[ObstacleDetected, Rover] =
     commands.foldLeft(rover.asRight)((prev, cmd) => prev.flatMap(execute(planet, _, cmd)))
 
-  def execute(
-    planet: Planet,
-    rover: Rover,
-    command: Command
-  ): Either[ObstacleDetected, Rover] =
+  def execute(planet: Planet, rover: Rover, command: Command): Either[ObstacleDetected, Rover] =
     command match {
-      case Turn(rotation) => turn(rover, rotation).asRight
-      case Move(movement) => move(planet, rover, movement)
-      case Unknown        => rover.asRight
-    }
-
-  def turn(rover: Rover, turn: Rotation): Rover =
-    turn match {
-      case OnRight => turnRight(rover)
-      case OnLeft  => turnLeft(rover)
+      case TurnRight    => turnRight(rover).asRight
+      case TurnLeft     => turnLeft(rover).asRight
+      case MoveForward  => moveForward(planet, rover)
+      case MoveBackward => moveBackward(planet, rover)
+      case Unknown      => rover.asRight
     }
 
   def turnRight(rover: Rover): Rover =
@@ -44,16 +36,6 @@ object Domain {
       case S => E
       case E => N
     })
-
-  def move(
-    planet: Planet,
-    rover: Rover,
-    move: Movement
-  ): Either[ObstacleDetected, Rover] =
-    move match {
-      case Forward  => moveForward(planet, rover)
-      case Backward => moveBackward(planet, rover)
-    }
 
   def moveForward(
     planet: Planet,

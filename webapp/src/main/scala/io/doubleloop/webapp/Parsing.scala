@@ -1,6 +1,6 @@
 package io.doubleloop.webapp
 
-import Rotation._, Orientation._, Movement._, Command._, ParseError._
+import Orientation._, Command._, ParseError._
 import cats.syntax.either._
 import cats.syntax.traverse._
 import cats.syntax.applicativeError._
@@ -9,10 +9,10 @@ object Parsing {
 
   def parseCommand(input: Char): Command =
     input.toString.toLowerCase match {
-      case "f" => Move(Forward)
-      case "b" => Move(Backward)
-      case "r" => Turn(OnRight)
-      case "l" => Turn(OnLeft)
+      case "f" => MoveForward
+      case "b" => MoveBackward
+      case "r" => TurnRight
+      case "l" => TurnLeft
       case _   => Unknown
     }
 

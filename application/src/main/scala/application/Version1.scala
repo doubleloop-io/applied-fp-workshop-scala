@@ -17,8 +17,6 @@ object Version1 {
   type Rover = String
   type Planet = String
   type Command = String
-  type Rotation = String
-  type Movement = String
 
   // TODO 2: Execute all commands and accumulate final rover state
   def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Rover = ???
@@ -26,22 +24,16 @@ object Version1 {
   // TODO 3: Dispatch one command to a specific function
   def execute(planet: Planet, rover: Rover, command: Command): Rover = ???
 
-  // TODO 4: Dispatch to a specific turn function
-  def turn(rover: Rover, turn: Rotation): Rover = ???
-
-  // TODO 5: Dispatch to a specific move function
-  def move(planet: Planet, rover: Rover, move: Movement): Rover = ???
-
-  // TODO 6: Change rover orientation
+  // TODO 4: Change rover orientation
   def turnRight(rover: Rover): Rover = ???
 
-  // TODO 7: Change rover orientation
+  // TODO 5: Change rover orientation
   def turnLeft(rover: Rover): Rover = ???
 
-  // TODO 8: Change rover position
+  // TODO 6: Change rover position
   def moveForward(planet: Planet, rover: Rover): Rover = ???
 
-  // TODO 9: Change rover position
+  // TODO 7: Change rover position
   def moveBackward(planet: Planet, rover: Rover): Rover = ???
 
   // NOTE: utility function to get the pacman effect

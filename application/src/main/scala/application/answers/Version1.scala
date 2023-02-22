@@ -2,21 +2,17 @@ package application.answers
 
 object Version1 {
 
-  import Rotation._, Orientation._, Movement._, Command._
+  import Orientation._, Command._
 
   def executeAll(planet: Planet, rover: Rover, commands: List[Command]): Rover =
     commands.foldLeft(rover)((prev, cmd) => execute(planet, prev, cmd))
 
   def execute(planet: Planet, rover: Rover, command: Command): Rover =
     command match {
-      case Turn(rotation) => turn(rover, rotation)
-      case Move(movement) => move(planet, rover, movement)
-    }
-
-  def turn(rover: Rover, turn: Rotation): Rover =
-    turn match {
-      case OnRight => turnRight(rover)
-      case OnLeft  => turnLeft(rover)
+      case TurnRight    => turnRight(rover)
+      case TurnLeft     => turnLeft(rover)
+      case MoveForward  => moveForward(planet, rover)
+      case MoveBackward => moveBackward(planet, rover)
     }
 
   def turnRight(rover: Rover): Rover =
@@ -34,12 +30,6 @@ object Version1 {
       case S => E
       case E => N
     })
-
-  def move(planet: Planet, rover: Rover, move: Movement): Rover =
-    move match {
-      case Forward  => moveForward(planet, rover)
-      case Backward => moveBackward(planet, rover)
-    }
 
   def moveForward(planet: Planet, rover: Rover): Rover =
     rover.copy(position = next(planet, rover, delta(rover.orientation)))
@@ -81,16 +71,10 @@ object Version1 {
   case class Rover(position: Position, orientation: Orientation)
 
   enum Command {
-    case Move(to: Movement)
-    case Turn(on: Rotation)
-  }
-
-  enum Movement {
-    case Forward, Backward
-  }
-
-  enum Rotation {
-    case OnRight, OnLeft
+    case MoveForward
+    case MoveBackward
+    case TurnRight
+    case TurnLeft
   }
 
   enum Orientation {

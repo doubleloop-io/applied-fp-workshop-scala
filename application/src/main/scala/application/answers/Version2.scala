@@ -3,7 +3,7 @@ package application.answers
 // NOTE: with for-comprehension
 object Version2 {
 
-  import Rotation._, Orientation._, Movement._, Command._, ParseError._
+  import Orientation._, Command._, ParseError._
   import cats.syntax.either._
   import cats.syntax.traverse._
 
@@ -18,10 +18,10 @@ object Version2 {
   // PARSING
   def parseCommand(input: Char): Command =
     input.toString.toLowerCase match {
-      case "f" => Move(Forward)
-      case "b" => Move(Backward)
-      case "r" => Turn(OnRight)
-      case "l" => Turn(OnLeft)
+      case "f" => MoveForward
+      case "b" => MoveBackward
+      case "r" => TurnRight
+      case "l" => TurnLeft
       case _   => Unknown
     }
 
@@ -87,15 +87,11 @@ object Version2 {
 
   def execute(planet: Planet, rover: Rover, command: Command): Rover =
     command match {
-      case Turn(rotation) => turn(rover, rotation)
-      case Move(movement) => move(planet, rover, movement)
-      case Unknown        => rover
-    }
-
-  def turn(rover: Rover, turn: Rotation): Rover =
-    turn match {
-      case OnRight => turnRight(rover)
-      case OnLeft  => turnLeft(rover)
+      case TurnRight    => turnRight(rover)
+      case TurnLeft     => turnLeft(rover)
+      case MoveForward  => moveForward(planet, rover)
+      case MoveBackward => moveBackward(planet, rover)
+      case Unknown      => rover
     }
 
   def turnRight(rover: Rover): Rover =
@@ -113,12 +109,6 @@ object Version2 {
       case S => E
       case E => N
     })
-
-  def move(planet: Planet, rover: Rover, move: Movement): Rover =
-    move match {
-      case Forward  => moveForward(planet, rover)
-      case Backward => moveBackward(planet, rover)
-    }
 
   def moveForward(planet: Planet, rover: Rover): Rover =
     rover.copy(position = next(planet, rover, delta(rover.orientation)))
@@ -167,17 +157,11 @@ object Version2 {
   }
 
   enum Command {
-    case Move(to: Movement)
-    case Turn(on: Rotation)
+    case MoveForward
+    case MoveBackward
+    case TurnRight
+    case TurnLeft
     case Unknown
-  }
-
-  enum Movement {
-    case Forward, Backward
-  }
-
-  enum Rotation {
-    case OnRight, OnLeft
   }
 
   enum Orientation {

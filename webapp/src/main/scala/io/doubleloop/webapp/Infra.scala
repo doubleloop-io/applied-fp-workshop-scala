@@ -1,6 +1,6 @@
 package io.doubleloop.webapp
 
-import Rotation._, Orientation._, Movement._, Command._, ParseError._
+import Orientation._, Command._, ParseError._
 import Parsing._, Rendering._
 import cats.syntax.either._
 import cats.syntax.traverse._

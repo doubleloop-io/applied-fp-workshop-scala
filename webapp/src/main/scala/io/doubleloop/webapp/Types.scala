@@ -14,17 +14,11 @@ enum ParseError {
 }
 
 enum Command {
-  case Move(to: Movement)
-  case Turn(on: Rotation)
+  case MoveForward
+  case MoveBackward
+  case TurnRight
+  case TurnLeft
   case Unknown
-}
-
-enum Movement {
-  case Forward, Backward
-}
-
-enum Rotation {
-  case OnRight, OnLeft
 }
 
 enum Orientation {
