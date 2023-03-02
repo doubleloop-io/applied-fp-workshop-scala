@@ -67,7 +67,7 @@ object Version6 {
 
         loadResult
           .map(toSuccessful)
-          .recover(toFailed(_))
+          .handleError(toFailed)
           .map(continue)
 
       case Effect.AskCommands =>

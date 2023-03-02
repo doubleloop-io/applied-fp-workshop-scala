@@ -12,7 +12,7 @@ package application
       - orchestrate domain, infrastructure, parsing and error handling
       - run the whole app lifted in the IO monad
       - print final rover output to the console if everything is ok
-      - recover from any unhandled error and print it
+      - handle any unhandled error by printing it
  */
 object Version4 {
 

@@ -18,7 +18,7 @@ class IODemo extends munit.FunSuite {
     val io2 = IO(throw new RuntimeException("boom!"))
 
     // In order evaluate our program we explicitly call unsafeRunSync
-    IO(5).unsafeRunSync()
+    io1.unsafeRunSync()
 
     // Pay attention to the pure function, it's eager-evaluated
 
@@ -29,7 +29,20 @@ class IODemo extends munit.FunSuite {
     // val io4 = IO.pure(System.out.println("hi!"))
 
     // Eval throw and then create IO
-    // val io5 = I.pureO(throw new RuntimeException("boom!"))
+    // val io5 = IO.pure(throw new RuntimeException("boom!"))
+  }
+
+  test("manipulation") {
+    val io1: IO[Int] = IO(5)
+
+    // Change the right type parameter's type
+    val io2: IO[String] = io1.map(_.toString)
+
+    // Change IO
+    val io3: IO[String] = io2.flatMap(_ => IO("hi!"))
+
+    // Change IO's state
+    val io4: IO[String] = io3.flatMap(_ => IO(throw new RuntimeException("boom!")))
   }
 
   test("error handling") {
@@ -39,18 +52,10 @@ class IODemo extends munit.FunSuite {
     val io1: IO[String] = IO(throw UnreachableServer())
 
     val io2: IO[String] =
-      io1.recover(e =>
-        e match {
-          case UnreachableServer() => "localhost"
-        }
-      )
+      io1.handleError(e => e.getMessage())
 
     val io3: IO[String] =
-      io1.recoverWith(e =>
-        e match {
-          case UnreachableServer() => IO("localhost")
-        }
-      )
+      io1.handleErrorWith(e => IO.pure(e.getMessage))
 
     // Plus, IO provides attempt function that trap any error and
     // materialize them as Either[Throwable, A]

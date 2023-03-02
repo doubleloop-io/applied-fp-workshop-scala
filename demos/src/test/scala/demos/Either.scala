@@ -3,6 +3,7 @@ package demos
 @munit.IgnoreSuite
 class EitherDemo extends munit.FunSuite {
 
+  import cats.syntax.applicativeError._
   import cats.syntax.either._
 
   test("creation") {
@@ -42,30 +43,16 @@ class EitherDemo extends munit.FunSuite {
   }
 
   test("error handling") {
-
-    def handle(e: Either[String, Int]): Either[String, Int] =
-      e.recover(e =>
-        e match {
-          case "unknown" => 42
-        }
-      )
+    val e1: Either[String, Int] = Left("unknown")
 
     // The Left[String] value is converted to a Right[Int]
-    val e1: Either[String, Int] = handle(Left("unknown"))
+    val e2: Either[String, Int] =
+      e1.handleError(e => e.hashCode())
 
-    // The Left[String] value isn't converted
-    val e2: Either[String, Int] = handle(Left("anything else"))
-
-    def handleWith(e: Either[String, Int]): Either[String, Int] =
-      e.recoverWith(e =>
-        e match {
-          case "unknown" => Right(42)
-        }
-      )
+    val e3: Either[String, Int] = Left("unknown")
 
     // Same conversions as before
-    val e3: Either[String, Int] = handleWith(Left("unknown"))
-    val e4: Either[String, Int] = handleWith(Left("anything else"))
+    val e4: Either[String, Int] = e3.handleErrorWith(e => Right(e.hashCode))
   }
 
 }

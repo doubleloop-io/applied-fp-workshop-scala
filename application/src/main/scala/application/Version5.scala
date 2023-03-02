@@ -74,7 +74,7 @@ object Version5 {
         _ <- runMission(display, planet, rover, commands)
       } yield ()
 
-    runResult.recoverWith(display.error(_))
+    runResult.handleErrorWith(display.error)
   }
 
   // NOTE: is used display to print obstacle/completed cases

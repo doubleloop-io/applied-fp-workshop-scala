@@ -81,7 +81,7 @@ object Version6 {
 
         loadResult
           .map(toSuccessful)
-          .recover(toFailed(_))
+          .handleError(toFailed)
           // NOTE: signal to the Runtime to continue the loop
           .map(continue)
 

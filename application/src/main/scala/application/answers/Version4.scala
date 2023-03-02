@@ -19,7 +19,7 @@ object Version4 {
         _ <- runMission(planet, rover, commands)
       } yield ()
 
-    runResult.recoverWith(writeError(_))
+    runResult.handleErrorWith(writeError)
   }
 
   def runMission(planet: Planet, rover: Rover, commands: List[Command]): IO[Unit] =

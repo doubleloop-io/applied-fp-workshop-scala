@@ -57,7 +57,7 @@ object Version5 {
         _ <- runMission(display, planet, rover, commands)
       } yield ()
 
-    runResult.recoverWith(display.error(_))
+    runResult.handleErrorWith(display.error)
   }
 
   def runMission(display: DisplayWriter, planet: Planet, rover: Rover, commands: List[Command]): IO[Unit] =
