@@ -14,17 +14,12 @@ class CustomLazy extends munit.FunSuite {
     def flatMap[B](f: A => Lazy[B]): Lazy[B] = ???
 
     // TODO: Implement the fold function
-    def fold(): A = ???
+    def run(): A = ???
   }
 
   object Lazy {
     // TODO: Implement the pure function
-    def pure[A](a: () => A): Lazy[A] = ???
-  }
-
-  def expensiveComputation(): Int = {
-    log("expensive")
-    42
+    def pure[A](a: A): Lazy[A] = ???
   }
 
   def increment(x: Int): Int = {
@@ -34,13 +29,13 @@ class CustomLazy extends munit.FunSuite {
 
   def reverseString(x: Int): Lazy[String] = {
     log("reversed")
-    Lazy.pure(() => x.toString.reverse)
+    Lazy.pure(x.toString.reverse)
   }
 
   test("creation phase") {
     val result = captureOutput {
       Lazy
-        .pure(expensiveComputation)
+        .pure(42)
     }
 
     assertEquals(result, List())
@@ -49,7 +44,7 @@ class CustomLazy extends munit.FunSuite {
   test("combination phase - normal") {
     val result = captureOutput {
       Lazy
-        .pure(expensiveComputation)
+        .pure(42)
         .map(increment)
     }
 
@@ -59,7 +54,7 @@ class CustomLazy extends munit.FunSuite {
   test("combination phase - effectful") {
     val result = captureOutput {
       Lazy
-        .pure(expensiveComputation)
+        .pure(42)
         .flatMap(reverseString)
     }
 
@@ -69,10 +64,10 @@ class CustomLazy extends munit.FunSuite {
   test("removal phase value") {
     val result = captureOutput {
       Lazy
-        .pure(expensiveComputation)
+        .pure(42)
         .map(increment)
         .flatMap(reverseString)
-        .fold()
+        .run()
     }
 
     assertEquals(result, List("expensive", "increment", "reversed"))
