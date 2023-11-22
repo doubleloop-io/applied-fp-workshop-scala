@@ -8,20 +8,10 @@
 
 ---
 
-## How do we **solve**<br /> complex problems?
-
----
-
-> We decompose bigger problems into smaller problems. <br />
-> ...<br />
+> We decompose bigger problems into smaller problems.<br />
 > Finally, we write code that solves all the small problems.<br />
-> ...<br />
-> we compose those pieces of code to create solutions to larger problems.
-
----
-
-> Decomposition wouldn’t make sense if we weren’t able to put the pieces back together. <br />
->
+> We compose those pieces of code to create solutions to larger problems.<br />
+> Decomposition wouldn’t make sense if we weren’t able to put the pieces back together.<br /><br />
 > Bartosz Milewski (https://bit.ly/3zydlFO)
 
 ---
@@ -67,7 +57,7 @@ def foo(n: Int): String = {
 
 ## Functional Programming
 
-### is about **eliminating** or **controlling** side-effects<br /> through the use of **pure functions**
+### is all about **eliminating** or **controlling** side-effects<br /> through the use of **pure functions** to get **composable** programs
 
 ---
 
@@ -84,13 +74,17 @@ def foo(n: Int): String = {
 ### These two programs are **equivalent**
 
 ```scala
-val z = foo(x) + foo(x)
+val z = bar(foo(x), foo(x))
 ```
+
+after an extract value refactoring
 
 ```scala
 val y = foo(x)
-val z = y + y
+val z = bar(y, y)
 ```
+
+same behavior
 
 ---
 
