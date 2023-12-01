@@ -56,7 +56,7 @@ val CatsEffectVersion = "3.4.11"
 val CirisVersion = "3.0.0"
 val Http4sVersion = "0.23.18"
 val MunitVersion = "0.7.29"
-val LogbackVersion = "1.4.5"
+val LogbackVersion = "1.4.14"
 val MunitCatsEffectVersion = "1.0.7"
 
 lazy val libsSettings = Seq(
