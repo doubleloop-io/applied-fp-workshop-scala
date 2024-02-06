@@ -51,7 +51,7 @@ lazy val resolversSettings =
     Resolver.sonatypeOssRepos("snapshots") ++
     Resolver.sonatypeOssRepos("releases")
 
-val CatsCoreVersion = "2.9.0"
+val CatsCoreVersion = "2.10.0"
 val CatsEffectVersion = "3.5.3"
 val CirisVersion = "3.0.0"
 val Http4sVersion = "0.23.18"
