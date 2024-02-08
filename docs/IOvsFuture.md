@@ -138,7 +138,7 @@ Applicando i soliti due refactoring alla `askTwoInt`:
 
 ```scala
 // primo refactoring
-def askTwoInt(): Future[(Int, Int)] = {
+def askTwoInt(): IO[(Int, Int)] = {
   val sameAsk = askInt()
   for {
     x <- sameAsk
@@ -146,7 +146,7 @@ def askTwoInt(): Future[(Int, Int)] = {
   } yield (x , y)
 }
 // secondo refactoring
-def askTwoInt(): Future[(Int, Int)] = {
+def askTwoInt(): IO[(Int, Int)] = {
   val ask1 = askInt()
   val ask2 = askInt()
   for {
