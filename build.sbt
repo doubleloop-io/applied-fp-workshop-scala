@@ -29,7 +29,7 @@ lazy val webapp = project
 
 lazy val settings = Seq(
   organization := "io.doubleloop",
-  scalaVersion := "3.2.2",
+  scalaVersion := "3.3.3",
   version := "0.1.0-SNAPSHOT",
   scalacOptions ++= scalacSettings,
   resolvers ++= resolversSettings,
