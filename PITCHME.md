@@ -105,21 +105,3 @@ mathematicians **refactor** their "code"</br> since long before us
 // distributive law
 x(y + z) = (xy) + (xz)
 ```
-
----
-
-## What should we **expect**
-
-## from a fp workshop?
-
----
-
-## It's a bit like
-
-## **learning** to program **again**
-
-</br>
-
-## use this **place** and **time**
-
-## to **experiment** and **fail**
