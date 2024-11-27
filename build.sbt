@@ -52,7 +52,7 @@ lazy val resolversSettings =
     Resolver.sonatypeOssRepos("releases")
 
 val CatsCoreVersion = "2.9.0"
-val CatsEffectVersion = "3.5.3"
+val CatsEffectVersion = "3.5.7"
 val CirisVersion = "3.0.0"
 val Http4sVersion = "0.23.18"
 val MunitVersion = "0.7.29"
