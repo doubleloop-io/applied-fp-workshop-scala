@@ -55,7 +55,7 @@ val CatsCoreVersion = "2.9.0"
 val CatsEffectVersion = "3.5.3"
 val CirisVersion = "3.0.0"
 val Http4sVersion = "0.23.18"
-val MunitVersion = "0.7.29"
+val MunitVersion = "1.3.6"
 val LogbackVersion = "1.4.14"
 val MunitCatsEffectVersion = "1.0.7"
 
