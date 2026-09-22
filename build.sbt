@@ -57,7 +57,7 @@ val CirisVersion = "3.0.0"
 val Http4sVersion = "0.23.18"
 val MunitVersion = "0.7.29"
 val LogbackVersion = "1.4.14"
-val MunitCatsEffectVersion = "1.0.7"
+val MunitCatsEffectVersion = "2.2.1"
 
 lazy val libsSettings = Seq(
   "org.typelevel" %% "cats-core" % CatsCoreVersion,
@@ -68,5 +68,5 @@ lazy val libsSettings = Seq(
   "org.http4s" %% "http4s-dsl" % Http4sVersion,
   "ch.qos.logback" % "logback-classic" % LogbackVersion,
   "org.scalameta" %% "munit" % MunitVersion % Test,
-  "org.typelevel" %% "munit-cats-effect-3" % MunitCatsEffectVersion % Test
+  "org.typelevel" %% "munit-cats-effect" % MunitCatsEffectVersion % Test
 )
